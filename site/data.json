@@ -1,6 +1,6 @@
 {
   "product": "AFTERBURNER Public Radar",
-  "generated_at": "2026-11-14T14:26:15.105544+00:00",
+  "generated_at": "2026-11-14T14:36:19.107397+00:00",
   "execution_enabled": false,
   "research_only": true,
   "assets": [
@@ -8,18 +8,18 @@
       "symbol": "GATO-USDT",
       "ticker": "GATO",
       "label": "GTA6CAT",
-      "observed_at": "2026-11-14T14:26:10.226715+00:00",
+      "observed_at": "2026-11-14T14:33:13.835523+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00677,
-      "change_24h_pct": 19.37,
-      "volume_24h_usd": 746260.06,
+      "price": 0.00674,
+      "change_24h_pct": 19.05,
+      "volume_24h_usd": 746331.69,
       "funding_rate_pct": -0.01,
-      "spread_pct": 1.3303769401330348,
-      "dex_liquidity_usd": 271251.56,
-      "long_score": 8,
-      "short_score": 15,
+      "spread_pct": 1.3343217197924357,
+      "dex_liquidity_usd": 268900.13,
+      "long_score": 0,
+      "short_score": 23,
       "research_state": "MONITOR",
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
@@ -29,14 +29,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GATO-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:46:14.564211+00:00",
-          "price": 0.00718
-        },
-        {
-          "ts": "2026-11-14T11:49:46.067162+00:00",
-          "price": 0.00755
-        },
         {
           "ts": "2026-11-14T11:53:18.275820+00:00",
           "price": 0.0075
@@ -220,6 +212,14 @@
         {
           "ts": "2026-11-14T14:26:10.226715+00:00",
           "price": 0.00677
+        },
+        {
+          "ts": "2026-11-14T14:29:42.315489+00:00",
+          "price": 0.0068
+        },
+        {
+          "ts": "2026-11-14T14:33:13.835523+00:00",
+          "price": 0.00674
         }
       ]
     },
@@ -227,16 +227,16 @@
       "symbol": "DACITY-USDT",
       "ticker": "DACITY",
       "label": "Dacity",
-      "observed_at": "2026-11-14T14:22:44.773594+00:00",
+      "observed_at": "2026-11-14T14:33:21.879561+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.001986,
-      "change_24h_pct": -1.38,
-      "volume_24h_usd": 261346.3,
+      "price": 0.00196,
+      "change_24h_pct": 0.51,
+      "volume_24h_usd": 261567.85,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.1071967790639314,
-      "dex_liquidity_usd": 242506.3,
+      "spread_pct": 1.1224489795918418,
+      "dex_liquidity_usd": 241329.83,
       "long_score": 0,
       "short_score": 30,
       "research_state": "MONITOR",
@@ -247,18 +247,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/DACITY-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:42:51.101448+00:00",
-          "price": 0.002226
-        },
-        {
-          "ts": "2026-11-14T11:46:22.607021+00:00",
-          "price": 0.002225
-        },
-        {
-          "ts": "2026-11-14T11:49:54.119378+00:00",
-          "price": 0.002223
-        },
         {
           "ts": "2026-11-14T11:53:26.326508+00:00",
           "price": 0.002141
@@ -438,6 +426,18 @@
         {
           "ts": "2026-11-14T14:22:44.773594+00:00",
           "price": 0.001986
+        },
+        {
+          "ts": "2026-11-14T14:26:18.283749+00:00",
+          "price": 0.001975
+        },
+        {
+          "ts": "2026-11-14T14:29:50.370046+00:00",
+          "price": 0.001978
+        },
+        {
+          "ts": "2026-11-14T14:33:21.879561+00:00",
+          "price": 0.00196
         }
       ]
     },
@@ -445,18 +445,18 @@
       "symbol": "CYBERLEEK-USDT",
       "ticker": "CYBERLEEK",
       "label": "CyberLeek",
-      "observed_at": "2026-11-14T14:22:52.823389+00:00",
+      "observed_at": "2026-11-14T14:33:29.925463+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.002963,
-      "change_24h_pct": 16.5,
-      "volume_24h_usd": 272979.5,
+      "price": 0.002687,
+      "change_24h_pct": 5.6,
+      "volume_24h_usd": 274019.43,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.0457075392140398,
-      "dex_liquidity_usd": 479466.43,
-      "long_score": 15,
-      "short_score": 0,
+      "spread_pct": 1.0095344924284793,
+      "dex_liquidity_usd": 452909.88,
+      "long_score": 0,
+      "short_score": 30,
       "research_state": "MONITOR",
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
@@ -465,18 +465,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/CYBERLEEK-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:42:59.152456+00:00",
-          "price": 0.002598
-        },
-        {
-          "ts": "2026-11-14T11:46:30.649753+00:00",
-          "price": 0.002599
-        },
-        {
-          "ts": "2026-11-14T11:50:02.172838+00:00",
-          "price": 0.002599
-        },
         {
           "ts": "2026-11-14T11:53:34.394539+00:00",
           "price": 0.002602
@@ -656,6 +644,18 @@
         {
           "ts": "2026-11-14T14:22:52.823389+00:00",
           "price": 0.002963
+        },
+        {
+          "ts": "2026-11-14T14:26:26.338217+00:00",
+          "price": 0.002935
+        },
+        {
+          "ts": "2026-11-14T14:29:58.418535+00:00",
+          "price": 0.002927
+        },
+        {
+          "ts": "2026-11-14T14:33:29.925463+00:00",
+          "price": 0.002687
         }
       ]
     },
@@ -663,37 +663,26 @@
       "symbol": "GTA6-USDT",
       "ticker": "GTA6",
       "label": "GTA VI Meme",
-      "observed_at": "2026-11-14T14:23:00.880319+00:00",
+      "observed_at": "2026-11-14T14:33:37.998760+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00666,
-      "change_24h_pct": -19.05,
-      "volume_24h_usd": 737437.16,
-      "funding_rate_pct": 0.0545,
-      "spread_pct": 0.6134969325153391,
-      "dex_liquidity_usd": 339704.35,
-      "long_score": 45,
-      "short_score": 23,
+      "price": 0.00646,
+      "change_24h_pct": -21.67,
+      "volume_24h_usd": 736355.05,
+      "funding_rate_pct": 0.050339999999999996,
+      "spread_pct": 1.087801087801084,
+      "dex_liquidity_usd": 340031.24,
+      "long_score": 15,
+      "short_score": 16,
       "research_state": "MONITOR",
       "blocking_flags": [
-        "dex_to_futures_identity_unverified"
+        "dex_to_futures_identity_unverified",
+        "missing_or_excessive_perp_spread"
       ],
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GTA6-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:43:07.213819+00:00",
-          "price": 0.007
-        },
-        {
-          "ts": "2026-11-14T11:46:38.698875+00:00",
-          "price": 0.00683
-        },
-        {
-          "ts": "2026-11-14T11:50:10.221789+00:00",
-          "price": 0.00673
-        },
         {
           "ts": "2026-11-14T11:53:42.428897+00:00",
           "price": 0.00663
@@ -873,11 +862,29 @@
         {
           "ts": "2026-11-14T14:23:00.880319+00:00",
           "price": 0.00666
+        },
+        {
+          "ts": "2026-11-14T14:26:34.374799+00:00",
+          "price": 0.0065
+        },
+        {
+          "ts": "2026-11-14T14:30:06.468848+00:00",
+          "price": 0.00656
+        },
+        {
+          "ts": "2026-11-14T14:33:37.998760+00:00",
+          "price": 0.00646
         }
       ]
     }
   ],
   "news": [
+    {
+      "headline": "The Grand Theft Auto 6 economy reaches far and wide - TradingView",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPSm11dEJwTEdXeUE2VVd1NXBDLXU5OGV2b2JQYUpHNDBscTBLNUJTZFMyWHVqeVZZaGs5Tk5iQUZ0UC1FTGxvMFp2Ym9aMTk2eHZMZTNRSGpXd2gwQ0s2Wmh5TjYwRzY0dzEtcUVOdUp0dU5YVjhnVHVZbnhrb1FURXJ6S0o2cUNMYzN5cS13T0swT3VtUU4wckFlXzhfM1hkUlNIZ0NINlpQU2pwWER5OXc3RHA?oc=5",
+      "first_seen": "2026-11-14T14:35:09.956540+00:00"
+    },
     {
       "headline": "Why GTA 6 could become gaming’s biggest launch, sending ripple effects across the economy - CNBC",
       "source": "gta6_launch",
@@ -943,12 +950,6 @@
       "source": "gta6_launch",
       "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBmd3NIUGRpV2JjSS1fQ291a1hrNll4ZVZwaW5la3RnZzR3SDRpNHl1bG9XcnA4N2NLSnY2akxVcFVtTDF3SXNVNDBUeWRaUDJ2MEVxM0RXTXZfSUdWcExwUmxaOA?oc=5",
       "first_seen": "2026-11-14T13:50:38.455950+00:00"
-    },
-    {
-      "headline": "12.5 Million Americans to Adjust Schedules for GTA VI Release - Howl.Link",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTFB4d3o3bjJ4N0s3TzYxZjNYUVViOVNOQi1TTEU1YWJ5LUp5a1Q4T3VkUWJGUFFmVFl2MnNN?oc=5",
-      "first_seen": "2026-11-14T13:50:38.404861+00:00"
     }
   ]
 }
