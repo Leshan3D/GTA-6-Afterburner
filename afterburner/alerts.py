@@ -12,7 +12,7 @@ import requests
 
 LOG = logging.getLogger(__name__)
 COMMAND = re.compile(r"^/([a-zA-Z]+)(?:@([a-zA-Z0-9_]+))?(?:\s+(.{1,120}))?$", re.S)
-KNOWN_COMMANDS = frozenset(("meme", "status", "help", "start", "progress", "health", "news", "alerts", "link", "publish"))
+KNOWN_COMMANDS = frozenset(("meme", "status", "help", "start", "progress", "health", "news", "alerts", "link", "publish", "signals", "signal", "setups", "performance", "kronos"))
 
 
 def parse_command(text, bot_username=""):
@@ -86,6 +86,23 @@ class Telegram:
                    f"https://bingx.com/en/perpetual/{asset.symbol}")
         if self.send(message):
             self.storage.record_alert(key, message)
+            return True
+        return False
+
+    def technical_signal(self, setup, signal_id):
+        """Notify only once per completed candle; never sends execution commands."""
+        if not self.push_enabled:return False
+        key=f"tech:{setup['symbol']}:{setup['timeframe']}:{setup['as_of_candle_ts']}"
+        if self.storage.seen_alert_recently(key, 86400):return False
+        message=(f"🚦 AFTERBURNER | {setup['symbol']} {setup['direction']} SIGNAL #{signal_id}\n"
+                 f"Timeframe: {setup['timeframe']} | Confidence index: {setup['confidence']}/100\n"
+                 f"Trigger: {setup['entry_trigger']:.8f}\nStop: {setup['sl']:.8f}\n"
+                 f"TP1: {setup['tp1']:.8f} | TP2: {setup['tp2']:.8f}\n"
+                 f"Net estimated R:R {setup['rr']:.2f}\n"
+                 "Confirmed candle, NOT a filled trade. No automatic execution.\n"
+                 f"https://bingx.com/en/perpetual/{setup['symbol']}")
+        if self.send(message):
+            self.storage.record_alert(key,message)
             return True
         return False
 

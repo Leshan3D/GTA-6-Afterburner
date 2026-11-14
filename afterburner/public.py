@@ -27,6 +27,30 @@ def safe_number(value):
         return None
 
 
+def public_technical_signal(raw, stale):
+    """Fixed allowlist. No internal rationale or free text exposed publicly."""
+    if not raw:return None
+    values={}
+    for key in ('entry_trigger','entry_zone_low','entry_zone_high','sl','tp1','tp2','rr','confidence'):
+        values[key]=safe_number(raw.get(key))
+    values.update({'direction':raw.get('direction') if raw.get('direction') in ('LONG','SHORT','WAIT') else 'WAIT',
+                   'state': 'STALE' if stale else raw.get('state') if raw.get('state') in ('FORMING','ARMED','TRIGGERED') else 'FORMING',
+                   'timeframe':raw.get('timeframe') if raw.get('timeframe') in ('5m','15m','1h') else '5m',
+                   'as_of_candle_ts':int(raw['as_of_candle_ts']) if isinstance(raw.get('as_of_candle_ts'),int) else None,
+                   'blocking_reasons':[str(x)[:75] for x in raw.get('blocking_reasons',[])[:6]]})
+    return values
+
+
+def public_kronos(raw):
+    if not isinstance(raw,dict) or raw.get('status')!='ok':return None
+    if raw.get('timeframe') not in ('5m','15m','1h'):return None
+    return {'timeframe':raw['timeframe'],
+            'directional_bias':raw.get('directional_bias') if raw.get('directional_bias') in ('LONG','SHORT','NEUTRAL') else 'NEUTRAL',
+            'forecast_return_pct':safe_number(raw.get('forecast_return_pct')),
+            'cutoff_ts':int(raw['cutoff_ts']) if isinstance(raw.get('cutoff_ts'),int) else None,
+            'directional_weight':0.0}
+
+
 def public_payload(storage, assets, config):
     """Explicit allowlist only. New internal DB fields cannot leak implicitly."""
     latest = storage.latest([a.symbol for a in assets])
@@ -48,6 +72,8 @@ def public_payload(storage, assets, config):
             market = sig = primary = {}
             stale = True
             hist = []
+        forecasts = storage.latest_kronos(asset.symbol)
+        current_forecast = forecasts[0] if forecasts else None
         records.append({
             "symbol": asset.symbol,
             "ticker": asset.ticker,
@@ -65,6 +91,8 @@ def public_payload(storage, assets, config):
             "long_score": sig.get("long_score"),
             "short_score": sig.get("short_score"),
             "research_state": sig.get("state") if not stale else "STALE",
+            "technical_signal": public_technical_signal(sig.get('technical_setup') or {}, stale),
+            "kronos": public_kronos(current_forecast),
             "blocking_flags": [str(x)[:90] for x in (sig.get("blocking_flags") or [])[:6]],
             "mint_verified": bool(asset.mint_verified),
             "trade_url": f"https://bingx.com/en/perpetual/{asset.symbol}",

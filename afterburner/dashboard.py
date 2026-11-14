@@ -53,6 +53,13 @@ async function refresh(){
       append(card,'p',sig.state==='REVIEW_CANDIDATE'?'positive':'warning',text(sig.state));
       append(card,'div','muted','DEX pool: '+money((dex.primary||{}).liquidity_usd,0)+' · spread: '+text(m.spread_pct===undefined?null:m.spread_pct?.toFixed(3))+'%');
       append(card,'div','muted','Flags: '+text((sig.blocking_flags||[]).join(', '),'none'));
+      const tech=sig.technical_setup||{};
+      if(tech.direction==='LONG'||tech.direction==='SHORT'){
+        append(card,'p',tech.state==='TRIGGERED'?'positive':'warning',tech.state+' '+tech.direction+' · '+text(tech.timeframe));
+        if(tech.entry_trigger!=null){append(card,'div','muted','Trigger '+money(tech.entry_trigger,8)+' · SL '+money(tech.sl,8));append(card,'div','muted','TP1 '+money(tech.tp1,8)+' · TP2 '+money(tech.tp2,8)+' · net R:R '+text(tech.rr));}
+      }
+      if(tech.blocking_reasons?.length)append(card,'div','warning','Technical gates: '+tech.blocking_reasons.join(', '));
+      if(asset.kronos){append(card,'div','muted','Kronos '+asset.kronos.timeframe+': '+asset.kronos.directional_bias+' · vote weight 0');}
       if(asset.trade_url){const link=append(card,'a','', 'Open BingX chart');link.href=asset.trade_url;link.target='_blank';link.rel='noopener noreferrer';}
       if(asset.dex_url){const link=append(card,'a','', ' · DEX Screener');link.href=asset.dex_url;link.target='_blank';link.rel='noopener noreferrer';}
       append(card,'div','muted','Observed '+text(snapshot.collected_at));
@@ -107,7 +114,8 @@ def build_server(storage, assets, config):
                     items.append({"symbol": a.symbol, "label": a.label,
                                   "trade_url": f"https://bingx.com/en/perpetual/{a.symbol}",
                                   "dex_url": f"https://dexscreener.com/{a.dex_chain}/{a.candidate_mint}" if a.candidate_mint else None,
-                                  "snapshot": snap})
+                                  "snapshot": snap,
+                                  "kronos": (storage.latest_kronos(a.symbol) or [None])[0]})
                 return self.respond(200, {"assets": items, "generated_at": utcnow().isoformat(),
                                           "order_execution_enabled": False})
             if route == "/api/history":

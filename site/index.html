@@ -17,7 +17,7 @@ p,small,.muted{color:#a6b1c4;line-height:1.55}.pill{font-size:.76rem;border:1px 
 article a, a{color:#9dbfff}section{margin-top:28px}.news{padding:12px 0;border-bottom:1px solid #273348}.news a{font-size:.92rem}.news small{display:block;margin-top:4px}
 footer{margin-top:35px;font-size:.78rem;color:#94a1b6}.time{font-size:.79rem;color:#a6b1c4}
 </style></head><body><main>
-<header><div><div class="eyebrow">Standalone public market intelligence</div><h1>🔥 AFTERBURNER</h1><div class="muted">GTA VI narrative · BingX futures · Solana liquidity</div></div><span class="pill">RESEARCH ONLY · NO EXECUTION</span></header>
+<header><div><div class="eyebrow">Standalone public market intelligence</div><h1>🔥 AFTERBURNER</h1><div class="muted">GTA VI narrative · BingX futures · Solana liquidity</div></div><span class="pill">TECHNICAL SIGNALS · NO EXECUTION</span></header>
 <div class="notice">Unofficial, speculative market research. Signals are not financial advice, trade instructions or confirmations that futures symbols match individual Solana mints. Data may be delayed or unavailable. Never use this dashboard as the sole basis for a leveraged trade.</div>
 <div class="healthboard" aria-label="Public data freshness">
   <div class="healthitem"><small>Market collection</small><strong id="market-health" class="healthstate unknown">Checking…</strong></div>
@@ -53,7 +53,17 @@ $('public-export').textContent=relative(data.generated_at);
 $('public-export').title=data.generated_at?new Date(data.generated_at).toLocaleString():'No public snapshot';
 const root=$('cards');root.replaceChildren();for(const a of data.assets){const card=make(root,'article','card');const top=make(card,'div','row');make(top,'strong','',a.ticker);make(top,'small','symbol',a.symbol);make(card,'div','price',cash(a.price,8));const ch=make(card,'div',a.change_24h_pct>=0?'plus':'minus','24h: '+num(a.change_24h_pct)+'% · volume: '+cash(a.volume_24h_usd,0));const cv=make(card,'canvas');cv.width=300;cv.height=68;chart(cv,a.history);
 const metrics=make(card,'div','metrics');make(metrics,'span','metric','Long '+(a.long_score??'?')+'/100');make(metrics,'span','metric','Short '+(a.short_score??'?')+'/100');make(metrics,'span','metric',a.research_state||'No signal');
-make(card,'div','muted','Funding: '+num(a.funding_rate_pct,4)+'% · DEX liquidity: '+cash(a.dex_liquidity_usd,0));const stale=old(a.observed_at,a.stale_after_seconds)||a.stale_at_export;if(stale)make(card,'p','warn','⚠️ Market sample is stale');if(!a.mint_verified)make(card,'p','warn','Unverified futures ↔ DEX mint mapping');if(a.blocking_flags?.length)make(card,'p','warn','Risk flags: '+a.blocking_flags.slice(0,3).join(', '));
+make(card,'div','muted','Funding: '+num(a.funding_rate_pct,4)+'% · DEX liquidity: '+cash(a.dex_liquidity_usd,0));
+const sig=a.technical_signal||{};
+if(sig.direction==='LONG'||sig.direction==='SHORT'){
+  make(card,'p',sig.state==='TRIGGERED'?'plus':'warn',sig.state+' '+sig.direction+' · '+sig.timeframe);
+  if(sig.entry_trigger!==null&&sig.entry_trigger!==undefined){
+    make(card,'div','muted','Entry '+cash(sig.entry_trigger,8)+' · SL '+cash(sig.sl,8));
+    make(card,'div','muted','TP1 '+cash(sig.tp1,8)+' · TP2 '+cash(sig.tp2,8)+' · net R:R '+num(sig.rr,2));
+  }
+}
+if(sig.blocking_reasons?.length)make(card,'p','warn','Signal gates: '+sig.blocking_reasons.join(', '));
+const k=a.kronos;if(k){const cutoff=new Date(k.cutoff_ts).toLocaleString();make(card,'p','muted','🧠 Kronos '+k.timeframe+': '+k.directional_bias+' ('+num(k.forecast_return_pct,2)+'% forecast) · 0 voting weight · cutoff '+cutoff)}const stale=old(a.observed_at,a.stale_after_seconds)||a.stale_at_export;if(stale)make(card,'p','warn','⚠️ Market sample is stale');if(!a.mint_verified)make(card,'p','warn','Unverified futures ↔ DEX mint mapping');if(a.blocking_flags?.length)make(card,'p','warn','Risk flags: '+a.blocking_flags.slice(0,3).join(', '));
 const url='https://bingx.com/en/perpetual/'+a.symbol;if(/^[A-Z0-9]+-USDT$/.test(a.symbol)){const link=make(card,'a','','Open BingX market');link.href=url;link.target='_blank';link.rel='noopener noreferrer'}}
 const news=$('news');news.replaceChildren();if(!data.news?.length)make(news,'p','muted','No news snapshots available');for(const n of (data.news||[]).slice(0,12)){const row=make(news,'div','news');const text=String(n.headline||'Untitled');if(typeof n.url==='string'&&n.url.startsWith('https://')){const link=make(row,'a','',text);link.href=n.url;link.target='_blank';link.rel='noopener noreferrer'}else make(row,'div','',text);make(row,'small','','Source: '+(n.source||'unknown')+' · first seen: '+(n.first_seen?new Date(n.first_seen).toLocaleString():'unknown'))}
 }catch(e){$('updated').textContent='Data unavailable';$('cards').textContent='Market snapshot unavailable: '+e.message}}
