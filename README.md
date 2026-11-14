@@ -1,4 +1,4 @@
-# AFTERBURNER v0.2.0 — GTA narrative intelligence, Telegram status, public preview
+# AFTERBURNER v0.3.0 — GTA narrative intelligence, Telegram status, public preview
 
 **Independent of other local engines. Read-only market research; never an auto-trader.** AFTERBURNER monitors four speculative GTA-themed BingX USDT perpetual markets, associated *candidate* Solana DEX pools and narrative coverage. It makes no investment recommendations, cannot send exchange orders and does not require exchange credentials.
 
