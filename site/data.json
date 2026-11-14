@@ -1,6 +1,6 @@
 {
   "product": "AFTERBURNER Public Radar",
-  "generated_at": "2026-11-14T13:56:01.113177+00:00",
+  "generated_at": "2026-11-14T14:06:05.119142+00:00",
   "execution_enabled": false,
   "research_only": true,
   "assets": [
@@ -8,18 +8,18 @@
       "symbol": "GATO-USDT",
       "ticker": "GATO",
       "label": "GTA6CAT",
-      "observed_at": "2026-11-14T13:54:21.497840+00:00",
+      "observed_at": "2026-11-14T14:04:58.015136+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00706,
-      "change_24h_pct": 26.7,
-      "volume_24h_usd": 742896.82,
+      "price": 0.0069,
+      "change_24h_pct": 24.28,
+      "volume_24h_usd": 743777.4,
       "funding_rate_pct": -0.01,
-      "spread_pct": 1.2756909992912921,
-      "dex_liquidity_usd": 276452.59,
-      "long_score": 23,
-      "short_score": 0,
+      "spread_pct": 1.3034033309196207,
+      "dex_liquidity_usd": 273932.59,
+      "long_score": 0,
+      "short_score": 23,
       "research_state": "MONITOR",
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
@@ -29,18 +29,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GATO-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:14:17.126230+00:00",
-          "price": 0.00788
-        },
-        {
-          "ts": "2026-11-14T11:17:58.923969+00:00",
-          "price": 0.00768
-        },
-        {
-          "ts": "2026-11-14T11:21:30.607125+00:00",
-          "price": 0.00748
-        },
         {
           "ts": "2026-11-14T11:25:02.079125+00:00",
           "price": 0.00734
@@ -220,6 +208,18 @@
         {
           "ts": "2026-11-14T13:54:21.497840+00:00",
           "price": 0.00706
+        },
+        {
+          "ts": "2026-11-14T13:57:52.954899+00:00",
+          "price": 0.00687
+        },
+        {
+          "ts": "2026-11-14T14:01:25.448131+00:00",
+          "price": 0.00693
+        },
+        {
+          "ts": "2026-11-14T14:04:58.015136+00:00",
+          "price": 0.0069
         }
       ]
     },
@@ -227,16 +227,16 @@
       "symbol": "DACITY-USDT",
       "ticker": "DACITY",
       "label": "Dacity",
-      "observed_at": "2026-11-14T13:54:29.510871+00:00",
+      "observed_at": "2026-11-14T14:05:06.071852+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.002052,
-      "change_24h_pct": 1.73,
-      "volume_24h_usd": 260590.4,
+      "price": 0.001992,
+      "change_24h_pct": -2.15,
+      "volume_24h_usd": 260514.81,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.0773751224290067,
-      "dex_liquidity_usd": 250146.57,
+      "spread_pct": 1.056603773584915,
+      "dex_liquidity_usd": 243277.28,
       "long_score": 0,
       "short_score": 38,
       "research_state": "MONITOR",
@@ -247,18 +247,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/DACITY-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:14:35.510732+00:00",
-          "price": 0.002142
-        },
-        {
-          "ts": "2026-11-14T11:18:06.971419+00:00",
-          "price": 0.002342
-        },
-        {
-          "ts": "2026-11-14T11:21:38.634174+00:00",
-          "price": 0.00225
-        },
         {
           "ts": "2026-11-14T11:25:10.147967+00:00",
           "price": 0.002263
@@ -438,6 +426,18 @@
         {
           "ts": "2026-11-14T13:54:29.510871+00:00",
           "price": 0.002052
+        },
+        {
+          "ts": "2026-11-14T13:58:01.015225+00:00",
+          "price": 0.00216
+        },
+        {
+          "ts": "2026-11-14T14:01:33.491679+00:00",
+          "price": 0.002111
+        },
+        {
+          "ts": "2026-11-14T14:05:06.071852+00:00",
+          "price": 0.001992
         }
       ]
     },
@@ -445,18 +445,18 @@
       "symbol": "CYBERLEEK-USDT",
       "ticker": "CYBERLEEK",
       "label": "CyberLeek",
-      "observed_at": "2026-11-14T13:54:37.570228+00:00",
+      "observed_at": "2026-11-14T14:05:14.133383+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.002937,
-      "change_24h_pct": 13.13,
-      "volume_24h_usd": 273776.81,
+      "price": 0.002876,
+      "change_24h_pct": 13.22,
+      "volume_24h_usd": 274121.18,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.0549600136123944,
-      "dex_liquidity_usd": 479739.01,
-      "long_score": 30,
-      "short_score": 0,
+      "spread_pct": 1.0728499740439597,
+      "dex_liquidity_usd": 476160.44,
+      "long_score": 15,
+      "short_score": 15,
       "research_state": "MONITOR",
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
@@ -465,18 +465,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/CYBERLEEK-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:14:43.504033+00:00",
-          "price": 0.002436
-        },
-        {
-          "ts": "2026-11-14T11:18:15.021415+00:00",
-          "price": 0.002433
-        },
-        {
-          "ts": "2026-11-14T11:21:46.692403+00:00",
-          "price": 0.002447
-        },
         {
           "ts": "2026-11-14T11:25:18.188250+00:00",
           "price": 0.002598
@@ -656,6 +644,18 @@
         {
           "ts": "2026-11-14T13:54:37.570228+00:00",
           "price": 0.002937
+        },
+        {
+          "ts": "2026-11-14T13:58:09.791207+00:00",
+          "price": 0.002943
+        },
+        {
+          "ts": "2026-11-14T14:01:41.564406+00:00",
+          "price": 0.002912
+        },
+        {
+          "ts": "2026-11-14T14:05:14.133383+00:00",
+          "price": 0.002876
         }
       ]
     },
@@ -663,18 +663,18 @@
       "symbol": "GTA6-USDT",
       "ticker": "GTA6",
       "label": "GTA VI Meme",
-      "observed_at": "2026-11-14T13:54:45.612191+00:00",
+      "observed_at": "2026-11-14T14:05:22.171919+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00646,
-      "change_24h_pct": -24.59,
-      "volume_24h_usd": 741406.75,
-      "funding_rate_pct": 0.026600000000000002,
-      "spread_pct": 1.389961389961387,
-      "dex_liquidity_usd": 337319.03,
-      "long_score": 23,
-      "short_score": 0,
+      "price": 0.00631,
+      "change_24h_pct": -27.44,
+      "volume_24h_usd": 739603.54,
+      "funding_rate_pct": 0.0473,
+      "spread_pct": 1.2759170653907392,
+      "dex_liquidity_usd": 338847.04,
+      "long_score": 0,
+      "short_score": 15,
       "research_state": "MONITOR",
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
@@ -683,18 +683,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GTA6-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:14:51.565611+00:00",
-          "price": 0.00696
-        },
-        {
-          "ts": "2026-11-14T11:18:23.082059+00:00",
-          "price": 0.00697
-        },
-        {
-          "ts": "2026-11-14T11:21:54.735917+00:00",
-          "price": 0.00698
-        },
         {
           "ts": "2026-11-14T11:25:26.241135+00:00",
           "price": 0.00699
@@ -874,11 +862,41 @@
         {
           "ts": "2026-11-14T13:54:45.612191+00:00",
           "price": 0.00646
+        },
+        {
+          "ts": "2026-11-14T13:58:17.331647+00:00",
+          "price": 0.00657
+        },
+        {
+          "ts": "2026-11-14T14:01:49.613992+00:00",
+          "price": 0.00654
+        },
+        {
+          "ts": "2026-11-14T14:05:22.171919+00:00",
+          "price": 0.00631
         }
       ]
     }
   ],
   "news": [
+    {
+      "headline": "GTA VI Soundtrack full tracklist (taken from the vinyl)",
+      "source": "rockstar_reddit",
+      "url": "https://www.reddit.com/r/GTA6/comments/1xvz4vq/gta_vi_soundtrack_full_tracklist_taken_from_the/",
+      "first_seen": "2026-11-14T14:04:32.725375+00:00"
+    },
+    {
+      "headline": "GTA 6 launches Thursday and is available for pre-load now: Everything you need to know about the new Rockstar game - Yahoo Tech",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMijAJBVV95cUxQRWJjQkM2b0hfclU4Y21TaG5CQW5qaTRVd1ItcnVfbzF5UVRxYTU5eFdhQ0xJTTNTdkViVGZ3NnU4eEJqU1lhaE1XeXMxWDZVOGNLZzduVHNWbFRETTlGVG9zdVRxdThsU054VXBva0dGS0QzODJkbzRpX2wtRl9oc0R2X0VUQS1uNEI4VG5Md3k0WGpERnNJOURBbFI0c3JUYXNfblI0RWx6SUY5UWZNMTFJT2RMVmE1bEpOLUZ2VkQyaXpLMW9yRWhnUVY4a1A1ajdtenBYQTNLRW9jN1JxbzN3SmdTQnk5dHhwVUx0ekNEVFgtQUdyNWc4Wnd2ZGFlZXE5b3VULU1fY1NE?oc=5",
+      "first_seen": "2026-11-14T14:04:17.592636+00:00"
+    },
+    {
+      "headline": "6 New GTA 6 Gameplay DetailsFrom The Guardian’s Rockstar Interview - VICE",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE0zQmVONFE5cEdFM3Z0QWNhT283ZTh0cDJoQUdsWVpiUS1VMVBVYXNkREloa3VsXzJhaWFIcmRSZXQyUGJSbTlsMWQyUUM4eTZGNUNmSTRacWo5UlhCX3Q0LU9IdHM2MWJFSWxkUDBncXpHWFprU2NjQ1NydHlQcnM?oc=5",
+      "first_seen": "2026-11-14T14:04:17.529955+00:00"
+    },
     {
       "headline": "[GTA6 RECAP] Most of us were witnessing this through all these years so now - on the last weekend before launch - let’s sit comfortably and remind ourselves how this whole process went",
       "source": "rockstar_reddit",
@@ -932,24 +950,6 @@
       "source": "gta6_launch",
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNNGJsWFRRajdBaE41R2xFUldMRWNVMm1nNXR2bXZqcGpDTnZsQTVtVnFkZE5uWUpBdTZqbmgzS0c5aENpZnh4cUFyM2gxYllFRTFTaDkxOFh2YnFtaHZhYnMyLWkwaXZqRTJaTUFHV3JzbFNXSjFOMkU1NTJKUW1lS01ZLWs5d0NvWk4tbzFwWHA?oc=5",
       "first_seen": "2026-11-14T13:50:38.244316+00:00"
-    },
-    {
-      "headline": "GTA 6 Interactive Map - All 6 Regions of Leonida - Mobalytics",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9mazdSRF9seGpucktRVjAtWjNkZ2JJZFpFMWFoSDE2aFZkbUI3Y1BWcXdvOGJEbmhUUHlFaFJpbXVvMlUtSW40R0xJU0FEVF93ejBBaDNQWVR2UEswOHFxbXNldEp5bTZtLWRzZjhlSE5NLTVSRmMzUld2NEQ?oc=5",
-      "first_seen": "2026-11-14T13:40:20.074511+00:00"
-    },
-    {
-      "headline": "Not Many People Can Distinguish This ‘GTA 6’ Footage From Real Life - Forbes",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQb2hSdHRDV3puZjdWM2FpN1FjQVhpc1Vla0V3RWYwYjVUYVoxVzZsZzNaZkIzYXZ1TzB3Z3p6eVRzVW5leXFlLUNUc2U0cVJOTjhxVkdZSHNERTQ0YTgyMUNoZlR5N0RkRGctcGVQVjRYbWVudFZtV0wwY0Jod2p0QnN4TlkzZExRclJJYlJ5TVdFWWNyRnVmOEI0XzdrNXpObTlKck1CRmZicmYzb1c2bUNiWGdiTm8?oc=5",
-      "first_seen": "2026-11-14T13:40:20.021242+00:00"
-    },
-    {
-      "headline": "GTA 6 hasn't launched yet. It's already made $1 billion - USA Today",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNcUsxZzBLOFM5LTVvRldnZWFsTmZiUjRGMEQ4Zlh6UHBDRTV2bTVxUmJUaV9USWJHbHdLLTFMbEJySG5aVUI0ODFiWjM2ZldRMTdFWVlVaDAxNTg3VUFmR2Jza0JQUUMwdGI3bTBEU0pNX0ZhVzhQUGZHc0Z2QzBfcmVpazlid3cwZVFEM0c2bEFJT1g2d19fQXFFT1d0bml0M0FPMUU5Yw?oc=5",
-      "first_seen": "2026-11-14T13:40:19.956439+00:00"
     }
   ]
 }
