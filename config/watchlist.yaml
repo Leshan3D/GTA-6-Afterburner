@@ -1,0 +1,37 @@
+# Initial Solana mint addresses are CANDIDATES taken from previously discussed
+# market URLs. Pair names/URLs are not sufficient proof that BingX futures
+# contracts represent these exact tokens. Verify each pair manually before
+# switching mint_verified to true; the engine blocks executable signals while false.
+assets:
+  - symbol: GATO-USDT
+    label: GTA6CAT
+    ticker: GATO
+    dex_chain: solana
+    candidate_mint: HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump
+    mint_verified: false
+    verification_evidence: ""
+    news_aliases: ["GTA6CAT", "GATO coin"]
+  - symbol: DACITY-USDT
+    label: Dacity
+    ticker: DACITY
+    dex_chain: solana
+    candidate_mint: nxPqZ4F7ux8Vph5NFu25rEP6Kx9Gr1U6Fmj36Rjpump
+    mint_verified: false
+    verification_evidence: ""
+    news_aliases: ["Dacity coin", "Dacity memecoin"]
+  - symbol: CYBERLEEK-USDT
+    label: CyberLeek
+    ticker: CYBERLEEK
+    dex_chain: solana
+    candidate_mint: ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg
+    mint_verified: false
+    verification_evidence: ""
+    news_aliases: ["CyberLeek", "CYBERLEEK coin"]
+  - symbol: GTA6-USDT
+    label: GTA VI Meme
+    ticker: GTA6
+    dex_chain: solana
+    candidate_mint: 4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz
+    mint_verified: false
+    verification_evidence: ""
+    news_aliases: ["GTA6 token", "GTA VI memecoin"]

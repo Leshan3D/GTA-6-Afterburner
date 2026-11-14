@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="AFTERBURNER — public, read-only GTA-themed memecoin market radar">
+<title>AFTERBURNER · Public Meme Radar</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#0b0e16;color:#eaf0fa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 45% 0%,#1a2434,#0b0e16 68%);min-height:100vh}
+main{max-width:1100px;margin:0 auto;padding:32px 18px 60px}header{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;align-items:center}
+h1{font-size:2.2rem;margin:.2em 0;letter-spacing:.04em}h2{font-size:1.15rem;margin:0 0 14px}.eyebrow{color:#88b7fc;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+p,small,.muted{color:#a6b1c4;line-height:1.55}.pill{font-size:.76rem;border:1px solid #47516b;padding:8px 12px;border-radius:50px;color:#bdd8f9}
+.notice{padding:14px 16px;margin:20px 0;border:1px solid #394154;background:#181c29;border-radius:12px;font-size:.86rem;color:#bcc5d5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:14px}.card{padding:19px;border:1px solid #313b51;background:#141c2b;border-radius:16px;min-width:0}
+.card .symbol{font-size:.9rem;color:#aebed4}.price{font-size:1.65rem;font-weight:760;margin:14px 0 6px}.plus{color:#70e4b7}.minus{color:#ff9a9f}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.metrics{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.metric{background:#222d42;border-radius:8px;padding:7px 10px;font-size:.8rem}
+.warn{color:#f5c47e;font-size:.78rem}canvas{display:block;margin:12px 0 4px;width:100%;height:68px}
+article a, a{color:#9dbfff}section{margin-top:28px}.news{padding:12px 0;border-bottom:1px solid #273348}.news a{font-size:.92rem}.news small{display:block;margin-top:4px}
+footer{margin-top:35px;font-size:.78rem;color:#94a1b6}.time{font-size:.79rem;color:#a6b1c4}
+</style></head><body><main>
+<header><div><div class="eyebrow">Standalone public market intelligence</div><h1>🔥 AFTERBURNER</h1><div class="muted">GTA VI narrative · BingX futures · Solana liquidity</div></div><span class="pill">RESEARCH ONLY · NO EXECUTION</span></header>
+<div class="notice">Unofficial, speculative market research. Signals are not financial advice, trade instructions or confirmations that futures symbols match individual Solana mints. Data may be delayed or unavailable. Never use this dashboard as the sole basis for a leveraged trade.</div>
+<div class="row"><div class="eyebrow">Market radar</div><div id="updated" class="time">Loading snapshot…</div></div>
+<section id="cards" class="grid" aria-live="polite"><p>Waiting for market snapshot…</p></section>
+<section><h2>📰 Narrative headlines</h2><p class="muted">Discovery feeds only; headlines are not independently verified announcements.</p><div id="news">Loading…</div></section>
+<footer>AFTERBURNER public view contains only research-market snapshots. The operator's private dashboard, diagnostics, bot credentials and database remain separate. GitHub Pages snapshots update only when the operator exports and publishes new data.</footer>
+</main><script>
+'use strict';
+const $=s=>document.getElementById(s);
+const make=(parent,tag,cls,value)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(value!==undefined)x.textContent=value;parent.appendChild(x);return x};
+const cash=(v,places=2)=>typeof v==='number'&&Number.isFinite(v)?'$'+v.toLocaleString('en-US',{minimumFractionDigits:places,maximumFractionDigits:places}):'Unavailable';
+const num=(v,places=2)=>typeof v==='number'&&Number.isFinite(v)?v.toFixed(places):'N/A';
+const old=(stamp,limit)=>{const t=Date.parse(stamp||'');return !Number.isFinite(t)||Date.now()-t>(limit||600)*1000};
+function chart(canvas,history){const prices=(history||[]).map(x=>x.price).filter(x=>typeof x==='number'&&Number.isFinite(x));if(prices.length<2)return;const ctx=canvas.getContext('2d');const lo=Math.min(...prices),hi=Math.max(...prices),spread=hi-lo||1;const w=canvas.width,h=canvas.height;ctx.strokeStyle=prices.at(-1)>=prices[0]?'#70e4b7':'#ff9a9f';ctx.lineWidth=2;ctx.beginPath();prices.forEach((p,i)=>{const x=i*w/(prices.length-1),y=(1-(p-lo)/spread)*(h-12)+6;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke()}
+async function refresh(){try{const resp=await fetch('./data.json',{cache:'no-store'});if(!resp.ok)throw Error('HTTP '+resp.status);const data=await resp.json();if(!Array.isArray(data.assets))throw Error('Missing data');
+$('updated').textContent='Published '+(data.generated_at?new Date(data.generated_at).toLocaleString():'unknown')+(old(data.generated_at,900)?' · ⚠️ Snapshot may be outdated':'');
+const root=$('cards');root.replaceChildren();for(const a of data.assets){const card=make(root,'article','card');const top=make(card,'div','row');make(top,'strong','',a.ticker);make(top,'small','symbol',a.symbol);make(card,'div','price',cash(a.price,8));const ch=make(card,'div',a.change_24h_pct>=0?'plus':'minus','24h: '+num(a.change_24h_pct)+'% · volume: '+cash(a.volume_24h_usd,0));const cv=make(card,'canvas');cv.width=300;cv.height=68;chart(cv,a.history);
+const metrics=make(card,'div','metrics');make(metrics,'span','metric','Long '+(a.long_score??'?')+'/100');make(metrics,'span','metric','Short '+(a.short_score??'?')+'/100');make(metrics,'span','metric',a.research_state||'No signal');
+make(card,'div','muted','Funding: '+num(a.funding_rate_pct,4)+'% · DEX liquidity: '+cash(a.dex_liquidity_usd,0));const stale=old(a.observed_at,a.stale_after_seconds)||a.stale_at_export;if(stale)make(card,'p','warn','⚠️ Market sample is stale');if(!a.mint_verified)make(card,'p','warn','Unverified futures ↔ DEX mint mapping');if(a.blocking_flags?.length)make(card,'p','warn','Risk flags: '+a.blocking_flags.slice(0,3).join(', '));
+const url='https://bingx.com/en/perpetual/'+a.symbol;if(/^[A-Z0-9]+-USDT$/.test(a.symbol)){const link=make(card,'a','','Open BingX market');link.href=url;link.target='_blank';link.rel='noopener noreferrer'}}
+const news=$('news');news.replaceChildren();if(!data.news?.length)make(news,'p','muted','No news snapshots available');for(const n of (data.news||[]).slice(0,12)){const row=make(news,'div','news');const text=String(n.headline||'Untitled');if(typeof n.url==='string'&&n.url.startsWith('https://')){const link=make(row,'a','',text);link.href=n.url;link.target='_blank';link.rel='noopener noreferrer'}else make(row,'div','',text);make(row,'small','','Source: '+(n.source||'unknown')+' · first seen: '+(n.first_seen?new Date(n.first_seen).toLocaleString():'unknown'))}
+}catch(e){$('updated').textContent='Data unavailable';$('cards').textContent='Market snapshot unavailable: '+e.message}}
+refresh();setInterval(refresh,60000);
+</script></body></html>

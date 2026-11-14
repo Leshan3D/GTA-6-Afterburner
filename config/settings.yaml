@@ -1,0 +1,34 @@
+# All times in seconds, UTC internally. This service NEVER places orders.
+server:
+  host: 127.0.0.1
+  port: 5056
+# Public-only preview for opt-in Funnel. NEVER tunnel port 5056.
+public:
+  enabled: true
+  host: 127.0.0.1
+  port: 5057
+schedule:
+  market_seconds: 180
+  news_seconds: 600
+  alert_cooldown_seconds: 1800
+  max_market_age_seconds: 600
+  max_news_age_seconds: 1800
+  request_pace_seconds: 1.15   # conservative pacing for BingX 1/s endpoints
+  request_timeout_seconds: 10
+  retries: 2
+risk:
+  max_spread_pct: 0.75
+  min_book_depth_usd_each_side: 1500
+  min_dex_liquidity_usd: 100000
+  min_quote_volume_24h_usd: 50000
+  max_dex_perp_divergence_pct: 8
+  min_required_data_legs: 2
+  alert_score_threshold: 60
+  # These are research/watchlist alerts, never executable signals.
+  min_signal_history_points: 2
+narrative:
+  lookback_hours: 36
+  # Observed only if enabled: date and claims must be rechecked independently.
+  event_date: "2026-11-19"
+  event_name: "Provisional GTA VI launch date — verify official news"
+  event_verified: false

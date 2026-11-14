@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "afterburner-intel"
+version = "0.2.0"
+description = "Independent read-only GTA6 narrative and BingX perpetual futures radar"
+requires-python = ">=3.11"
+dependencies = ["requests>=2.31,<3", "PyYAML>=6.0,<7"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+afterburner = "afterburner.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["afterburner*"]

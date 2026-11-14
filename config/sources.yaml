@@ -1,0 +1,15 @@
+# Google News RSS search is a DISCOVERY feed, not proof that Rockstar confirmed a story.
+# One failing source does not break monitoring; health is stored and displayed.
+feeds:
+  - id: gta6_general
+    url: "https://news.google.com/rss/search?q=GTA+VI+Rockstar&hl=en-US&gl=US&ceid=US:en"
+    family: gaming
+  - id: gta6_launch
+    url: "https://news.google.com/rss/search?q=Grand+Theft+Auto+6+release+launch&hl=en-US&gl=US&ceid=US:en"
+    family: gaming
+  - id: gta6_memecoins
+    url: "https://news.google.com/rss/search?q=GTA6+memecoin+Solana&hl=en-US&gl=US&ceid=US:en"
+    family: crypto_narrative
+  - id: rockstar_reddit
+    url: "https://www.reddit.com/r/GTA6/new/.rss"
+    family: community
