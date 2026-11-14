@@ -12,7 +12,7 @@ from .public import export_public_site
 def main(argv=None):
     parser = argparse.ArgumentParser(description="AFTERBURNER independent meme futures intelligence (read-only)")
     parser.add_argument("command", choices=["doctor", "once", "serve", "news", "market", "status",
-                                            "progress", "bot-chats", "export-public"])
+                                            "progress", "bot-chats", "export-public", "signals", "setups", "performance", "kronos", "backtest"])
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--output", default=None, help="Export destination for GitHub Pages static site")
     opts = parser.parse_args(argv)
@@ -20,7 +20,7 @@ def main(argv=None):
                         format="%(asctime)s %(levelname)s %(name)s %(message)s")
     load_env_file()
     if opts.command == "doctor":
-        print("AFTERBURNER v0.3.0 / static configuration check (no external API calls)")
+        print("AFTERBURNER v0.4.0 / static configuration check (no external API calls)")
         conf = settings()
         watch = assets()
         sources()
@@ -59,6 +59,17 @@ def main(argv=None):
     if opts.command == "export-public":
         dest = export_public_site(radar.storage, radar.assets, radar.config, opts.output)
         print(f"Public static snapshot exported: {dest} (commit/push to update GitHub Pages)")
+        return 0
+    if opts.command in ('signals','setups','performance','kronos'):
+        print(radar.status_text('/'+opts.command))
+        return 0
+    if opts.command == 'backtest':
+        from .backtest import backtest
+        import json
+        for asset in radar.assets:
+            bars=radar.storage.get_candles('bingx',asset.symbol,'5m',5000)
+            result=backtest(asset.symbol,bars,radar.config)
+            print(json.dumps(result,ensure_ascii=False))
         return 0
     if opts.command == "once":
         print("News:", radar.poll_news())

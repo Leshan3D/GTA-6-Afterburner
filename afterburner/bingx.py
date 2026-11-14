@@ -76,6 +76,14 @@ class BingX:
             raise DataError(f"BingX {endpoint}: code={response.get('code') if isinstance(response,dict) else 'malformed'}, msg={response.get('msg') if isinstance(response,dict) else 'invalid'}")
         return response.get("data")
 
+    def collect_candles(self, symbol, interval='5m', limit=500):
+        """Return normalized candles for a single timeframe; callers verify close times."""
+        if interval not in ('5m','15m','1h'):
+            raise ValueError('Unsupported timeframe')
+        if limit<1 or limit>500:
+            raise ValueError('Candle limit out of bounds')
+        return candles_normalized(self.query('candles',symbol=symbol,interval=interval,limit=limit))
+
     def collect(self, symbol):
         """Errors in one subfeed do not poison others; record each independently."""
         output = {"symbol": symbol, "source_health": {}, "observed_at": dt.datetime.now(dt.timezone.utc).isoformat()}

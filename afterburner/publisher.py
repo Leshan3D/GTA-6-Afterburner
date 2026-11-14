@@ -70,12 +70,28 @@ def validate_payload(payload, expected_symbols):
         raise ValueError("Watchlist incomplete or duplicated")
     if len(payload["assets"]) != len(expected_symbols):
         raise ValueError("Duplicate market symbols")
-    allowed_asset = {"symbol", "ticker", "label", "observed_at", "stale_at_export", "stale_after_seconds", "contract_active", "price", "change_24h_pct", "volume_24h_usd", "funding_rate_pct", "spread_pct", "dex_liquidity_usd", "long_score", "short_score", "research_state", "blocking_flags", "mint_verified", "trade_url", "history"}
+    allowed_asset = {"symbol", "ticker", "label", "observed_at", "stale_at_export", "stale_after_seconds", "contract_active", "price", "change_24h_pct", "volume_24h_usd", "funding_rate_pct", "spread_pct", "dex_liquidity_usd", "long_score", "short_score", "research_state", "blocking_flags", "mint_verified", "trade_url", "history", "technical_signal", "kronos"}
     for row in payload["assets"]:
         if set(row) != allowed_asset:
             raise ValueError("Unexpected asset fields")
         if not isinstance(row["history"], list) or any(set(p) != {"ts", "price"} for p in row["history"]):
             raise ValueError("Unexpected history fields")
+        kronos=row.get('kronos')
+        if kronos is not None:
+            if not isinstance(kronos,dict) or set(kronos)!={'timeframe','directional_bias','forecast_return_pct','cutoff_ts','directional_weight'}:
+                raise ValueError('Unexpected Kronos fields')
+            if kronos['directional_weight']!=0.0 or kronos['timeframe'] not in ('5m','15m','1h'):
+                raise ValueError('Kronos voting is disabled')
+        ts = row.get('technical_signal')
+        if ts is not None:
+            allowed_ts={'direction','state','timeframe','as_of_candle_ts','entry_trigger',
+                        'entry_zone_low','entry_zone_high','sl','tp1','tp2','rr','confidence','blocking_reasons'}
+            if not isinstance(ts,dict) or set(ts)!=allowed_ts:
+                raise ValueError('Unexpected technical signal fields')
+            if ts['direction'] not in ('LONG','SHORT','WAIT') or ts['state'] not in ('FORMING','ARMED','TRIGGERED','STALE'):
+                raise ValueError('Unexpected technical signal state')
+            if any(not isinstance(x,str) or len(x)>75 for x in ts['blocking_reasons']):
+                raise ValueError('Invalid technical signal blocking reasons')
         if any(not isinstance(x, str) or len(x) > 90 for x in row["blocking_flags"]):
             raise ValueError("Invalid risk flags")
     if not isinstance(payload["news"], list) or any(set(n) != {"headline", "source", "url", "first_seen"} for n in payload["news"]):

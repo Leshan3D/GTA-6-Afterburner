@@ -56,6 +56,44 @@ class Storage:
                     alert_key TEXT PRIMARY KEY, sent_at TEXT NOT NULL, payload TEXT NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS kv (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+                CREATE TABLE IF NOT EXISTS ohlcv_candles (
+                  venue TEXT NOT NULL, instrument TEXT NOT NULL, timeframe TEXT NOT NULL,
+                  open_ts INTEGER NOT NULL, open REAL NOT NULL, high REAL NOT NULL,
+                  low REAL NOT NULL, close REAL NOT NULL, volume REAL NOT NULL,
+                  collected_at TEXT NOT NULL,
+                  PRIMARY KEY(venue,instrument,timeframe,open_ts)
+                );
+                CREATE INDEX IF NOT EXISTS idx_ohlcv_recent ON ohlcv_candles(instrument,timeframe,open_ts DESC);
+                CREATE TABLE IF NOT EXISTS signals (
+                  id INTEGER PRIMARY KEY, symbol TEXT NOT NULL, direction TEXT NOT NULL,
+                  state TEXT NOT NULL, timeframe TEXT NOT NULL, as_of_candle_ts INTEGER NOT NULL,
+                  strategy_version TEXT NOT NULL, created_at TEXT NOT NULL,
+                  updated_at TEXT NOT NULL, details_json TEXT NOT NULL,
+                  UNIQUE(symbol,timeframe,strategy_version,as_of_candle_ts)
+                );
+                CREATE INDEX IF NOT EXISTS idx_sig_state ON signals(state,created_at DESC);
+                CREATE TABLE IF NOT EXISTS signal_events (
+                  id INTEGER PRIMARY KEY, signal_id INTEGER NOT NULL REFERENCES signals(id),
+                  event_type TEXT NOT NULL, occurred_at TEXT NOT NULL,
+                  price REAL, note TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS paper_fills (
+                  signal_id INTEGER PRIMARY KEY REFERENCES signals(id),
+                  filled_at TEXT NOT NULL, fill_price REAL NOT NULL,
+                  closed_at TEXT, exit_price REAL, exit_reason TEXT, net_pnl_pct REAL
+                );
+                CREATE TABLE IF NOT EXISTS kronos_forecasts (
+                  id INTEGER PRIMARY KEY, symbol TEXT NOT NULL, timeframe TEXT NOT NULL,
+                  cutoff_ts INTEGER NOT NULL, horizon_bars INTEGER NOT NULL,
+                  model_version TEXT NOT NULL, created_at TEXT NOT NULL,
+                  forecast_json TEXT NOT NULL, actual_return_pct REAL,
+                  UNIQUE(symbol,timeframe,cutoff_ts,horizon_bars,model_version)
+                );
+                CREATE TABLE IF NOT EXISTS backtest_runs (
+                  id INTEGER PRIMARY KEY, created_at TEXT NOT NULL,
+                  symbol TEXT NOT NULL, timeframe TEXT NOT NULL, strategy_version TEXT NOT NULL,
+                  results_json TEXT NOT NULL
+                );
             """)
 
     def set_health(self, source, state, message=""):
@@ -141,3 +179,91 @@ class Storage:
             rows = db.execute("SELECT alert_key,sent_at FROM alerts ORDER BY sent_at DESC LIMIT ?",
                               (min(max(int(limit), 1), 20),)).fetchall()
         return [dict(row) for row in rows]
+
+
+    def save_candles(self, venue, symbol, timeframe, candles, now_ms=None):
+        """Insert only validated and closed bars, idempotently."""
+        from .signal_engine import valid_candles, TIMEFRAMES
+        now_ms = now_ms or int(utcnow().timestamp()*1000)
+        valid = [x for x in valid_candles(candles, timeframe)
+                 if x['ts'] + TIMEFRAMES[timeframe]*1000 <= now_ms]
+        with self.conn() as db:
+            for x in valid:
+                db.execute("""INSERT INTO ohlcv_candles
+                    (venue,instrument,timeframe,open_ts,open,high,low,close,volume,collected_at)
+                    VALUES(?,?,?,?,?,?,?,?,?,?) ON CONFLICT DO NOTHING""",
+                    (venue,symbol,timeframe,x['ts'],x['open'],x['high'],x['low'],x['close'],x['volume'],iso()))
+        return len(valid)
+
+    def get_candles(self, venue, symbol, timeframe, limit=500):
+        with self.conn() as db:
+            rows=db.execute("""SELECT open_ts,open,high,low,close,volume FROM ohlcv_candles
+                WHERE venue=? AND instrument=? AND timeframe=? ORDER BY open_ts DESC LIMIT ?""",
+                (venue,symbol,timeframe,min(5000,max(1,int(limit))))).fetchall()
+        return [{'ts':r['open_ts'],'open':r['open'],'high':r['high'],'low':r['low'],
+                 'close':r['close'],'volume':r['volume']} for r in reversed(rows)]
+
+    def save_setup(self, signal):
+        if signal.get('state') != 'TRIGGERED' or not signal.get('as_of_candle_ts'):
+            return None
+        with self.conn() as db:
+            db.execute("""INSERT INTO signals
+                (symbol,direction,state,timeframe,as_of_candle_ts,strategy_version,created_at,updated_at,details_json)
+                VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT DO NOTHING""",
+                (signal['symbol'],signal['direction'],'TRIGGERED',signal['timeframe'],
+                 signal['as_of_candle_ts'],signal['strategy_version'],iso(),iso(),
+                 json.dumps(signal,allow_nan=False)))
+            row=db.execute("""SELECT id FROM signals WHERE symbol=? AND timeframe=?
+                AND strategy_version=? AND as_of_candle_ts=?""",
+                (signal['symbol'],signal['timeframe'],signal['strategy_version'],signal['as_of_candle_ts'])).fetchone()
+            return row['id'] if row else None
+
+    def get_signals(self, limit=30, active_only=False):
+        clause="WHERE state IN ('TRIGGERED','PAPER_FILLED')" if active_only else ''
+        with self.conn() as db:
+            rows=db.execute(f'SELECT * FROM signals {clause} ORDER BY id DESC LIMIT ?', (min(max(limit,1),100),)).fetchall()
+        return [{**dict(r),'details':json.loads(r['details_json'])} for r in rows]
+
+    def update_signal_state(self, signal_id, new_state, price=None, note=''):
+        from .signal_engine import transition
+        with self.conn() as db:
+            row=db.execute('SELECT state FROM signals WHERE id=?',(signal_id,)).fetchone()
+            if not row:raise ValueError('Unknown signal id')
+            transition(row['state'],new_state)
+            db.execute('UPDATE signals SET state=?,updated_at=? WHERE id=?',(new_state,iso(),signal_id))
+            db.execute('INSERT INTO signal_events(signal_id,event_type,occurred_at,price,note) VALUES(?,?,?,?,?)',
+                       (signal_id,new_state,iso(),price,note[:400]))
+
+    def save_kronos(self, record):
+        with self.conn() as db:
+            db.execute("""INSERT INTO kronos_forecasts
+                 (symbol,timeframe,cutoff_ts,horizon_bars,model_version,created_at,forecast_json)
+                 VALUES(?,?,?,?,?,?,?) ON CONFLICT DO NOTHING""",
+                 (record['symbol'],record['timeframe'],record['cutoff_ts'],record['horizon_bars'],
+                  record['model_version'],iso(),json.dumps(record,allow_nan=False)))
+
+    def latest_kronos(self, symbol=None):
+        with self.conn() as db:
+            if symbol:
+                rows=db.execute('SELECT * FROM kronos_forecasts WHERE symbol=? ORDER BY id DESC LIMIT 3',(symbol,)).fetchall()
+            else:
+                rows=db.execute('SELECT * FROM kronos_forecasts ORDER BY id DESC LIMIT 12').fetchall()
+        return [json.loads(r['forecast_json']) for r in rows]
+
+
+    def paper_statistics(self, symbol=None):
+        where='WHERE s.symbol=?' if symbol else ''
+        params=(symbol,) if symbol else ()
+        with self.conn() as db:
+            rows=db.execute(f"""SELECT s.symbol,s.direction,s.state,f.fill_price,f.exit_price,
+                f.net_pnl_pct,f.exit_reason FROM signals s LEFT JOIN paper_fills f
+                ON f.signal_id=s.id {where} ORDER BY s.id""",params).fetchall()
+        closed=[dict(x) for x in rows if x['state']=='CLOSED' and x['net_pnl_pct'] is not None]
+        entered=[x for x in rows if x['fill_price'] is not None]
+        won=[x for x in closed if x['net_pnl_pct']>0]
+        return {'total_signals':len(rows),'paper_filled':len(entered),'paper_closed':len(closed),
+                'unfilled':sum(x['state']=='UNFILLED' for x in rows),
+                'win_rate_pct':100*len(won)/len(closed) if closed else None,
+                'avg_pnl_pct':sum(x['net_pnl_pct'] for x in closed)/len(closed) if closed else None,
+                'sample_warning':len(closed)<30,
+                'statement':'Paper simulated OHLCV fills only; not exchange executions or live profitability'}

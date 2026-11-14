@@ -68,7 +68,41 @@ def status_report(assets, storage, config, command="/meme"):
                 "/alerts — recent research alerts\n"
                 "/link — configured public dashboard URL\n"
                 "/publish — GitHub Pages snapshot publisher status\n"
+                "/signals — confirmed technical signals\n"
+                "/signal GATO — latest technical signal by ticker\n"
+                "/setups — recent forming/armed conditions\n"
+                "/performance — historical signal status\n"
+                "/kronos — forecast status (third opinion)\n"
                 "Research only; no order execution.")
+
+    if action in ('/signals','/signal','/setups','/performance','/kronos'):
+        if action == '/kronos':
+            rows=storage.latest_kronos()
+            if not rows:return '🧠 Kronos: no forecasts stored (disabled or awaiting 400 completed candles). Weight remains 0.'
+            return '\n'.join(['🧠 Kronos | observational forecasts (weight 0)'] +
+                [f"• {r['symbol']} {r['timeframe']}: {r.get('directional_bias','?')} {number(r.get('forecast_return_pct'),2)}%, cutoff {r.get('cutoff_ts')}" for r in rows[:10]])
+        rows=storage.get_signals(limit=30,active_only=action=='/signals')
+        if action=='/signal':
+            matching=[r for r in rows if argument in (r['symbol'],r['symbol'].split('-')[0])]
+            rows=matching[:1]
+        if action=='/setups':
+            latest_setups=[(sym,snap['signal'].get('technical_setup',{})) for sym,snap in latest.items() if snap]
+            return '\n'.join(['🔎 AFTERBURNER | forming technical setups'] +
+                [f"• {sym}: {signal.get('state','?')} {signal.get('direction','WAIT')} | flags: {', '.join(signal.get('blocking_reasons',[])[:3]) or 'none'}" for sym,signal in latest_setups])
+        if action=='/performance':
+            stats=storage.paper_statistics()
+            return (f"📊 AFTERBURNER | PAPER SIGNAL PERFORMANCE\n"
+                    f"Signals: {stats['total_signals']} | paper filled: {stats['paper_filled']} | closed: {stats['paper_closed']}\n"
+                    f"Unfilled: {stats['unfilled']}\n"
+                    f"Win rate: {number(stats['win_rate_pct'])}% | Mean net outcome: {number(stats['avg_pnl_pct'])}%\n"
+                    + ('⚠️ Small sample; unvalidated strategy.\n' if stats['sample_warning'] else '')
+                    + 'Historical simulated fills only; not exchange execution.')
+        if not rows:return '🚦 No confirmed technical signals in history. Current gates may block unsafe markets.'
+        lines=['🚦 AFTERBURNER | confirmed technical signals (no orders)']
+        for r in rows[:8]:
+            d=r['details']
+            lines.append(f"• {r['symbol']} {r['direction']} {r['state']} ({r['timeframe']}) | entry {number(d.get('entry_trigger'),8,'$')} SL {number(d.get('sl'),8,'$')} TP1 {number(d.get('tp1'),8,'$')} R:R {number(d.get('rr'))}")
+        return '\n'.join(lines)
 
     if action == "/publish":
         from .config import data_dir

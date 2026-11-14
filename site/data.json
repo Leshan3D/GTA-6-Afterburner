@@ -1,6 +1,6 @@
 {
   "product": "AFTERBURNER Public Radar",
-  "generated_at": "2026-11-14T13:35:54.110317+00:00",
+  "generated_at": "2026-11-14T14:50:22.306526+00:00",
   "execution_enabled": false,
   "research_only": true,
   "assets": [
@@ -8,19 +8,45 @@
       "symbol": "GATO-USDT",
       "ticker": "GATO",
       "label": "GTA6CAT",
-      "observed_at": "2026-11-14T13:34:31.120876+00:00",
+      "observed_at": "2026-11-14T14:49:38.782343+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00691,
-      "change_24h_pct": 29.83,
-      "volume_24h_usd": 741287.29,
+      "price": 0.00661,
+      "change_24h_pct": 19.49,
+      "volume_24h_usd": 747624.56,
       "funding_rate_pct": -0.01,
-      "spread_pct": 1.3015184381778713,
-      "dex_liquidity_usd": 271222.9,
-      "long_score": 15,
-      "short_score": 0,
+      "spread_pct": 1.2084592145015136,
+      "dex_liquidity_usd": 266002.49,
+      "long_score": 0,
+      "short_score": 30,
       "research_state": "MONITOR",
+      "technical_signal": {
+        "entry_trigger": null,
+        "entry_zone_low": null,
+        "entry_zone_high": null,
+        "sl": null,
+        "tp1": null,
+        "tp2": null,
+        "rr": null,
+        "confidence": 0.0,
+        "direction": "WAIT",
+        "state": "FORMING",
+        "timeframe": "5m",
+        "as_of_candle_ts": 1794667200000,
+        "blocking_reasons": [
+          "thin_or_missing_ask_depth_usd",
+          "thin_or_missing_bid_depth_usd",
+          "wide_or_missing_spread"
+        ]
+      },
+      "kronos": {
+        "timeframe": "15m",
+        "directional_bias": "LONG",
+        "forecast_return_pct": 1.012593340995016,
+        "cutoff_ts": 1794666600000,
+        "directional_weight": 0.0
+      },
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
         "inadequate_perp_book_depth",
@@ -29,82 +55,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GATO-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:08:45.363791+00:00",
-          "price": 0.00755
-        },
-        {
-          "ts": "2026-11-14T11:09:53.524658+00:00",
-          "price": 0.00763
-        },
-        {
-          "ts": "2026-11-14T11:10:43.048062+00:00",
-          "price": 0.00764
-        },
-        {
-          "ts": "2026-11-14T11:14:17.126230+00:00",
-          "price": 0.00788
-        },
-        {
-          "ts": "2026-11-14T11:17:58.923969+00:00",
-          "price": 0.00768
-        },
-        {
-          "ts": "2026-11-14T11:21:30.607125+00:00",
-          "price": 0.00748
-        },
-        {
-          "ts": "2026-11-14T11:25:02.079125+00:00",
-          "price": 0.00734
-        },
-        {
-          "ts": "2026-11-14T11:28:33.607216+00:00",
-          "price": 0.00715
-        },
-        {
-          "ts": "2026-11-14T11:32:05.812919+00:00",
-          "price": 0.00724
-        },
-        {
-          "ts": "2026-11-14T11:35:37.861427+00:00",
-          "price": 0.00732
-        },
-        {
-          "ts": "2026-11-14T11:39:09.337400+00:00",
-          "price": 0.00718
-        },
-        {
-          "ts": "2026-11-14T11:42:43.045470+00:00",
-          "price": 0.00722
-        },
-        {
-          "ts": "2026-11-14T11:46:14.564211+00:00",
-          "price": 0.00718
-        },
-        {
-          "ts": "2026-11-14T11:49:46.067162+00:00",
-          "price": 0.00755
-        },
-        {
-          "ts": "2026-11-14T11:53:18.275820+00:00",
-          "price": 0.0075
-        },
-        {
-          "ts": "2026-11-14T11:56:51.205516+00:00",
-          "price": 0.00763
-        },
-        {
-          "ts": "2026-11-14T12:00:22.746169+00:00",
-          "price": 0.00759
-        },
-        {
-          "ts": "2026-11-14T12:03:56.116743+00:00",
-          "price": 0.00749
-        },
-        {
-          "ts": "2026-11-14T12:07:27.653607+00:00",
-          "price": 0.00747
-        },
         {
           "ts": "2026-11-14T12:09:32.111670+00:00",
           "price": 0.00745
@@ -204,6 +154,98 @@
         {
           "ts": "2026-11-14T13:34:31.120876+00:00",
           "price": 0.00691
+        },
+        {
+          "ts": "2026-11-14T13:38:02.672272+00:00",
+          "price": 0.00688
+        },
+        {
+          "ts": "2026-11-14T13:41:36.082612+00:00",
+          "price": 0.00693
+        },
+        {
+          "ts": "2026-11-14T13:45:07.584710+00:00",
+          "price": 0.00711
+        },
+        {
+          "ts": "2026-11-14T13:48:40.084559+00:00",
+          "price": 0.00716
+        },
+        {
+          "ts": "2026-11-14T13:52:11.576241+00:00",
+          "price": 0.00702
+        },
+        {
+          "ts": "2026-11-14T13:53:41.082831+00:00",
+          "price": 0.00707
+        },
+        {
+          "ts": "2026-11-14T13:54:21.497840+00:00",
+          "price": 0.00706
+        },
+        {
+          "ts": "2026-11-14T13:57:52.954899+00:00",
+          "price": 0.00687
+        },
+        {
+          "ts": "2026-11-14T14:01:25.448131+00:00",
+          "price": 0.00693
+        },
+        {
+          "ts": "2026-11-14T14:04:58.015136+00:00",
+          "price": 0.0069
+        },
+        {
+          "ts": "2026-11-14T14:08:29.596481+00:00",
+          "price": 0.00684
+        },
+        {
+          "ts": "2026-11-14T14:12:01.113930+00:00",
+          "price": 0.00701
+        },
+        {
+          "ts": "2026-11-14T14:15:33.677564+00:00",
+          "price": 0.00675
+        },
+        {
+          "ts": "2026-11-14T14:19:05.213951+00:00",
+          "price": 0.00682
+        },
+        {
+          "ts": "2026-11-14T14:22:36.725814+00:00",
+          "price": 0.0069
+        },
+        {
+          "ts": "2026-11-14T14:26:10.226715+00:00",
+          "price": 0.00677
+        },
+        {
+          "ts": "2026-11-14T14:29:42.315489+00:00",
+          "price": 0.0068
+        },
+        {
+          "ts": "2026-11-14T14:33:13.835523+00:00",
+          "price": 0.00674
+        },
+        {
+          "ts": "2026-11-14T14:36:45.754300+00:00",
+          "price": 0.00716
+        },
+        {
+          "ts": "2026-11-14T14:40:17.282964+00:00",
+          "price": 0.00691
+        },
+        {
+          "ts": "2026-11-14T14:44:25.445961+00:00",
+          "price": 0.00691
+        },
+        {
+          "ts": "2026-11-14T14:46:16.008768+00:00",
+          "price": 0.00688
+        },
+        {
+          "ts": "2026-11-14T14:49:38.782343+00:00",
+          "price": 0.00661
         }
       ]
     },
@@ -211,19 +253,43 @@
       "symbol": "DACITY-USDT",
       "ticker": "DACITY",
       "label": "Dacity",
-      "observed_at": "2026-11-14T13:34:39.183743+00:00",
+      "observed_at": "2026-11-14T14:49:47.986737+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.002232,
-      "change_24h_pct": 12.66,
-      "volume_24h_usd": 260714.16,
+      "price": 0.001959,
+      "change_24h_pct": 7.3,
+      "volume_24h_usd": 261371.12,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.0251838644974378,
-      "dex_liquidity_usd": 257754.31,
-      "long_score": 30,
-      "short_score": 0,
+      "spread_pct": 1.071701964786934,
+      "dex_liquidity_usd": 240388.98,
+      "long_score": 0,
+      "short_score": 23,
       "research_state": "MONITOR",
+      "technical_signal": {
+        "entry_trigger": null,
+        "entry_zone_low": null,
+        "entry_zone_high": null,
+        "sl": null,
+        "tp1": null,
+        "tp2": null,
+        "rr": null,
+        "confidence": 0.0,
+        "direction": "WAIT",
+        "state": "FORMING",
+        "timeframe": "5m",
+        "as_of_candle_ts": 1794667200000,
+        "blocking_reasons": [
+          "wide_or_missing_spread"
+        ]
+      },
+      "kronos": {
+        "timeframe": "1h",
+        "directional_bias": "LONG",
+        "forecast_return_pct": 11.47904760119589,
+        "cutoff_ts": 1794661200000,
+        "directional_weight": 0.0
+      },
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
         "missing_or_excessive_perp_spread"
@@ -231,82 +297,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/DACITY-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:08:53.368068+00:00",
-          "price": 0.002155
-        },
-        {
-          "ts": "2026-11-14T11:10:01.537915+00:00",
-          "price": 0.002156
-        },
-        {
-          "ts": "2026-11-14T11:10:50.987011+00:00",
-          "price": 0.002148
-        },
-        {
-          "ts": "2026-11-14T11:14:35.510732+00:00",
-          "price": 0.002142
-        },
-        {
-          "ts": "2026-11-14T11:18:06.971419+00:00",
-          "price": 0.002342
-        },
-        {
-          "ts": "2026-11-14T11:21:38.634174+00:00",
-          "price": 0.00225
-        },
-        {
-          "ts": "2026-11-14T11:25:10.147967+00:00",
-          "price": 0.002263
-        },
-        {
-          "ts": "2026-11-14T11:28:41.664509+00:00",
-          "price": 0.002272
-        },
-        {
-          "ts": "2026-11-14T11:32:13.639414+00:00",
-          "price": 0.002275
-        },
-        {
-          "ts": "2026-11-14T11:35:46.436564+00:00",
-          "price": 0.002274
-        },
-        {
-          "ts": "2026-11-14T11:39:17.392021+00:00",
-          "price": 0.002253
-        },
-        {
-          "ts": "2026-11-14T11:42:51.101448+00:00",
-          "price": 0.002226
-        },
-        {
-          "ts": "2026-11-14T11:46:22.607021+00:00",
-          "price": 0.002225
-        },
-        {
-          "ts": "2026-11-14T11:49:54.119378+00:00",
-          "price": 0.002223
-        },
-        {
-          "ts": "2026-11-14T11:53:26.326508+00:00",
-          "price": 0.002141
-        },
-        {
-          "ts": "2026-11-14T11:56:59.260073+00:00",
-          "price": 0.002149
-        },
-        {
-          "ts": "2026-11-14T12:00:30.790744+00:00",
-          "price": 0.0022
-        },
-        {
-          "ts": "2026-11-14T12:04:04.185978+00:00",
-          "price": 0.002191
-        },
-        {
-          "ts": "2026-11-14T12:07:35.700627+00:00",
-          "price": 0.00219
-        },
         {
           "ts": "2026-11-14T12:09:40.104574+00:00",
           "price": 0.002221
@@ -406,6 +396,98 @@
         {
           "ts": "2026-11-14T13:34:39.183743+00:00",
           "price": 0.002232
+        },
+        {
+          "ts": "2026-11-14T13:38:10.718543+00:00",
+          "price": 0.002343
+        },
+        {
+          "ts": "2026-11-14T13:41:44.133927+00:00",
+          "price": 0.002332
+        },
+        {
+          "ts": "2026-11-14T13:45:15.691433+00:00",
+          "price": 0.002331
+        },
+        {
+          "ts": "2026-11-14T13:48:48.127148+00:00",
+          "price": 0.002057
+        },
+        {
+          "ts": "2026-11-14T13:52:19.651181+00:00",
+          "price": 0.002116
+        },
+        {
+          "ts": "2026-11-14T13:53:49.049905+00:00",
+          "price": 0.002041
+        },
+        {
+          "ts": "2026-11-14T13:54:29.510871+00:00",
+          "price": 0.002052
+        },
+        {
+          "ts": "2026-11-14T13:58:01.015225+00:00",
+          "price": 0.00216
+        },
+        {
+          "ts": "2026-11-14T14:01:33.491679+00:00",
+          "price": 0.002111
+        },
+        {
+          "ts": "2026-11-14T14:05:06.071852+00:00",
+          "price": 0.001992
+        },
+        {
+          "ts": "2026-11-14T14:08:37.645877+00:00",
+          "price": 0.002087
+        },
+        {
+          "ts": "2026-11-14T14:12:09.176563+00:00",
+          "price": 0.002084
+        },
+        {
+          "ts": "2026-11-14T14:15:41.724520+00:00",
+          "price": 0.002031
+        },
+        {
+          "ts": "2026-11-14T14:19:13.266682+00:00",
+          "price": 0.001976
+        },
+        {
+          "ts": "2026-11-14T14:22:44.773594+00:00",
+          "price": 0.001986
+        },
+        {
+          "ts": "2026-11-14T14:26:18.283749+00:00",
+          "price": 0.001975
+        },
+        {
+          "ts": "2026-11-14T14:29:50.370046+00:00",
+          "price": 0.001978
+        },
+        {
+          "ts": "2026-11-14T14:33:21.879561+00:00",
+          "price": 0.00196
+        },
+        {
+          "ts": "2026-11-14T14:36:53.794493+00:00",
+          "price": 0.001973
+        },
+        {
+          "ts": "2026-11-14T14:40:25.334416+00:00",
+          "price": 0.001974
+        },
+        {
+          "ts": "2026-11-14T14:44:37.098100+00:00",
+          "price": 0.001931
+        },
+        {
+          "ts": "2026-11-14T14:46:32.683777+00:00",
+          "price": 0.001948
+        },
+        {
+          "ts": "2026-11-14T14:49:47.986737+00:00",
+          "price": 0.001959
         }
       ]
     },
@@ -413,19 +495,43 @@
       "symbol": "CYBERLEEK-USDT",
       "ticker": "CYBERLEEK",
       "label": "CyberLeek",
-      "observed_at": "2026-11-14T13:34:47.232051+00:00",
+      "observed_at": "2026-11-14T14:49:57.603964+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.002836,
-      "change_24h_pct": 12.18,
-      "volume_24h_usd": 273466.53,
+      "price": 0.002623,
+      "change_24h_pct": 4.53,
+      "volume_24h_usd": 274287.93,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.0600706713780945,
-      "dex_liquidity_usd": 469317.42,
-      "long_score": 30,
-      "short_score": 0,
+      "spread_pct": 1.0670731707317167,
+      "dex_liquidity_usd": 448484.74,
+      "long_score": 0,
+      "short_score": 23,
       "research_state": "MONITOR",
+      "technical_signal": {
+        "entry_trigger": null,
+        "entry_zone_low": null,
+        "entry_zone_high": null,
+        "sl": null,
+        "tp1": null,
+        "tp2": null,
+        "rr": null,
+        "confidence": 0.0,
+        "direction": "WAIT",
+        "state": "FORMING",
+        "timeframe": "5m",
+        "as_of_candle_ts": 1794667200000,
+        "blocking_reasons": [
+          "wide_or_missing_spread"
+        ]
+      },
+      "kronos": {
+        "timeframe": "1h",
+        "directional_bias": "SHORT",
+        "forecast_return_pct": -17.509535879190587,
+        "cutoff_ts": 1794661200000,
+        "directional_weight": 0.0
+      },
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
         "missing_or_excessive_perp_spread"
@@ -433,82 +539,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/CYBERLEEK-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:09:01.442054+00:00",
-          "price": 0.00243
-        },
-        {
-          "ts": "2026-11-14T11:10:09.595585+00:00",
-          "price": 0.002431
-        },
-        {
-          "ts": "2026-11-14T11:10:59.060191+00:00",
-          "price": 0.00243
-        },
-        {
-          "ts": "2026-11-14T11:14:43.504033+00:00",
-          "price": 0.002436
-        },
-        {
-          "ts": "2026-11-14T11:18:15.021415+00:00",
-          "price": 0.002433
-        },
-        {
-          "ts": "2026-11-14T11:21:46.692403+00:00",
-          "price": 0.002447
-        },
-        {
-          "ts": "2026-11-14T11:25:18.188250+00:00",
-          "price": 0.002598
-        },
-        {
-          "ts": "2026-11-14T11:28:49.714748+00:00",
-          "price": 0.002519
-        },
-        {
-          "ts": "2026-11-14T11:32:21.732280+00:00",
-          "price": 0.002591
-        },
-        {
-          "ts": "2026-11-14T11:35:54.229425+00:00",
-          "price": 0.002591
-        },
-        {
-          "ts": "2026-11-14T11:39:25.436882+00:00",
-          "price": 0.002593
-        },
-        {
-          "ts": "2026-11-14T11:42:59.152456+00:00",
-          "price": 0.002598
-        },
-        {
-          "ts": "2026-11-14T11:46:30.649753+00:00",
-          "price": 0.002599
-        },
-        {
-          "ts": "2026-11-14T11:50:02.172838+00:00",
-          "price": 0.002599
-        },
-        {
-          "ts": "2026-11-14T11:53:34.394539+00:00",
-          "price": 0.002602
-        },
-        {
-          "ts": "2026-11-14T11:57:07.306067+00:00",
-          "price": 0.0026
-        },
-        {
-          "ts": "2026-11-14T12:00:38.851814+00:00",
-          "price": 0.002602
-        },
-        {
-          "ts": "2026-11-14T12:04:12.257145+00:00",
-          "price": 0.002604
-        },
-        {
-          "ts": "2026-11-14T12:07:43.766988+00:00",
-          "price": 0.002604
-        },
         {
           "ts": "2026-11-14T12:09:48.348495+00:00",
           "price": 0.002602
@@ -608,6 +638,98 @@
         {
           "ts": "2026-11-14T13:34:47.232051+00:00",
           "price": 0.002836
+        },
+        {
+          "ts": "2026-11-14T13:38:18.798298+00:00",
+          "price": 0.002828
+        },
+        {
+          "ts": "2026-11-14T13:41:52.197143+00:00",
+          "price": 0.002894
+        },
+        {
+          "ts": "2026-11-14T13:45:23.747613+00:00",
+          "price": 0.002938
+        },
+        {
+          "ts": "2026-11-14T13:48:56.181458+00:00",
+          "price": 0.002945
+        },
+        {
+          "ts": "2026-11-14T13:52:27.696795+00:00",
+          "price": 0.002945
+        },
+        {
+          "ts": "2026-11-14T13:53:57.114878+00:00",
+          "price": 0.002956
+        },
+        {
+          "ts": "2026-11-14T13:54:37.570228+00:00",
+          "price": 0.002937
+        },
+        {
+          "ts": "2026-11-14T13:58:09.791207+00:00",
+          "price": 0.002943
+        },
+        {
+          "ts": "2026-11-14T14:01:41.564406+00:00",
+          "price": 0.002912
+        },
+        {
+          "ts": "2026-11-14T14:05:14.133383+00:00",
+          "price": 0.002876
+        },
+        {
+          "ts": "2026-11-14T14:08:45.692958+00:00",
+          "price": 0.002955
+        },
+        {
+          "ts": "2026-11-14T14:12:17.218387+00:00",
+          "price": 0.002966
+        },
+        {
+          "ts": "2026-11-14T14:15:49.771401+00:00",
+          "price": 0.002961
+        },
+        {
+          "ts": "2026-11-14T14:19:21.315430+00:00",
+          "price": 0.002954
+        },
+        {
+          "ts": "2026-11-14T14:22:52.823389+00:00",
+          "price": 0.002963
+        },
+        {
+          "ts": "2026-11-14T14:26:26.338217+00:00",
+          "price": 0.002935
+        },
+        {
+          "ts": "2026-11-14T14:29:58.418535+00:00",
+          "price": 0.002927
+        },
+        {
+          "ts": "2026-11-14T14:33:29.925463+00:00",
+          "price": 0.002687
+        },
+        {
+          "ts": "2026-11-14T14:37:01.862232+00:00",
+          "price": 0.002652
+        },
+        {
+          "ts": "2026-11-14T14:40:33.375399+00:00",
+          "price": 0.002639
+        },
+        {
+          "ts": "2026-11-14T14:44:48.165232+00:00",
+          "price": 0.002629
+        },
+        {
+          "ts": "2026-11-14T14:46:57.448793+00:00",
+          "price": 0.002636
+        },
+        {
+          "ts": "2026-11-14T14:49:57.603964+00:00",
+          "price": 0.002623
         }
       ]
     },
@@ -615,19 +737,43 @@
       "symbol": "GTA6-USDT",
       "ticker": "GTA6",
       "label": "GTA VI Meme",
-      "observed_at": "2026-11-14T13:34:55.286504+00:00",
+      "observed_at": "2026-11-14T14:50:07.214359+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00609,
-      "change_24h_pct": -28.82,
-      "volume_24h_usd": 743184.8,
-      "funding_rate_pct": 0.01,
-      "spread_pct": 1.7900732302685087,
-      "dex_liquidity_usd": 324423.52,
-      "long_score": 16,
-      "short_score": 15,
+      "price": 0.00659,
+      "change_24h_pct": -19.12,
+      "volume_24h_usd": 736348.8,
+      "funding_rate_pct": 0.051500000000000004,
+      "spread_pct": 1.3688212927756622,
+      "dex_liquidity_usd": 340029.48,
+      "long_score": 23,
+      "short_score": 8,
       "research_state": "MONITOR",
+      "technical_signal": {
+        "entry_trigger": null,
+        "entry_zone_low": null,
+        "entry_zone_high": null,
+        "sl": null,
+        "tp1": null,
+        "tp2": null,
+        "rr": null,
+        "confidence": 0.0,
+        "direction": "WAIT",
+        "state": "FORMING",
+        "timeframe": "5m",
+        "as_of_candle_ts": 1794667500000,
+        "blocking_reasons": [
+          "wide_or_missing_spread"
+        ]
+      },
+      "kronos": {
+        "timeframe": "5m",
+        "directional_bias": "SHORT",
+        "forecast_return_pct": -1.7152533907448975,
+        "cutoff_ts": 1794667500000,
+        "directional_weight": 0.0
+      },
       "blocking_flags": [
         "dex_to_futures_identity_unverified",
         "missing_or_excessive_perp_spread"
@@ -635,82 +781,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GTA6-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T11:09:09.453737+00:00",
-          "price": 0.00685
-        },
-        {
-          "ts": "2026-11-14T11:10:17.627311+00:00",
-          "price": 0.00684
-        },
-        {
-          "ts": "2026-11-14T11:11:07.093946+00:00",
-          "price": 0.0069
-        },
-        {
-          "ts": "2026-11-14T11:14:51.565611+00:00",
-          "price": 0.00696
-        },
-        {
-          "ts": "2026-11-14T11:18:23.082059+00:00",
-          "price": 0.00697
-        },
-        {
-          "ts": "2026-11-14T11:21:54.735917+00:00",
-          "price": 0.00698
-        },
-        {
-          "ts": "2026-11-14T11:25:26.241135+00:00",
-          "price": 0.00699
-        },
-        {
-          "ts": "2026-11-14T11:28:57.767363+00:00",
-          "price": 0.00703
-        },
-        {
-          "ts": "2026-11-14T11:32:30.467952+00:00",
-          "price": 0.00702
-        },
-        {
-          "ts": "2026-11-14T11:36:01.990663+00:00",
-          "price": 0.007
-        },
-        {
-          "ts": "2026-11-14T11:39:33.493077+00:00",
-          "price": 0.007
-        },
-        {
-          "ts": "2026-11-14T11:43:07.213819+00:00",
-          "price": 0.007
-        },
-        {
-          "ts": "2026-11-14T11:46:38.698875+00:00",
-          "price": 0.00683
-        },
-        {
-          "ts": "2026-11-14T11:50:10.221789+00:00",
-          "price": 0.00673
-        },
-        {
-          "ts": "2026-11-14T11:53:42.428897+00:00",
-          "price": 0.00663
-        },
-        {
-          "ts": "2026-11-14T11:57:15.364738+00:00",
-          "price": 0.00652
-        },
-        {
-          "ts": "2026-11-14T12:00:46.902134+00:00",
-          "price": 0.00657
-        },
-        {
-          "ts": "2026-11-14T12:04:20.287496+00:00",
-          "price": 0.00667
-        },
-        {
-          "ts": "2026-11-14T12:07:51.813522+00:00",
-          "price": 0.00653
-        },
         {
           "ts": "2026-11-14T12:09:56.429240+00:00",
           "price": 0.00654
@@ -810,82 +880,174 @@
         {
           "ts": "2026-11-14T13:34:55.286504+00:00",
           "price": 0.00609
+        },
+        {
+          "ts": "2026-11-14T13:38:26.822324+00:00",
+          "price": 0.00625
+        },
+        {
+          "ts": "2026-11-14T13:42:00.232968+00:00",
+          "price": 0.00637
+        },
+        {
+          "ts": "2026-11-14T13:45:31.784419+00:00",
+          "price": 0.00637
+        },
+        {
+          "ts": "2026-11-14T13:49:04.227536+00:00",
+          "price": 0.0064
+        },
+        {
+          "ts": "2026-11-14T13:52:35.731207+00:00",
+          "price": 0.00649
+        },
+        {
+          "ts": "2026-11-14T13:54:05.162585+00:00",
+          "price": 0.00645
+        },
+        {
+          "ts": "2026-11-14T13:54:45.612191+00:00",
+          "price": 0.00646
+        },
+        {
+          "ts": "2026-11-14T13:58:17.331647+00:00",
+          "price": 0.00657
+        },
+        {
+          "ts": "2026-11-14T14:01:49.613992+00:00",
+          "price": 0.00654
+        },
+        {
+          "ts": "2026-11-14T14:05:22.171919+00:00",
+          "price": 0.00631
+        },
+        {
+          "ts": "2026-11-14T14:08:53.747076+00:00",
+          "price": 0.00639
+        },
+        {
+          "ts": "2026-11-14T14:12:25.550180+00:00",
+          "price": 0.00639
+        },
+        {
+          "ts": "2026-11-14T14:15:57.827372+00:00",
+          "price": 0.00639
+        },
+        {
+          "ts": "2026-11-14T14:19:29.373260+00:00",
+          "price": 0.00639
+        },
+        {
+          "ts": "2026-11-14T14:23:00.880319+00:00",
+          "price": 0.00666
+        },
+        {
+          "ts": "2026-11-14T14:26:34.374799+00:00",
+          "price": 0.0065
+        },
+        {
+          "ts": "2026-11-14T14:30:06.468848+00:00",
+          "price": 0.00656
+        },
+        {
+          "ts": "2026-11-14T14:33:37.998760+00:00",
+          "price": 0.00646
+        },
+        {
+          "ts": "2026-11-14T14:37:09.891515+00:00",
+          "price": 0.00652
+        },
+        {
+          "ts": "2026-11-14T14:40:41.438890+00:00",
+          "price": 0.00653
+        },
+        {
+          "ts": "2026-11-14T14:44:59.944717+00:00",
+          "price": 0.00652
+        },
+        {
+          "ts": "2026-11-14T14:47:08.230327+00:00",
+          "price": 0.00657
+        },
+        {
+          "ts": "2026-11-14T14:50:07.214359+00:00",
+          "price": 0.00659
         }
       ]
     }
   ],
   "news": [
     {
-      "headline": "small part of me doesn’t want GTA 6 to come out",
+      "headline": "Vancouver duo's song goes viral after featuring in Grand Theft Auto VI - CBC",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQam1UYy1GSTk3TVg0dFJ1N3F0UEpzMkJkS0NoeXU5RUt3TnBIMHBLRlQtR05rWVJMSXE5NGMtanpvU1V6R3dSNkh2dG5iMTBlS01OaC1uaHpPYzhXZkQ2R3I2WHUxdWU4UFdPZ01LZEd0dWhuTHlIdUxhY3d5akJXTWljMDNWSnpQNWRDWlp4Qjh1RmJMMVA2YlNfbmUzV2k3WUVIZ2RaSWNDUQ?oc=5",
+      "first_seen": "2026-11-14T14:44:10.358550+00:00"
+    },
+    {
+      "headline": "The Grand Theft Auto 6 economy reaches far and wide - TradingView",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPSm11dEJwTEdXeUE2VVd1NXBDLXU5OGV2b2JQYUpHNDBscTBLNUJTZFMyWHVqeVZZaGs5Tk5iQUZ0UC1FTGxvMFp2Ym9aMTk2eHZMZTNRSGpXd2gwQ0s2Wmh5TjYwRzY0dzEtcUVOdUp0dU5YVjhnVHVZbnhrb1FURXJ6S0o2cUNMYzN5cS13T0swT3VtUU4wckFlXzhfM1hkUlNIZ0NINlpQU2pwWER5OXc3RHA?oc=5",
+      "first_seen": "2026-11-14T14:35:09.956540+00:00"
+    },
+    {
+      "headline": "Why GTA 6 could become gaming’s biggest launch, sending ripple effects across the economy - CNBC",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNWi03bWtiT0ktNnZRTzhQNzRrQmhJYzdLbm5JS2ZKaWJDWFZ5ZnNZQlNMSUxJckNKa1Z4YWxwTnV5VDZZMzB6QnV6aUg3Q3cwRWgzOTNyc0dTQ214emFMLVdTVGFXbURPaXN5Tkt2cHpoal9lVi0wS1p5X2doODdLdnp5aVlBUTViMkp5QUlJc1c2eW1hQU5NdzdvS01jQlhxbW8yNjRR?oc=5",
+      "first_seen": "2026-11-14T14:24:53.131208+00:00"
+    },
+    {
+      "headline": "How Rockstar's 'GTA IV' release could reshape gaming, streaming and even paid time off - CNBC",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5GLXV6dVp1X1M2dUQtNHR5NUY5dHdWbnJpbHdKYnU3Q0prMnFKTmk2bTdlb19VOHRSdFVabG04TFpWMzJUYTFzb1ktYi1Id09nUWRHZUlSbmJnSWRlekxLMVZDU1Q5X083c0MyR0VhUnFoYVh30gF6QVVfeXFMTXRRZ2p5eXRCZDRNcUh1MEIxNEo0QzZvS3pMaG03ZWxvVV83LTk1bGZBRHFhbnBCdlYta2dNTXkzRk5kQ0loVmczeXJsWGNla3BWb3VNS1p2UVdmLW5sSzAtODN1S291dGRnVVN5RDdXRmNKMC1vMHQtT3c?oc=5",
+      "first_seen": "2026-11-14T14:14:35.543181+00:00"
+    },
+    {
+      "headline": "How Rockstar's 'GTA IV' release could reshape gaming, streaming and even paid time off - CNBC",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5GLXV6dVp1X1M2dUQtNHR5NUY5dHdWbnJpbHdKYnU3Q0prMnFKTmk2bTdlb19VOHRSdFVabG04TFpWMzJUYTFzb1ktYi1Id09nUWRHZUlSbmJnSWRlekxLMVZDU1Q5X083c0MyR0VhUnFoYVh30gF6QVVfeXFMTXRRZ2p5eXRCZDRNcUh1MEIxNEo0QzZvS3pMaG03ZWxvVV83LTk1bGZBRHFhbnBCdlYta2dNTXkzRk5kQ0loVmczeXJsWGNla3BWb3VNS1p2UVdmLW5sSzAtODN1S291dGRnVVN5RDdXRmNKMC1vMHQtT3c?oc=5",
+      "first_seen": "2026-11-14T14:14:34.628205+00:00"
+    },
+    {
+      "headline": "GTA VI Soundtrack full tracklist (taken from the vinyl)",
       "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xw2f8e/small_part_of_me_doesnt_want_gta_6_to_come_out/",
-      "first_seen": "2026-11-14T13:30:18.309867+00:00"
+      "url": "https://www.reddit.com/r/GTA6/comments/1xvz4vq/gta_vi_soundtrack_full_tracklist_taken_from_the/",
+      "first_seen": "2026-11-14T14:04:32.725375+00:00"
     },
     {
-      "headline": "When is the GTA 6 release date and how much is going to cost? Preorder and price for the highly anticipated game - MARCA",
+      "headline": "GTA 6 launches Thursday and is available for pre-load now: Everything you need to know about the new Rockstar game - Yahoo Tech",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMijAJBVV95cUxQRWJjQkM2b0hfclU4Y21TaG5CQW5qaTRVd1ItcnVfbzF5UVRxYTU5eFdhQ0xJTTNTdkViVGZ3NnU4eEJqU1lhaE1XeXMxWDZVOGNLZzduVHNWbFRETTlGVG9zdVRxdThsU054VXBva0dGS0QzODJkbzRpX2wtRl9oc0R2X0VUQS1uNEI4VG5Md3k0WGpERnNJOURBbFI0c3JUYXNfblI0RWx6SUY5UWZNMTFJT2RMVmE1bEpOLUZ2VkQyaXpLMW9yRWhnUVY4a1A1ajdtenBYQTNLRW9jN1JxbzN3SmdTQnk5dHhwVUx0ekNEVFgtQUdyNWc4Wnd2ZGFlZXE5b3VULU1fY1NE?oc=5",
+      "first_seen": "2026-11-14T14:04:17.592636+00:00"
+    },
+    {
+      "headline": "6 New GTA 6 Gameplay DetailsFrom The Guardian’s Rockstar Interview - VICE",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE0zQmVONFE5cEdFM3Z0QWNhT283ZTh0cDJoQUdsWVpiUS1VMVBVYXNkREloa3VsXzJhaWFIcmRSZXQyUGJSbTlsMWQyUUM4eTZGNUNmSTRacWo5UlhCX3Q0LU9IdHM2MWJFSWxkUDBncXpHWFprU2NjQ1NydHlQcnM?oc=5",
+      "first_seen": "2026-11-14T14:04:17.529955+00:00"
+    },
+    {
+      "headline": "[GTA6 RECAP] Most of us were witnessing this through all these years so now - on the last weekend before launch - let’s sit comfortably and remind ourselves how this whole process went",
+      "source": "rockstar_reddit",
+      "url": "https://www.reddit.com/r/GTA6/comments/1xw2wnd/gta6_recap_most_of_us_were_witnessing_this/",
+      "first_seen": "2026-11-14T13:53:33.705166+00:00"
+    },
+    {
+      "headline": "GTA 6 has Logitech telling its 7,000+ employees to log off and game for a day - Business Insider",
       "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxPTW8xUjdIYU1sSElPTU8wNzZYRXNkT0FCdnBuUWhvTWNzYV9NQ2RsWkY5RWM2MnEzdklyVHl6bDdJRGVUeTA2MlFoNy1LbFgyVk5qMVEtMXZmT2JaSTFCV3dTQjcteWpRSVljSTFhLWFwd2hhbWplT2N6cUtBQXQ3UjVVaTBIVFVXZ1Y4NDlqS2lDcU9uNnRhVTVwNVN0YXBpbnRHQ1ppZUVTS1pBOFpjcmtSQ1FWVWN4MDdfdV9Cd21BTmw5dDlmT2pJaVFkZ2JsM0ZRTXJaN2IzTTZKTmFGT1poY054V0cxX0pQVFNZTVVMby15NldaOWFDMEQtSUnSAf8BQVVfeXFMTmZjQ0R3czV6czE2MzVjNWNBRGFrSUkxVm5Lb1ZVWE5OcHF1NlRwMjdkVXc4QXFCZ3BSblp0SVVSaHdQcTJrVVdHUnllVXNhMHRYS3dyWURrTVZFV0tCdzd4UWctRkxtWC1IOGVHSC1wWXVvX2gyeUxFelBQdGNGeVAyTWZvTHc5Z2dUaTlQX3RZME9nd3hfUmJ0ZUx5QnFmR3JFNEVTY3ZBeTd0VDU5dGlvdTJwWjlSNFpoRjBOdjJOQUtrbmVPQmY1S28zR1NhNE1WQl9xZG9VRDd4SE9Tc2hKWWZzMTA4Nnl4U19UZU9rMUdHbHk0a0xvTnhpYXQw?oc=5",
-      "first_seen": "2026-11-14T13:30:04.512780+00:00"
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5XQm9RaUVOb0VfZ3VLa0tHc01kNWRHMUd5UjBEYXhzQkNGOEN2SFVLendFY2pOYUFkZGhiSTRkdG1ia1hIV1dpLXBCeU04QTdfZVZUbTFOMTNtME8tTUl1aHh5RVVRZDBWVHkxU2Rpdjl3Z1ZERzVneWxtSjVFQms?oc=5",
+      "first_seen": "2026-11-14T13:53:30.169951+00:00"
     },
     {
-      "headline": "From Gen X to Gen Z, ‘unicorn game’ GTA VI’s multigenerational pull is a threat to Hollywood’s holiday blockbusters - Yahoo",
+      "headline": "How to Play GTA VI—Buy Take-Two Stock - Barron's",
       "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPd1BaaTFzLWFvaGY1ak9qTDhHbC0xMkU4d2x1UmxQY3RXTHlVVHB5MkZ3M2tXNzJXZ2cxUWt0ekJDVi1WbkJNNnhESWxRdDRCdmRUU0VGRS1zTGJ1OUgtT3R1ODVCaVVJbmNpanlDT2tuQnQtV1U5emRVRmE5aDFtYm1vVVBwZEsySnExajJ1MA?oc=5",
-      "first_seen": "2026-11-14T13:30:04.454721+00:00"
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNOWFTeDFSR3B3TUM2ejJ0aEYwU3lHbTdqYlprU0NOZHVndVFYSklhZ1JJM0JSVmt2TUhtVDdSQlFaNEdneE1yNkJzVUhnYnFZXzh1MUNJY0E2eDZqWENwb0U3UV9DcU9HQ0FWX1ZKLWNtVmtaVjBSTDRrT2hZNGJER0hSWTRDa2s?oc=5",
+      "first_seen": "2026-11-14T13:50:38.549087+00:00"
     },
     {
-      "headline": "When is the GTA 6 release date and how much is going to cost? Preorder and price for the highly anticipated game - MARCA",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxPTW8xUjdIYU1sSElPTU8wNzZYRXNkT0FCdnBuUWhvTWNzYV9NQ2RsWkY5RWM2MnEzdklyVHl6bDdJRGVUeTA2MlFoNy1LbFgyVk5qMVEtMXZmT2JaSTFCV3dTQjcteWpRSVljSTFhLWFwd2hhbWplT2N6cUtBQXQ3UjVVaTBIVFVXZ1Y4NDlqS2lDcU9uNnRhVTVwNVN0YXBpbnRHQ1ppZUVTS1pBOFpjcmtSQ1FWVWN4MDdfdV9Cd21BTmw5dDlmT2pJaVFkZ2JsM0ZRTXJaN2IzTTZKTmFGT1poY054V0cxX0pQVFNZTVVMby15NldaOWFDMEQtSUnSAf8BQVVfeXFMTmZjQ0R3czV6czE2MzVjNWNBRGFrSUkxVm5Lb1ZVWE5OcHF1NlRwMjdkVXc4QXFCZ3BSblp0SVVSaHdQcTJrVVdHUnllVXNhMHRYS3dyWURrTVZFV0tCdzd4UWctRkxtWC1IOGVHSC1wWXVvX2gyeUxFelBQdGNGeVAyTWZvTHc5Z2dUaTlQX3RZME9nd3hfUmJ0ZUx5QnFmR3JFNEVTY3ZBeTd0VDU5dGlvdTJwWjlSNFpoRjBOdjJOQUtrbmVPQmY1S28zR1NhNE1WQl9xZG9VRDd4SE9Tc2hKWWZzMTA4Nnl4U19UZU9rMUdHbHk0a0xvTnhpYXQw?oc=5",
-      "first_seen": "2026-11-14T13:19:07.908680+00:00"
-    },
-    {
-      "headline": "GTA 6 Map Leak Names 9 Places, Sequel Tease Unverified - shattered.io",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWUlqblMtRXlWbGoyS3dyeGR1enRhbkVuWURYXzQxSEx4R1Y3SHJsWndBSXNCNHFkUWlBM2VkRXpfM0Vab29xa3J5NkdDZ0pFVWMwVndjQk5JTUREajRqT09YRzFJbmdlUUV2QVZkdnROYmFMclpZWlFXM1hIbUgzQ09ucGt1S2hWTEdYWQ?oc=5",
-      "first_seen": "2026-11-14T13:09:07.115923+00:00"
-    },
-    {
-      "headline": "Every GTA 6 actor rumored and confirmed ahead of launch - Polygon.com",
+      "headline": "Why you should care about Grand Theft Auto VI - The Times",
       "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFAzRl9XVm1ISmpBcFNiSndkby12b2R0ZC1oUnBLTmhLN3JfSFV1ZjFIZ2NfYUdQWjY2LTc3X2tTZWRLcGZNNmZHNHpyZGFabnpLVjYybjR2NnkyWjFpUFBpNmVyQVd3dXJwSHpYdmlMcW1VQ21IX2xTV0t3dw?oc=5",
-      "first_seen": "2026-11-14T12:58:50.537741+00:00"
-    },
-    {
-      "headline": "GTA VI Unveils 'Macca & Friends' Animated Series Teaser - X",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE45UzQ0bWlzeUdHUko4SFQ1N05VRWRiMWhYS1N0eElib3duOWVlcGVnQkcya1lKeHVrdUFBbFNNZG1KYjN0YUtaR09GYy1pdURMNzVSYlFmNA?oc=5",
-      "first_seen": "2026-11-14T12:58:49.510191+00:00"
-    },
-    {
-      "headline": "Every GTA 6 Actor Rumored and Confirmed by Rockstar Ahead of Launch - Polygon.com",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFAzRl9XVm1ISmpBcFNiSndkby12b2R0ZC1oUnBLTmhLN3JfSFV1ZjFIZ2NfYUdQWjY2LTc3X2tTZWRLcGZNNmZHNHpyZGFabnpLVjYybjR2NnkyWjFpUFBpNmVyQVd3dXJwSHpYdmlMcW1VQ21IX2xTV0t3dw?oc=5",
-      "first_seen": "2026-11-14T12:48:33.986705+00:00"
-    },
-    {
-      "headline": "Xbox executive hints at in-game ads as the only way to stop 'dramatic' game prices following GTA 6 - GAMINGbible",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQcnJiZjZvMjRwOV9QX0FNVnk0aUNXMFZZQmY1bXJMdjB3b1BPYnlOdF83SFlBRnE3eEctdllBM0dGdFNJZDhta212c0dpazBYRmEteDM1YjNnZE4wSUE0T0VScFhnUUUwN2dRQjVpSXI2OFdTWUppWXpCTU9OaEFjZUFTSU9BRnlfTHM0aWI5OGNpdDFQTmVrZ1lOZVFabGxSZnN3?oc=5",
-      "first_seen": "2026-11-14T12:48:32.963703+00:00"
-    },
-    {
-      "headline": "Ahead of ‘Grand Theft Auto VI,’ Rockstar Staff Vote on Union Effort - Bloomberg",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOYUN3Qm1hT2ViX0JpU1VwcmlKSnNPZmRGSzhXN2ZwMjhSOGpmMjZmVzFJVXdQdzRmaGNudUt3MlBpcmlfMGlWdTJaMURpRXhoWC1sRkdaengwUWtmcU1ReE1TSk5vVlhmYzA1T3lHc3pBR09xRDdZZUR5UFVEUXdvN0pwM29Lb2hyaWVNSVU1ME5obE82QlZhakpEazZKeE4yNWJBZ25hNHNGNzA?oc=5",
-      "first_seen": "2026-11-14T12:48:32.900521+00:00"
-    },
-    {
-      "headline": "The Grand Theft Auto 6 economy reaches far and wide (TTWO:NASDAQ) - Seeking Alpha",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPaTBqdzBoYzZteFNGX3ZLVWh0N0FESVpyMjQ0aF9HQ0lpMjItM1JwMXJuekR5NFhNUzM5Q3VKWWpxUmYwZmc5UWFCeWpKMFNtSU9hcjVsbHpXWFVTTmxLMXVrb0EtT3hORXBuUUhJYS1BMmV6X0hmUEVtWFVRbFp1aXFhNHROV3p6aHQ2Zl9XRzEyY1U?oc=5",
-      "first_seen": "2026-11-14T12:09:21.862059+00:00"
-    },
-    {
-      "headline": "Latest GTA 6 Interview Confirms New Gameplay Features And Details - RockstarINTEL",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQbXNKcV9abUFmMkd2TGljSFN4RGI0ZnpYeFFMbENwZTloZ2VXMm9hZlh1dEJqYU5EWmR1Y3RHTmdlb1hxVC1GVXpMSDZSQXo1MjRQUXAyTDVYaEJOQXByXzl3Y09EQ2U0cWM1cDBQc1JJZTE1THJULVVwb3RzbUMxdFFlWjN1Qm1UdWRuUmlMNF94S1RhdGlJ?oc=5",
-      "first_seen": "2026-11-14T12:09:20.874649+00:00"
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPazNEQXRMUHhFT18yb0xHY1hVWGZLeXVfMlBXWVZmbVJDOXhwbC16OENtcXdSdm10NXZISjZqeW1tb2l3eG5reDgwZ3FYOWNmTWNwTU1uUGhuTHB5SG5CQWV5UVRnSE1vVHZCNl81VVpDNFNURU5yYXdnWGV2NEUzVVEwS1ZqOXF2WG1tQkpYOA?oc=5",
+      "first_seen": "2026-11-14T13:50:38.497691+00:00"
     }
   ]
 }

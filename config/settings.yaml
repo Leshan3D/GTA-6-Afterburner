@@ -32,3 +32,26 @@ narrative:
   event_date: "2026-11-19"
   event_name: "Provisional GTA VI launch date — verify official news"
   event_verified: false
+
+# v0.4: paper analytical signals only. No exchange execution.
+signal:
+  enabled: true
+  timeframe: 5m
+  minimum_closed_candles: 100
+  sl_atr_mult: 1.5
+  tp1_rr: 2.0
+  tp2_rr: 3.0
+  min_net_rr: 1.2
+  fee_bps: 10
+  slippage_bps: 10
+  volume_ratio_min: 1.15
+  expiry_seconds: 14400
+kronos:
+  enabled: true          # enabled after validating isolated model environment
+  factor_weight: 0.0     # observation, not vote or veto (hard-enforced)
+  python: /home/leshanyahu/.local/share/afterburner-kronos/venv/bin/python
+  model: NeoQuasar/Kronos-small
+  lookback: 400
+  samples: 1
+  timeout_seconds: 120
+  horizons: {5m: 6, 15m: 8, 1h: 6}

@@ -81,3 +81,9 @@ The private Telegram bot adds `/publish` for the last local push status. A succe
 git push is not proof GitHub Pages finished deploying; verify the Pages workflow.
 
 The live market collector and JAFAR are not modified by this publishing component.
+
+## v0.4.0 — Candle-close signal intelligence (operator review required)
+
+New: stored multi-timeframe completed BingX candles, confirmed technical LONG/SHORT triggers, entry/SL/TP/net-R:R levels, separable hypothetical next-bar paper fills, backtest research, Telegram `/signals`/`/setups`/`/performance`/`/kronos`, and a third-opinion Kronos subprocess (disabled until locally installed; zero voting weight). **No exchange order execution.**
+
+See [v0.4 signal design and limitations](docs/SIGNALS_V04.md) and [OpenCode deployment guide](OPENCODE_V0.4_UPGRADE.md). Existing data store and public publisher are retained.
