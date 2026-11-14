@@ -1,16 +1,15 @@
 # Private Telegram operator bot (v0.2)
 
-The bot is **read-only**. It never requests brokerage keys, submits orders, or controls systemd. The Telegram API token belongs to AFTERBURNER alone; **never reuse JAFAR's token**. Commands are restricted to explicitly authorized chat IDs. Pushed research alerts go **only to the primary operator**. Friends' allowlisted chats can read status, not subscribe to operator alerts by default.
+The bot is **read-only**. It never requests brokerage keys, submits orders, or controls systemd. The Telegram API token belongs to AFTERBURNER alone; **never reuse another project's token**. Commands are restricted to explicitly authorized chat IDs. Pushed research alerts go **only to the primary operator**. Friends' allowlisted chats can read status, not subscribe to operator alerts by default.
 
 ## Set up securely
 
 1. In Telegram, open the official **@BotFather**, run `/newbot`, record its token privately, and start a conversation with the resulting bot. Never paste the token into a GitHub issue, chat message, or public repository.
-2. On Omarchy, stop AFTERBURNER briefly while finding your chat ID so only one process polls Telegram:
+2. On your host, stop AFTERBURNER briefly while finding your chat ID so only one process polls Telegram:
 
    ```bash
    systemctl --user stop afterburner.service
-   cd /mnt/jormungandr-rw/AFTERBURNER
-   # Edit the root project path above if installed elsewhere.
+   cd <YOUR_PROJECT_DIR>
    nano ~/.config/afterburner/.env
    ```
 
@@ -19,7 +18,7 @@ The bot is **read-only**. It never requests brokerage keys, submits orders, or c
 3. Find the chat ID locally, without printing the token:
 
    ```bash
-   ~/.local/share/afterburner/venv/bin/python -m afterburner bot-chats
+   python -m afterburner bot-chats
    ```
 
    If no chat ID appears, send `/start` again and retry. If an existing Telegram webhook is registered, `getUpdates` will not work until that webhook is removed. Do not change webhooks for other bots.

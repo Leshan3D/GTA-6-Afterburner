@@ -3,7 +3,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # Portable across friends' Linux machines. The operator's primary target is
-# /mnt/jormungandr-rw/AFTERBURNER, but other install paths are supported.
+# <YOUR_PROJECT_DIR>, but other install paths are supported.
 if [[ "$ROOT" == *"/JAFAR-ENGINE" || "$ROOT" == *"/PERSONAL JAFAR ENGINE"* ]]; then
   echo "ERROR: Refusing to install inside a JAFAR directory" >&2
   exit 2
