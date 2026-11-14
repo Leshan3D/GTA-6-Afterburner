@@ -6,6 +6,8 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import math
 import os
+import json
+from pathlib import Path
 
 
 def seconds_since(stamp):
@@ -65,7 +67,25 @@ def status_report(assets, storage, config, command="/meme"):
                 "/status — service heartbeat\n"
                 "/alerts — recent research alerts\n"
                 "/link — configured public dashboard URL\n"
+                "/publish — GitHub Pages snapshot publisher status\n"
                 "Research only; no order execution.")
+
+    if action == "/publish":
+        from .config import data_dir
+        path = data_dir() / "publisher" / "publisher-status.json"
+        try:
+            state = json.loads(path.read_text())
+        except (OSError, ValueError):
+            return "📤 AFTERBURNER | PUBLISHER\nNot configured or not run yet."
+        lines = ["📤 AFTERBURNER | GITHUB PAGES PUBLISHER",
+                 "Last attempt: " + elapsed(state.get("last_attempt_at")),
+                 "Last push: " + elapsed(state.get("last_push_at")),
+                 "Last market sample published: " + elapsed(state.get("last_observation_at")),
+                 "State: " + str(state.get("state", "unknown"))[:50],
+                 "Site deployment: not verified by publisher"]
+        if state.get("error"):
+            lines.append("Last error: " + str(state["error"])[:140])
+        return "\n".join(lines)
 
     if action == "/link":
         url = os.environ.get("AFTERBURNER_PUBLIC_URL", "").strip()

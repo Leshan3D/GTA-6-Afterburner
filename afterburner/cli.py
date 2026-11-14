@@ -20,7 +20,7 @@ def main(argv=None):
                         format="%(asctime)s %(levelname)s %(name)s %(message)s")
     load_env_file()
     if opts.command == "doctor":
-        print("AFTERBURNER v0.2.0 / static configuration check (no external API calls)")
+        print("AFTERBURNER v0.3.0 / static configuration check (no external API calls)")
         conf = settings()
         watch = assets()
         sources()

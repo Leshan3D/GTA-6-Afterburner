@@ -67,3 +67,17 @@ Tests are deterministic and offline: they check market parsing, scoring gates, T
 5. **News isn't price direction.** Gaming headlines are discovery evidence, not automatically positive signals. Social-platform metrics are not fabricated; X/Telegram social listening isn't included.
 6. **No trading capability.** AFTERBURNER has no Binance/BingX private API calls, trade buttons, leverage actions, order approvals or execution module.
 7. **Sunset is simple:** `systemctl --user disable --now afterburner.service`; shut down Funnel separately; archive the independent SQLite database if desired.
+
+## v0.3.0 — Automatic GitHub Pages snapshots (optional)
+
+The public dashboard now shows collection health, the most recent market observation,
+and when the public snapshot was prepared. It computes staleness from market observation
+timestamps; exporting or publishing cannot make old prices appear fresh.
+
+To install the **optional** ten-minute public publisher, read
+[`docs/AUTO_PUBLISHING.md`](docs/AUTO_PUBLISHING.md). It uses a dedicated Git
+checkout and commits only `site/data.json`. It is **not enabled by default**.
+The private Telegram bot adds `/publish` for the last local push status. A successful
+git push is not proof GitHub Pages finished deploying; verify the Pages workflow.
+
+The live market collector and JAFAR are not modified by this publishing component.

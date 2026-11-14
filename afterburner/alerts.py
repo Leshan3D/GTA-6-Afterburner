@@ -12,7 +12,7 @@ import requests
 
 LOG = logging.getLogger(__name__)
 COMMAND = re.compile(r"^/([a-zA-Z]+)(?:@([a-zA-Z0-9_]+))?(?:\s+(.{1,120}))?$", re.S)
-KNOWN_COMMANDS = frozenset(("meme", "status", "help", "start", "progress", "health", "news", "alerts", "link"))
+KNOWN_COMMANDS = frozenset(("meme", "status", "help", "start", "progress", "health", "news", "alerts", "link", "publish"))
 
 
 def parse_command(text, bot_username=""):

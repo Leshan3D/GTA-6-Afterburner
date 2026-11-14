@@ -9,6 +9,7 @@ main{max-width:1100px;margin:0 auto;padding:32px 18px 60px}header{display:flex;j
 h1{font-size:2.2rem;margin:.2em 0;letter-spacing:.04em}h2{font-size:1.15rem;margin:0 0 14px}.eyebrow{color:#88b7fc;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
 p,small,.muted{color:#a6b1c4;line-height:1.55}.pill{font-size:.76rem;border:1px solid #47516b;padding:8px 12px;border-radius:50px;color:#bdd8f9}
 .notice{padding:14px 16px;margin:20px 0;border:1px solid #394154;background:#181c29;border-radius:12px;font-size:.86rem;color:#bcc5d5}
+.healthboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:18px 0 22px}.healthitem{border:1px solid #313b51;border-radius:12px;background:#141c2b;padding:13px 15px;min-width:0}.healthitem strong{display:block;font-size:.94rem;margin-top:5px}.healthitem small{color:#a6b1c4;font-size:.73rem}.healthstate.good{color:#70e4b7}.healthstate.bad{color:#ff9a9f}.healthstate.unknown{color:#f5c47e}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:14px}.card{padding:19px;border:1px solid #313b51;background:#141c2b;border-radius:16px;min-width:0}
 .card .symbol{font-size:.9rem;color:#aebed4}.price{font-size:1.65rem;font-weight:760;margin:14px 0 6px}.plus{color:#70e4b7}.minus{color:#ff9a9f}
 .row{display:flex;justify-content:space-between;gap:10px;align-items:center}.metrics{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.metric{background:#222d42;border-radius:8px;padding:7px 10px;font-size:.8rem}
@@ -18,10 +19,16 @@ footer{margin-top:35px;font-size:.78rem;color:#94a1b6}.time{font-size:.79rem;col
 </style></head><body><main>
 <header><div><div class="eyebrow">Standalone public market intelligence</div><h1>🔥 AFTERBURNER</h1><div class="muted">GTA VI narrative · BingX futures · Solana liquidity</div></div><span class="pill">RESEARCH ONLY · NO EXECUTION</span></header>
 <div class="notice">Unofficial, speculative market research. Signals are not financial advice, trade instructions or confirmations that futures symbols match individual Solana mints. Data may be delayed or unavailable. Never use this dashboard as the sole basis for a leveraged trade.</div>
+<div class="healthboard" aria-label="Public data freshness">
+  <div class="healthitem"><small>Market collection</small><strong id="market-health" class="healthstate unknown">Checking…</strong></div>
+  <div class="healthitem"><small>Newest market observation</small><strong id="market-observation">—</strong></div>
+  <div class="healthitem"><small>Public snapshot prepared</small><strong id="public-export">—</strong></div>
+  <div class="healthitem"><small>Publishing cadence</small><strong>Target: every 10 minutes</strong></div>
+</div>
 <div class="row"><div class="eyebrow">Market radar</div><div id="updated" class="time">Loading snapshot…</div></div>
 <section id="cards" class="grid" aria-live="polite"><p>Waiting for market snapshot…</p></section>
 <section><h2>📰 Narrative headlines</h2><p class="muted">Discovery feeds only; headlines are not independently verified announcements.</p><div id="news">Loading…</div></section>
-<footer>AFTERBURNER public view contains only research-market snapshots. The operator's private dashboard, diagnostics, bot credentials and database remain separate. GitHub Pages snapshots update only when the operator exports and publishes new data.</footer>
+<footer>AFTERBURNER public view contains only research-market snapshots. The operator's private dashboard, diagnostics, bot credentials and database remain separate. GitHub Pages displays the latest published snapshot. The operator may enable an independent 10-minute publisher; check timestamps to confirm freshness.</footer>
 </main><script>
 'use strict';
 const $=s=>document.getElementById(s);
@@ -29,9 +36,21 @@ const make=(parent,tag,cls,value)=>{const x=document.createElement(tag);if(cls)x
 const cash=(v,places=2)=>typeof v==='number'&&Number.isFinite(v)?'$'+v.toLocaleString('en-US',{minimumFractionDigits:places,maximumFractionDigits:places}):'Unavailable';
 const num=(v,places=2)=>typeof v==='number'&&Number.isFinite(v)?v.toFixed(places):'N/A';
 const old=(stamp,limit)=>{const t=Date.parse(stamp||'');return !Number.isFinite(t)||Date.now()-t>(limit||600)*1000};
+const relative=(stamp)=>{const t=Date.parse(stamp||'');if(!Number.isFinite(t))return 'Unavailable';const sec=Math.max(0,Math.round((Date.now()-t)/1000));return sec<60?sec+'s ago':sec<3600?Math.floor(sec/60)+'m ago':Math.floor(sec/3600)+'h ago'};
 function chart(canvas,history){const prices=(history||[]).map(x=>x.price).filter(x=>typeof x==='number'&&Number.isFinite(x));if(prices.length<2)return;const ctx=canvas.getContext('2d');const lo=Math.min(...prices),hi=Math.max(...prices),spread=hi-lo||1;const w=canvas.width,h=canvas.height;ctx.strokeStyle=prices.at(-1)>=prices[0]?'#70e4b7':'#ff9a9f';ctx.lineWidth=2;ctx.beginPath();prices.forEach((p,i)=>{const x=i*w/(prices.length-1),y=(1-(p-lo)/spread)*(h-12)+6;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke()}
 async function refresh(){try{const resp=await fetch('./data.json',{cache:'no-store'});if(!resp.ok)throw Error('HTTP '+resp.status);const data=await resp.json();if(!Array.isArray(data.assets))throw Error('Missing data');
-$('updated').textContent='Published '+(data.generated_at?new Date(data.generated_at).toLocaleString():'unknown')+(old(data.generated_at,900)?' · ⚠️ Snapshot may be outdated':'');
+$('updated').textContent='Snapshot prepared '+(data.generated_at?new Date(data.generated_at).toLocaleString():'unknown')+(old(data.generated_at,1200)?' · ⚠️ Snapshot may be outdated':'');
+const samples=data.assets.filter(a=>a.observed_at);
+const newest=samples.map(a=>a.observed_at).sort().at(-1)||null;
+const fresh=samples.filter(a=>!old(a.observed_at,a.stale_after_seconds)).length;
+const health=$('market-health');
+const freshPublication=!old(data.generated_at,1200);
+health.className='healthstate '+(fresh===data.assets.length&&freshPublication?'good':fresh?'unknown':'bad');
+health.textContent=fresh===data.assets.length&&freshPublication?'● Healthy ('+fresh+'/'+data.assets.length+')':fresh?'⚠ Delayed ('+fresh+'/'+data.assets.length+' fresh)':'● Stale / unavailable';
+$('market-observation').textContent=relative(newest);
+$('market-observation').title=newest?new Date(newest).toLocaleString():'No market observations';
+$('public-export').textContent=relative(data.generated_at);
+$('public-export').title=data.generated_at?new Date(data.generated_at).toLocaleString():'No public snapshot';
 const root=$('cards');root.replaceChildren();for(const a of data.assets){const card=make(root,'article','card');const top=make(card,'div','row');make(top,'strong','',a.ticker);make(top,'small','symbol',a.symbol);make(card,'div','price',cash(a.price,8));const ch=make(card,'div',a.change_24h_pct>=0?'plus':'minus','24h: '+num(a.change_24h_pct)+'% · volume: '+cash(a.volume_24h_usd,0));const cv=make(card,'canvas');cv.width=300;cv.height=68;chart(cv,a.history);
 const metrics=make(card,'div','metrics');make(metrics,'span','metric','Long '+(a.long_score??'?')+'/100');make(metrics,'span','metric','Short '+(a.short_score??'?')+'/100');make(metrics,'span','metric',a.research_state||'No signal');
 make(card,'div','muted','Funding: '+num(a.funding_rate_pct,4)+'% · DEX liquidity: '+cash(a.dex_liquidity_usd,0));const stale=old(a.observed_at,a.stale_after_seconds)||a.stale_at_export;if(stale)make(card,'p','warn','⚠️ Market sample is stale');if(!a.mint_verified)make(card,'p','warn','Unverified futures ↔ DEX mint mapping');if(a.blocking_flags?.length)make(card,'p','warn','Risk flags: '+a.blocking_flags.slice(0,3).join(', '));
