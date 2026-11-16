@@ -1,6 +1,6 @@
 {
   "product": "AFTERBURNER Public Radar",
-  "generated_at": "2026-11-16T10:00:54.761188+00:00",
+  "generated_at": "2026-11-16T10:10:58.747411+00:00",
   "execution_enabled": false,
   "research_only": true,
   "assets": [
@@ -8,17 +8,17 @@
       "symbol": "GATO-USDT",
       "ticker": "GATO",
       "label": "GTA6CAT",
-      "observed_at": "2026-11-16T09:59:54.416864+00:00",
+      "observed_at": "2026-11-16T10:10:52.296177+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00677,
-      "change_24h_pct": -2.73,
-      "volume_24h_usd": 699282.38,
+      "price": 0.00692,
+      "change_24h_pct": 0.29,
+      "volume_24h_usd": 700655.68,
       "funding_rate_pct": -0.01,
-      "spread_pct": 1.3284132841328384,
-      "dex_liquidity_usd": 267728.07,
-      "long_score": 0,
+      "spread_pct": 1.2996389891696722,
+      "dex_liquidity_usd": 269559.4,
+      "long_score": 30,
       "short_score": 0,
       "research_state": "MONITOR",
       "technical_signal": {
@@ -33,7 +33,7 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794822600000,
+        "as_of_candle_ts": 1794823500000,
         "blocking_reasons": [
           "thin_or_missing_ask_depth_usd",
           "thin_or_missing_bid_depth_usd",
@@ -55,18 +55,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GATO-USDT",
       "history": [
-        {
-          "ts": "2026-11-16T07:12:08.013302+00:00",
-          "price": 0.00706
-        },
-        {
-          "ts": "2026-11-16T07:15:46.274427+00:00",
-          "price": 0.00695
-        },
-        {
-          "ts": "2026-11-16T07:19:28.776936+00:00",
-          "price": 0.00695
-        },
         {
           "ts": "2026-11-16T07:23:05.022915+00:00",
           "price": 0.00693
@@ -246,6 +234,18 @@
         {
           "ts": "2026-11-16T09:59:54.416864+00:00",
           "price": 0.00677
+        },
+        {
+          "ts": "2026-11-16T10:03:39.261525+00:00",
+          "price": 0.0068
+        },
+        {
+          "ts": "2026-11-16T10:07:16.136668+00:00",
+          "price": 0.00679
+        },
+        {
+          "ts": "2026-11-16T10:10:52.296177+00:00",
+          "price": 0.00692
         }
       ]
     },
@@ -253,18 +253,18 @@
       "symbol": "DACITY-USDT",
       "ticker": "DACITY",
       "label": "Dacity",
-      "observed_at": "2026-11-16T10:00:05.885764+00:00",
+      "observed_at": "2026-11-16T10:07:25.147916+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.001887,
-      "change_24h_pct": -0.16,
-      "volume_24h_usd": 249687.09,
+      "price": 0.001881,
+      "change_24h_pct": -0.99,
+      "volume_24h_usd": 249738.87,
       "funding_rate_pct": -0.01,
-      "spread_pct": 1.112582781456952,
-      "dex_liquidity_usd": 241138.17,
+      "spread_pct": 1.116130746744617,
+      "dex_liquidity_usd": 241680.4,
       "long_score": 15,
-      "short_score": 8,
+      "short_score": 0,
       "research_state": "MONITOR",
       "technical_signal": {
         "entry_trigger": null,
@@ -278,7 +278,7 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794822900000,
+        "as_of_candle_ts": 1794823200000,
         "blocking_reasons": [
           "wide_or_missing_spread"
         ]
@@ -297,14 +297,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/DACITY-USDT",
       "history": [
-        {
-          "ts": "2026-11-16T07:12:18.104369+00:00",
-          "price": 0.001835
-        },
-        {
-          "ts": "2026-11-16T07:15:57.759954+00:00",
-          "price": 0.001836
-        },
         {
           "ts": "2026-11-16T07:19:37.962919+00:00",
           "price": 0.001836
@@ -488,6 +480,14 @@
         {
           "ts": "2026-11-16T10:00:05.885764+00:00",
           "price": 0.001887
+        },
+        {
+          "ts": "2026-11-16T10:03:48.908542+00:00",
+          "price": 0.001884
+        },
+        {
+          "ts": "2026-11-16T10:07:25.147916+00:00",
+          "price": 0.001881
         }
       ]
     },
@@ -495,16 +495,16 @@
       "symbol": "CYBERLEEK-USDT",
       "ticker": "CYBERLEEK",
       "label": "CyberLeek",
-      "observed_at": "2026-11-16T10:00:16.927138+00:00",
+      "observed_at": "2026-11-16T10:07:34.110812+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.002177,
-      "change_24h_pct": -14.8,
-      "volume_24h_usd": 252888.2,
+      "price": 0.002152,
+      "change_24h_pct": -15.71,
+      "volume_24h_usd": 252323.83,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.0557723204039484,
-      "dex_liquidity_usd": 399317.81,
+      "spread_pct": 1.1147236414305488,
+      "dex_liquidity_usd": 398288.62,
       "long_score": 0,
       "short_score": 30,
       "research_state": "MONITOR",
@@ -520,7 +520,7 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794822900000,
+        "as_of_candle_ts": 1794823200000,
         "blocking_reasons": [
           "wide_or_missing_spread"
         ]
@@ -539,14 +539,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/CYBERLEEK-USDT",
       "history": [
-        {
-          "ts": "2026-11-16T07:12:27.157056+00:00",
-          "price": 0.002317
-        },
-        {
-          "ts": "2026-11-16T07:16:08.112601+00:00",
-          "price": 0.002315
-        },
         {
           "ts": "2026-11-16T07:19:47.171143+00:00",
           "price": 0.002315
@@ -730,6 +722,14 @@
         {
           "ts": "2026-11-16T10:00:16.927138+00:00",
           "price": 0.002177
+        },
+        {
+          "ts": "2026-11-16T10:03:57.725095+00:00",
+          "price": 0.002159
+        },
+        {
+          "ts": "2026-11-16T10:07:34.110812+00:00",
+          "price": 0.002152
         }
       ]
     },
@@ -737,18 +737,18 @@
       "symbol": "GTA6-USDT",
       "ticker": "GTA6",
       "label": "GTA VI Meme",
-      "observed_at": "2026-11-16T10:00:28.439332+00:00",
+      "observed_at": "2026-11-16T10:07:43.298351+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.01004,
-      "change_24h_pct": 50.45,
-      "volume_24h_usd": 755512.86,
+      "price": 0.0095,
+      "change_24h_pct": 46.53,
+      "volume_24h_usd": 755439.82,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.1952191235059793,
-      "dex_liquidity_usd": 428111.36,
+      "spread_pct": 1.2618296529968485,
+      "dex_liquidity_usd": 422691.9,
       "long_score": 0,
-      "short_score": 15,
+      "short_score": 23,
       "research_state": "MONITOR",
       "technical_signal": {
         "entry_trigger": null,
@@ -762,7 +762,7 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794822900000,
+        "as_of_candle_ts": 1794823200000,
         "blocking_reasons": [
           "wide_or_missing_spread"
         ]
@@ -781,14 +781,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GTA6-USDT",
       "history": [
-        {
-          "ts": "2026-11-16T07:12:36.346669+00:00",
-          "price": 0.00771
-        },
-        {
-          "ts": "2026-11-16T07:16:18.460925+00:00",
-          "price": 0.00782
-        },
         {
           "ts": "2026-11-16T07:19:56.386259+00:00",
           "price": 0.00772
@@ -972,11 +964,31 @@
         {
           "ts": "2026-11-16T10:00:28.439332+00:00",
           "price": 0.01004
+        },
+        {
+          "ts": "2026-11-16T10:04:06.888428+00:00",
+          "price": 0.0097
+        },
+        {
+          "ts": "2026-11-16T10:07:43.298351+00:00",
+          "price": 0.0095
         }
       ]
     }
   ],
   "news": [
+    {
+      "headline": "There are QR codes on these boxes in the GTA6 pre-order trailer (which leads to the pre-order page)",
+      "source": "rockstar_reddit",
+      "url": "https://www.reddit.com/r/GTA6/comments/1xxll0x/there_are_qr_codes_on_these_boxes_in_the_gta6/",
+      "first_seen": "2026-11-16T10:04:39.145633+00:00"
+    },
+    {
+      "headline": "You can grab GTA 6 entirely for free if you know where to look - GAMINGbible",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbWJfSXdpaUtvdndfTm04QXI5a0t5bmpXTnJLRnJvQm41cllDQkhEbkt0VzdxU3JoMlJyLVNtbGNKNTBZWVlycnhWc0t6Z2ZWTzRYT3BDdHRfel9FRHRFQ2lvT1p2RHJlR19yS3gxWEVjejNCRDU0QUR2OWttSk1XVW4yV2RoSmM?oc=5",
+      "first_seen": "2026-11-16T10:04:24.201751+00:00"
+    },
     {
       "headline": "Miami evokes ‘Vice City’ ahead of Grand Theft Auto 6 launch - Borneo Bulletin",
       "source": "gta6_launch",
@@ -1036,18 +1048,6 @@
       "source": "gta6_launch",
       "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1yQTdsSnpOWE9Ob0hnTE9FbGxkZ3RJeG52ZDgwb3BySG9rVUVkeE1mVUo2TmFTdk81dnlXZmdHek1UQTdrRExnUjBUc3JCamh3MU9JeVZwN1prNVJXZWRfdGUxQy01NmxjQXdISkhGYkNydVJXWElvMUY1S1BSZw?oc=5",
       "first_seen": "2026-11-16T09:12:54.345322+00:00"
-    },
-    {
-      "headline": "6 New GTA 6 Gameplay Details From The Guardian’s Rockstar Interview - VICE",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE0zQmVONFE5cEdFM3Z0QWNhT283ZTh0cDJoQUdsWVpiUS1VMVBVYXNkREloa3VsXzJhaWFIcmRSZXQyUGJSbTlsMWQyUUM4eTZGNUNmSTRacWo5UlhCX3Q0LU9IdHM2MWJFSWxkUDBncXpHWFprU2NjQ1NydHlQcnM?oc=5",
-      "first_seen": "2026-11-16T09:12:53.570433+00:00"
-    },
-    {
-      "headline": "‘GTA 6’ Reveals Jason And Lucia’s Limited Crime Options To Start - Forbes",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPOUJ5eFFIMzRzVnlOcm5JYWVUbUF0eVloSVVLRkZHMEl5YVZaSjRUaUU5ZDVNS3ZoU0JLaFNSRDVWS0M5Z3R2bTJmTkNIMkNYVUlTS2NJVDFDYlBtMzJ0OTByalVleUVQNzV1ekZ3UkZtMEZKT2hTaFpFbHp0c05OZktoTDdxWk5rS1VYUTJYek44MlJIM1dtNlNxRlBQdVR1bDF6SUFrNGJja21QbENDQnlR?oc=5",
-      "first_seen": "2026-11-16T09:12:53.515037+00:00"
     }
   ]
 }
