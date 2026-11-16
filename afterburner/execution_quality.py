@@ -67,14 +67,14 @@ def _ladder_impact(levels: list[list], side: str, notional_usd: float) -> dict |
     vwap_fill_price = filled_cost_usd / filled_qty
     if side == 'buy':
         # Buying: we pay more than best ask (impact is adverse)
-        best_px = levels[0][0] if levels else None
+        best_px = float(levels[0][0]) if levels and levels[0][0] is not None else None
         if best_px is not None and best_px > 0:
             impact_pct = (vwap_fill_price - best_px) / best_px * 100
         else:
             impact_pct = None
     else:
         # Selling: we receive less than best bid (impact is adverse)
-        best_px = levels[0][0] if levels else None
+        best_px = float(levels[0][0]) if levels and levels[0][0] is not None else None
         if best_px is not None and best_px > 0:
             impact_pct = (best_px - vwap_fill_price) / best_px * 100
         else:
@@ -126,8 +126,9 @@ def assess_execution(market: dict, dex: dict | None = None,
     quote_timestamp_missing = quote_ts is None
 
     # Parse depth ladders from the same snapshot.
-    raw_bids = market.get("bids") or []
-    raw_asks = market.get("asks") or []
+    # bingx.collect() produces bids_ladder/asks_ladder via parse_depth_ladders.
+    raw_bids = market.get("bids_ladder") or market.get("bids") or []
+    raw_asks = market.get("asks_ladder") or market.get("asks") or []
 
     # Also accept flat depth metrics as fallback (but flag as less reliable).
     bid_depth_usd = _finite(market.get("bid_depth_usd"))
@@ -168,13 +169,17 @@ def assess_execution(market: dict, dex: dict | None = None,
         buy_ladder = _ladder_impact(raw_asks, 'buy', notional)
         if buy_ladder is not None:
             est["buy_impact_pct"] = buy_ladder["impact_pct"]
-            est["sufficient_depth"] = True
+            est["buy_sufficient"] = True
+        else:
+            est["buy_sufficient"] = False
 
         # Simulate sell side: consume bids ladder.
         sell_ladder = _ladder_impact(raw_bids, 'sell', notional)
         if sell_ladder is not None:
             est["sell_impact_pct"] = sell_ladder["impact_pct"]
-            est["sufficient_depth"] = True
+            est["sell_sufficient"] = True
+        else:
+            est["sell_sufficient"] = False
 
         # Total round-trip cost: spread + one-way impact + fees + slippage (no double-count).
         if est["buy_impact_pct"] is not None:
@@ -186,6 +191,8 @@ def assess_execution(market: dict, dex: dict | None = None,
                 spread_pct + est["sell_impact_pct"] + 2 * fee_bps / 100 + 2 * slippage_bps / 100, 4
             )
 
+        # Both sides must have sufficient depth for this notional.
+        est["sufficient_depth"] = bool(est["buy_sufficient"] and est["sell_sufficient"])
         observations.append(est)
 
     # Quality determination based on worst-case (largest notional) total cost.
