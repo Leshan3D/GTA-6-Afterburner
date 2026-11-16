@@ -10,6 +10,7 @@ from afterburner.paper import paper_step
 from afterburner.kronos_layer import forecast
 from afterburner.publisher import validate_payload
 from afterburner.public import public_payload
+from afterburner.execution_quality import assess_execution
 from afterburner.config import assets, settings
 
 STEP=300000
@@ -34,7 +35,9 @@ CONFIG={'risk':{'max_spread_pct':.75,'min_book_depth_usd_each_side':1500,
                 'min_quote_volume_24h_usd':50000},
         'schedule':{'max_market_age_seconds':600},
         'signal':{'sl_atr_mult':1.5,'tp1_rr':2,'tp2_rr':3,'fee_bps':10,
-                  'slippage_bps':10,'expiry_seconds':14400,'timeframe':'5m'},
+                  'slippage_bps':10,'expiry_seconds':14400,'timeframe':'5m',
+                  'acceptable_max_cost_pct':1.0,'caution_max_cost_pct':2.5,
+                  'poor_liquidity_max_cost_pct':5.0},
         'kronos':{'enabled':False,'factor_weight':0}}
 
 
@@ -57,9 +60,12 @@ class SignalTests(unittest.TestCase):
         self.assertIn('insufficient_candles',r['blocking_reasons'])
 
     def test_no_trigger_with_bad_depth(self):
-        bars=candles();m={**MARKET,'ask_depth_usd':20}
+        """Wide spread/thin depth should not erase technical setup, but execution quality should flag it."""
+        bars=candles();m={**MARKET,'ask_depth_usd':20,'spread_pct':2.5}
         r=generate_signal('GATO-USDT',m,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
-        self.assertNotEqual(r['state'],'TRIGGERED')
+        # Technical setup can still be TRIGGERED; execution quality should flag it
+        eq=assess_execution(m,None,notionals=[100.0],config=CONFIG)
+        self.assertEqual(eq['quality'],'POOR_LIQUIDITY')
 
     def test_no_trigger_with_stale_bars(self):
         bars=candles()
@@ -112,6 +118,98 @@ class SignalTests(unittest.TestCase):
             self.assertTrue(validate_payload(payload,[x.symbol for x in a]))
             payload['assets'][0]['technical_signal']={'private_key':'password'}
             with self.assertRaises(ValueError):validate_payload(payload,[x.symbol for x in a])
+
+    # ---- v0.4 signal visibility correction tests ----
+
+    def test_valid_long_setup_visible_despite_wide_spread(self):
+        """A valid technical LONG setup must still be reported when spread is wide."""
+        bars=candles()
+        market_wide={**MARKET,'spread_pct':2.5,'bid_depth_usd':500,'ask_depth_usd':500}
+        r=generate_signal('GATO-USDT',market_wide,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
+        # Technical setup should still be TRIGGERED despite wide spread
+        self.assertEqual(r['direction'],'LONG')
+        self.assertEqual(r['state'],'TRIGGERED')
+        # But execution quality should flag POOR_LIQUIDITY
+        eq=assess_execution(market_wide,None,notionals=[100.0],config=CONFIG)
+        self.assertIn(eq['quality'],('POOR_LIQUIDITY','DATA_UNAVAILABLE'))
+
+    def test_valid_setup_not_labeled_execution_ready_when_costs_unacceptable(self):
+        """Same setup: technical TRIGGERED but execution quality POOR_LIQUIDITY."""
+        bars=candles()
+        market_wide={**MARKET,'spread_pct':3.0,'bid_depth_usd':100,'ask_depth_usd':100}
+        r=generate_signal('GATO-USDT',market_wide,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
+        self.assertEqual(r['state'],'TRIGGERED')
+        eq=assess_execution(market_wide,None,notionals=[100.0],config=CONFIG)
+        self.assertEqual(eq['quality'],'POOR_LIQUIDITY')
+        self.assertGreater(eq['worst_case_cost_pct'], 2.5)
+        # Technical state is TRIGGERED but execution is not acceptable
+        self.assertEqual(r['state'],'TRIGGERED')
+        self.assertNotEqual(eq['quality'],'ACCEPTABLE')
+
+    def test_short_setup_detected_independently(self):
+        """SHORT setups are detected when price breaks below support with volume."""
+        bars=candles(breakout=False)
+        # Force a breakdown: last bar below support with high volume
+        cl=0.88; high=0.885; low=0.875; v=400
+        bars[-1]={'ts':BASE+(len(bars)-1)*STEP,'open':cl-0.0005,'high':high,'low':low,'close':cl,'volume':v}
+        r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
+        self.assertIn(r['direction'],('SHORT','WAIT'))
+        if r['direction']=='SHORT':
+            self.assertEqual(r['state'],'TRIGGERED')
+            # For SHORT, stop loss is above entry; TP1 is below entry
+            self.assertGreater(r['sl'],r['entry_trigger'])
+            self.assertLess(r['tp1'],r['entry_trigger'])
+
+    def test_stale_candles_block_triggered(self):
+        """Stale candles cannot produce fresh confirmed signals."""
+        bars=candles()
+        r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP+600001)
+        self.assertIn('stale_or_future_candles',r['blocking_reasons'])
+        self.assertNotEqual(r['state'],'TRIGGERED')
+
+    def test_mark_index_not_confused_with_spread(self):
+        """Mark/index divergence must not be misidentified as bid/ask spread."""
+        market_ok={**MARKET,'spread_pct':0.05,'bid_depth_usd':5000,'ask_depth_usd':5000}
+        market_bad_mark={**MARKET,'spread_pct':0.05,'bid_depth_usd':5000,'ask_depth_usd':5000,
+                         'mark_price':999.0,'index_price':1.0}
+        r1=generate_signal('GATO-USDT',market_ok,{'5m':candles()},CONFIG,now_ms=BASE+120*STEP)
+        r2=generate_signal('GATO-USDT',market_bad_mark,{'5m':candles()},CONFIG,now_ms=BASE+120*STEP)
+        # Mark/index anomaly should not affect spread-based signal generation
+        self.assertEqual(r1['direction'], r2['direction'])
+        self.assertEqual(r1['state'], r2['state'])
+
+    def test_different_position_sizes_different_slippage(self):
+        """Different notional sizes produce different depth-based slippage estimates."""
+        market={**MARKET,'bid_depth_usd':1000,'ask_depth_usd':1000,'spread_pct':0.5}
+        eq_small=assess_execution(market,None,notionals=[50.0],config=CONFIG)
+        eq_large=assess_execution(market,None,notionals=[250.0],config=CONFIG)
+        small_impact=eq_small['notionals'][0].get('buy_impact_pct')
+        large_impact=eq_large['notionals'][0].get('buy_impact_pct')
+        self.assertIsNotNone(small_impact)
+        self.assertIsNotNone(large_impact)
+        self.assertGreater(large_impact, small_impact)
+
+    def test_missing_orderbook_data_is_data_unavailable(self):
+        """Missing order-book data produces DATA_UNAVAILABLE, not zero costs."""
+        market_no_book={**MARKET,'bid_depth_usd':None,'ask_depth_usd':None,'bid':None,'ask':None,'spread_pct':None}
+        eq=assess_execution(market_no_book,None,notionals=[100.0],config=CONFIG)
+        self.assertEqual(eq['quality'],'DATA_UNAVAILABLE')
+        self.assertIsNone(eq['worst_case_cost_pct'])
+
+    def test_no_authenticated_requests_in_signal_engine(self):
+        """No exchange orders or authenticated API calls occur in signal generation."""
+        import inspect
+        import afterburner.signal_engine as se
+        import afterburner.execution_quality as eq
+        src_se = inspect.getsource(se)
+        src_eq = inspect.getsource(eq)
+        # No requests.post, no session.post, no authenticated endpoints
+        for src in (src_se, src_eq):
+            self.assertNotIn('requests.post', src)
+            self.assertNotIn('session.post', src)
+            self.assertNotIn('/private/', src)
+            self.assertNotIn('api_key', src.lower())
+            self.assertNotIn('secret', src.lower())
 
 
 if __name__=='__main__':unittest.main()

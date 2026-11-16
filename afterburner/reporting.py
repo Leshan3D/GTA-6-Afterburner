@@ -85,10 +85,31 @@ def status_report(assets, storage, config, command="/meme"):
         if action=='/signal':
             matching=[r for r in rows if argument in (r['symbol'],r['symbol'].split('-')[0])]
             rows=matching[:1]
+            if not rows:return f'🚦 No technical signal for {argument}.'
+            r=rows[0]; d=r['details']; eq=d.get('execution_quality') or {}
+            q=eq.get('quality','?'); worst=eq.get('worst_case_cost_pct')
+            cost_txt=f" | est. round-trip cost: {worst}%" if worst is not None else ""
+            warnings=eq.get('warnings',[])
+            warn_txt=f" | Exec warnings: {', '.join(warnings[:3])}" if warnings else ""
+            notionals=eq.get('notionals',[])
+            cost_detail=''
+            for n in notionals[:3]:
+                tc=n.get('total_round_trip_buy_pct')
+                if tc is not None:
+                    cost_detail+=f" | ${n.get('notional_usd','?')}: {tc}%"
+            return (f"🚦 AFTERBURNER | {r['symbol']} {r['direction']} {r['state']} ({r['timeframe']})\n"
+                    f"Technical: {d.get('state','?')} | Execution: {q}{cost_txt}{warn_txt}\n"
+                    f"Entry: {number(d.get('entry_trigger'),8,'$')} | Zone: {number(d.get('entry_zone_low'),8,'$')}-{number(d.get('entry_zone_high'),8,'$')}\n"
+                    f"SL: {number(d.get('sl'),8,'$')} | TP1: {number(d.get('tp1'),8,'$')} | TP2: {number(d.get('tp2'),8,'$')} | Net R:R {number(d.get('rr'))}\n"
+                    f"Confidence: {d.get('confidence')}/100 | As of: {d.get('as_of_candle_ts')}\n"
+                    f"Rationale: {', '.join(d.get('rationale',[])[:3])}\n"
+                    f"Cost estimates:{cost_detail}\n"
+                    "Research only; no automatic execution.\n"
+                    f"https://bingx.com/en/perpetual/{r['symbol']}")
         if action=='/setups':
             latest_setups=[(sym,snap['signal'].get('technical_setup',{})) for sym,snap in latest.items() if snap]
             return '\n'.join(['🔎 AFTERBURNER | forming technical setups'] +
-                [f"• {sym}: {signal.get('state','?')} {signal.get('direction','WAIT')} | flags: {', '.join(signal.get('blocking_reasons',[])[:3]) or 'none'}" for sym,signal in latest_setups])
+                [f"• {sym}: {signal.get('state','?')} {signal.get('direction','WAIT')} | exec: {(signal.get('execution_quality') or {}).get('quality','?')} | flags: {', '.join(signal.get('blocking_reasons',[])[:3]) or 'none'}" for sym,signal in latest_setups])
         if action=='/performance':
             stats=storage.paper_statistics()
             return (f"📊 AFTERBURNER | PAPER SIGNAL PERFORMANCE\n"
@@ -101,7 +122,11 @@ def status_report(assets, storage, config, command="/meme"):
         lines=['🚦 AFTERBURNER | confirmed technical signals (no orders)']
         for r in rows[:8]:
             d=r['details']
-            lines.append(f"• {r['symbol']} {r['direction']} {r['state']} ({r['timeframe']}) | entry {number(d.get('entry_trigger'),8,'$')} SL {number(d.get('sl'),8,'$')} TP1 {number(d.get('tp1'),8,'$')} R:R {number(d.get('rr'))}")
+            eq=d.get('execution_quality') or {}
+            q=eq.get('quality','?')
+            worst=eq.get('worst_case_cost_pct')
+            cost_txt=f" | est. cost: {worst}%" if worst is not None else ""
+            lines.append(f"• {r['symbol']} {r['direction']} {r['state']} ({r['timeframe']}) | exec: {q}{cost_txt} | entry {number(d.get('entry_trigger'),8,'$')} SL {number(d.get('sl'),8,'$')} TP1 {number(d.get('tp1'),8,'$')} R:R {number(d.get('rr'))}")
         return '\n'.join(lines)
 
     if action == "/publish":
@@ -196,6 +221,13 @@ def status_report(assets, storage, config, command="/meme"):
         if not snap:
             return f"{a.ticker}: no market observations yet. Try /progress."
         m, sig, dex = snap["market"], snap["signal"], snap["dex"]
+        tech = sig.get("technical_setup") or {}
+        eq = tech.get("execution_quality") or {}
+        q = eq.get("quality", "?")
+        worst = eq.get("worst_case_cost_pct")
+        cost_txt = f" | est. cost: {worst}%" if worst is not None else ""
+        warnings = eq.get("warnings", [])
+        warn_txt = f" | Exec warnings: {', '.join(warnings[:3])}" if warnings else ""
         is_stale = seconds_since(snap["collected_at"]) is None or seconds_since(snap["collected_at"]) > max_age
         return (f"🔥 AFTERBURNER | {a.ticker} {'⚠️ STALE' if is_stale else 'LIVE SNAPSHOT'}\n"
                 f"Price: {number(m.get('price'), 8, '$')}\n"
@@ -203,8 +235,12 @@ def status_report(assets, storage, config, command="/meme"):
                 f"Funding: {number(m.get('funding_rate_pct'), 4)}% | OI: {number(m.get('open_interest_usd'), 0, '$')} (estimated)\n"
                 f"BingX spread: {number(m.get('spread_pct'), 3)}%\n"
                 f"DEX pool: {number((dex.get('primary') or {}).get('liquidity_usd'), 0, '$')}\n"
-                f"Long {sig.get('long_score', 'n/a')}/100 | Short {sig.get('short_score', 'n/a')}/100\n"
-                f"State: {sig.get('state', 'unknown')}\n"
+                f"Technical: {tech.get('direction','WAIT')} {tech.get('state','FORMING')} | Execution: {q}{cost_txt}{warn_txt}\n"
+                f"Entry: {number(tech.get('entry_trigger'),8,'$')} | Zone: {number(tech.get('entry_zone_low'),8,'$')}-{number(tech.get('entry_zone_high'),8,'$')}\n"
+                f"SL: {number(tech.get('sl'),8,'$')} | TP1: {number(tech.get('tp1'),8,'$')} | TP2: {number(tech.get('tp2'),8,'$')} | R:R {number(tech.get('rr'))}\n"
+                f"Confidence: {tech.get('confidence')}/100 | As of: {tech.get('as_of_candle_ts')}\n"
+                f"Rationale: {', '.join(tech.get('rationale',[])[:3])}\n"
+                f"Research bias: Long {sig.get('long_score','n/a')}/100 | Short {sig.get('short_score','n/a')}/100\n"
                 f"Blocked: {', '.join(sig.get('blocking_flags') or []) or 'none listed'}\n"
                 f"Observed: {elapsed(snap['collected_at'])}\n"
                 "Research only; no automatic trading.\n"
@@ -217,7 +253,10 @@ def status_report(assets, storage, config, command="/meme"):
             lines.append(f"{a.ticker}: awaiting first sample")
             continue
         m, sig = snap["market"], snap["signal"]
+        tech = sig.get("technical_setup") or {}
+        eq = tech.get("execution_quality") or {}
+        q = eq.get("quality", "?")
         stale = " ⚠️STALE" if seconds_since(snap["collected_at"]) is None or seconds_since(snap["collected_at"]) > max_age else ""
-        lines.append(f"{a.ticker}: {number(m.get('price'), 8, '$')} · L{sig.get('long_score','?')} S{sig.get('short_score','?')} · {sig.get('state','UNKNOWN')}{stale}")
-    lines.append("/progress for feed coverage · /help for commands")
+        lines.append(f"{a.ticker}: {number(m.get('price'), 8,'$')} · tech: {tech.get('direction','WAIT')} {tech.get('state','FORMING')} | exec: {q}{stale}")
+    lines.append("/signals for details · /progress for feed coverage · /help for commands")
     return "\n".join(lines)

@@ -204,13 +204,14 @@ class Storage:
                  'close':r['close'],'volume':r['volume']} for r in reversed(rows)]
 
     def save_setup(self, signal):
-        if signal.get('state') != 'TRIGGERED' or not signal.get('as_of_candle_ts'):
+        if not signal.get('as_of_candle_ts'):
             return None
         with self.conn() as db:
             db.execute("""INSERT INTO signals
                 (symbol,direction,state,timeframe,as_of_candle_ts,strategy_version,created_at,updated_at,details_json)
-                VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT DO NOTHING""",
-                (signal['symbol'],signal['direction'],'TRIGGERED',signal['timeframe'],
+                VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(symbol,timeframe,strategy_version,as_of_candle_ts)
+                DO UPDATE SET direction=excluded.direction,state=excluded.state,updated_at=excluded.updated_at,details_json=excluded.details_json""",
+                (signal['symbol'],signal['direction'],signal.get('state','FORMING'),signal['timeframe'],
                  signal['as_of_candle_ts'],signal['strategy_version'],iso(),iso(),
                  json.dumps(signal,allow_nan=False)))
             row=db.execute("""SELECT id FROM signals WHERE symbol=? AND timeframe=?

@@ -85,13 +85,32 @@ def validate_payload(payload, expected_symbols):
         ts = row.get('technical_signal')
         if ts is not None:
             allowed_ts={'direction','state','timeframe','as_of_candle_ts','entry_trigger',
-                        'entry_zone_low','entry_zone_high','sl','tp1','tp2','rr','confidence','blocking_reasons'}
+                        'entry_zone_low','entry_zone_high','sl','tp1','tp2','rr','confidence','blocking_reasons','execution_quality'}
             if not isinstance(ts,dict) or set(ts)!=allowed_ts:
                 raise ValueError('Unexpected technical signal fields')
             if ts['direction'] not in ('LONG','SHORT','WAIT') or ts['state'] not in ('FORMING','ARMED','TRIGGERED','STALE'):
                 raise ValueError('Unexpected technical signal state')
             if any(not isinstance(x,str) or len(x)>75 for x in ts['blocking_reasons']):
                 raise ValueError('Invalid technical signal blocking reasons')
+            eq = ts.get('execution_quality')
+            if eq is not None:
+                if not isinstance(eq, dict):
+                    raise ValueError('Invalid execution quality')
+                eq_allowed = {'quality','spread_pct','best_bid','best_ask','bid_depth_usd','ask_depth_usd','fee_bps','slippage_bps','notionals','worst_case_cost_pct','warnings','assessed_at'}
+                if set(eq) - eq_allowed:
+                    raise ValueError('Unexpected execution quality fields')
+                if eq.get('quality') not in ('ACCEPTABLE','CAUTION','POOR_LIQUIDITY','DATA_UNAVAILABLE'):
+                    raise ValueError('Invalid execution quality')
+                if isinstance(eq.get('notionals'), list):
+                    for n in eq['notionals']:
+                        if not isinstance(n, dict):
+                            raise ValueError('Invalid notional estimate')
+                        n_allowed = {'notional_usd','spread_cost_pct','buy_impact_pct','sell_impact_pct','fees_pct','total_round_trip_buy_pct','total_round_trip_sell_pct'}
+                        if set(n) - n_allowed:
+                            raise ValueError('Unexpected notional fields')
+                if isinstance(eq.get('warnings'), list):
+                    if any(not isinstance(w, str) or len(w) > 75 for w in eq['warnings']):
+                        raise ValueError('Invalid execution warning')
         if any(not isinstance(x, str) or len(x) > 90 for x in row["blocking_flags"]):
             raise ValueError("Invalid risk flags")
     if not isinstance(payload["news"], list) or any(set(n) != {"headline", "source", "url", "first_seen"} for n in payload["news"]):

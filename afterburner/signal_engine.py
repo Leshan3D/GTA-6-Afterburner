@@ -1,13 +1,15 @@
 """Deterministic, candle-close-only analytical signals. NEVER places orders.
 
 Scores are evidence indices, not calibrated success probabilities. A trigger is
-NOT a simulated fill. Execution-quality gates apply to new entries.
+NOT a simulated fill. Technical setup is separate from execution quality.
 """
 from __future__ import annotations
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from math import isfinite
 from typing import Literal
+
+from .execution_quality import assess_execution
 
 STATES = frozenset({'FORMING','ARMED','TRIGGERED','PAPER_FILLED','CLOSED','EXPIRED','INVALIDATED','UNFILLED'})
 ALLOWED = {
@@ -125,38 +127,77 @@ def generate_signal(symbol, market, candles_by_tf, config, now_ms=None, timefram
 
     Only an explicit confirmed close breaks pre-existing S/R. No DEX leg is used
     unless an independently verified contract identity is added in the future.
+
+    Technical setup (direction/state/levels) is produced independently of
+    execution quality. Execution quality is assessed separately by
+    execution_quality.assess_execution() and merged by the service layer.
+    Stale or insufficient candles block TRIGGERED; spread/depth does not.
     """
     if not config.get('signal',{}).get('enabled',True):
         return {'symbol':symbol,'direction':'WAIT','state':'FORMING','timeframe':timeframe,
                 'confidence':0,'rationale':['signal_engine_disabled'],
-                'blocking_reasons':['signal_engine_disabled'],'as_of_candle_ts':None,
-                'strategy_version':'afterburner-0.4.0-breakout-v1','kronos_alignment':'unavailable'}
+                'data_gates':['signal_engine_disabled'],'as_of_candle_ts':None,
+                'strategy_version':'afterburner-0.4.0-breakout-v1','kronos_alignment':'unavailable',
+                'execution_quality': {'quality': 'DATA_UNAVAILABLE', 'warnings': ['signal engine disabled']}}
     now_ms=now_ms or int(datetime.now(timezone.utc).timestamp()*1000)
     raw=candles_by_tf.get(timeframe,[])
     candles=valid_candles(raw,timeframe)
     # Drop partially formed/future candles even when provider reports premature 'end'.
     candles=[c for c in candles if c['ts']+TIMEFRAMES[timeframe]*1000<=now_ms]
-    gates=execution_gates(market,candles,now_ms,config,timeframe)
-    structure=market_structure(candles)
-    atr=calculate_atr(candles)
-    direction, confidence, rationale=evidence_bias(candles,structure)
-    base={'symbol':symbol,'direction':direction,'state':'FORMING' if direction=='WAIT' else 'ARMED',
-          'timeframe':timeframe,'confidence':confidence,'rationale':rationale,
-          'blocking_reasons':gates,'as_of_candle_ts':candles[-1]['ts'] if candles else None,
-          'strategy_version':'afterburner-0.4.0-breakout-v1','kronos_alignment':'unavailable'}
+
+    # Data-quality gates only (candle integrity/freshness). Spread/depth are
+    # execution-quality concerns, assessed separately, and do not block setup
+    # formation here.
+    data_gates = []
+    if len(candles) < 100:
+        data_gates.append('insufficient_candles')
+    else:
+        age = (now_ms - (candles[-1]['ts'] + TIMEFRAMES[timeframe] * 1000)) / 1000
+        if age < 0 or age > config.get('schedule', {}).get('max_market_age_seconds', 600):
+            data_gates.append('stale_or_future_candles')
+        if any(b['ts'] - a['ts'] != TIMEFRAMES[timeframe] * 1000
+               for a, b in zip(candles[-51:], candles[-50:])):
+            data_gates.append('gapped_candles')
+
+    structure = market_structure(candles)
+    atr = calculate_atr(candles)
+    direction, confidence, rationale = evidence_bias(candles, structure)
+
+    base = {
+        'symbol': symbol,
+        'direction': direction,
+        'state': 'FORMING' if direction == 'WAIT' else 'ARMED',
+        'timeframe': timeframe,
+        'confidence': confidence,
+        'rationale': rationale,
+        'data_gates': data_gates,
+        'as_of_candle_ts': candles[-1]['ts'] if candles else None,
+        'strategy_version': 'afterburner-0.4.0-breakout-v1',
+        'kronos_alignment': 'unavailable',
+    }
     if research:
-        base['market_intelligence']={
-            'long_score':research.get('long_score'),
-            'short_score':research.get('short_score'),
-            'research_state':research.get('state'),
-            'note':'Separate research context. Not a trigger or probability of success.'}
-    if direction=='WAIT' or gates:
-        base['state']='FORMING';return base
-    levels=compute_levels(direction,candles[-1]['close'],atr,structure,config)
-    if not levels or levels['rr']<float(config.get('signal',{}).get('min_net_rr',1.2)):
-        base['blocking_reasons'].append('unacceptable_net_risk_reward');base['state']='FORMING';return base
-    # Trigger is confirmed on this closing candle, but paper fill is a separate event.
-    base.update(levels);base['state']='TRIGGERED';return base
+        base['market_intelligence'] = {
+            'long_score': research.get('long_score'),
+            'short_score': research.get('short_score'),
+            'research_state': research.get('state'),
+            'note': 'Separate research context. Not a trigger or probability of success.',
+        }
+    if direction == 'WAIT' or data_gates:
+        base['blocking_reasons'] = data_gates
+        base['state'] = 'FORMING'
+        return base
+
+    levels = compute_levels(direction, candles[-1]['close'], atr, structure, config)
+    if not levels or levels['rr'] < float(config.get('signal', {}).get('min_net_rr', 1.2)):
+        base['blocking_reasons'] = ['unacceptable_net_risk_reward']
+        base['state'] = 'FORMING'
+        return base
+
+    # Trigger is confirmed on this closing candle; paper fill is a separate event.
+    # Execution quality is added by the service layer via assess_execution().
+    base.update(levels)
+    base['state'] = 'TRIGGERED'
+    return base
 
 
 def transition(current, target):
