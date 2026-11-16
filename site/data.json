@@ -1,6 +1,6 @@
 {
   "product": "AFTERBURNER Public Radar",
-  "generated_at": "2026-11-16T06:59:25.894149+00:00",
+  "generated_at": "2026-11-16T07:09:32.889597+00:00",
   "execution_enabled": false,
   "research_only": true,
   "assets": [
@@ -8,17 +8,17 @@
       "symbol": "GATO-USDT",
       "ticker": "GATO",
       "label": "GTA6CAT",
-      "observed_at": "2026-11-16T06:57:20.436671+00:00",
+      "observed_at": "2026-11-16T07:08:29.671895+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00716,
-      "change_24h_pct": 7.34,
-      "volume_24h_usd": 691514.76,
+      "price": 0.00707,
+      "change_24h_pct": 4.73,
+      "volume_24h_usd": 691609.42,
       "funding_rate_pct": -0.01,
-      "spread_pct": 1.2561060711793535,
-      "dex_liquidity_usd": 275870.55,
-      "long_score": 23,
+      "spread_pct": 1.2720848056537075,
+      "dex_liquidity_usd": 272843.19,
+      "long_score": 8,
       "short_score": 0,
       "research_state": "MONITOR",
       "technical_signal": {
@@ -33,7 +33,7 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794811800000,
+        "as_of_candle_ts": 1794812400000,
         "blocking_reasons": [
           "thin_or_missing_ask_depth_usd",
           "thin_or_missing_bid_depth_usd",
@@ -55,18 +55,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GATO-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T13:03:39.358198+00:00",
-          "price": 0.00706
-        },
-        {
-          "ts": "2026-11-14T13:07:10.906780+00:00",
-          "price": 0.00679
-        },
-        {
-          "ts": "2026-11-14T13:10:43.176291+00:00",
-          "price": 0.00678
-        },
         {
           "ts": "2026-11-14T13:14:14.631788+00:00",
           "price": 0.00683
@@ -246,6 +234,18 @@
         {
           "ts": "2026-11-16T06:57:20.436671+00:00",
           "price": 0.00716
+        },
+        {
+          "ts": "2026-11-16T07:01:06.466159+00:00",
+          "price": 0.00709
+        },
+        {
+          "ts": "2026-11-16T07:04:49.372581+00:00",
+          "price": 0.00707
+        },
+        {
+          "ts": "2026-11-16T07:08:29.671895+00:00",
+          "price": 0.00707
         }
       ]
     },
@@ -253,17 +253,17 @@
       "symbol": "DACITY-USDT",
       "ticker": "DACITY",
       "label": "Dacity",
-      "observed_at": "2026-11-16T06:57:31.787159+00:00",
+      "observed_at": "2026-11-16T07:08:40.174083+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.001829,
-      "change_24h_pct": -9.1,
-      "volume_24h_usd": 248838.08,
+      "price": 0.001835,
+      "change_24h_pct": -8.44,
+      "volume_24h_usd": 249358.68,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.140994295028523,
-      "dex_liquidity_usd": 235379.75,
-      "long_score": 15,
+      "spread_pct": 1.0899182561307932,
+      "dex_liquidity_usd": 236171.2,
+      "long_score": 0,
       "short_score": 0,
       "research_state": "MONITOR",
       "technical_signal": {
@@ -278,7 +278,7 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794811800000,
+        "as_of_candle_ts": 1794812400000,
         "blocking_reasons": [
           "wide_or_missing_spread"
         ]
@@ -297,18 +297,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/DACITY-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T13:03:47.439132+00:00",
-          "price": 0.002114
-        },
-        {
-          "ts": "2026-11-14T13:07:18.968423+00:00",
-          "price": 0.002104
-        },
-        {
-          "ts": "2026-11-14T13:10:51.227076+00:00",
-          "price": 0.002112
-        },
         {
           "ts": "2026-11-14T13:14:22.670612+00:00",
           "price": 0.002107
@@ -488,6 +476,18 @@
         {
           "ts": "2026-11-16T06:57:31.787159+00:00",
           "price": 0.001829
+        },
+        {
+          "ts": "2026-11-16T07:01:17.754759+00:00",
+          "price": 0.001837
+        },
+        {
+          "ts": "2026-11-16T07:04:58.286565+00:00",
+          "price": 0.001836
+        },
+        {
+          "ts": "2026-11-16T07:08:40.174083+00:00",
+          "price": 0.001835
         }
       ]
     },
@@ -495,17 +495,17 @@
       "symbol": "CYBERLEEK-USDT",
       "ticker": "CYBERLEEK",
       "label": "CyberLeek",
-      "observed_at": "2026-11-16T06:57:43.349893+00:00",
+      "observed_at": "2026-11-16T07:08:49.057932+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.002312,
-      "change_24h_pct": -7.01,
-      "volume_24h_usd": 252867.41,
+      "price": 0.002317,
+      "change_24h_pct": -6.51,
+      "volume_24h_usd": 252952.9,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.0806137886319365,
-      "dex_liquidity_usd": 413672.31,
-      "long_score": 8,
+      "spread_pct": 1.079214331966322,
+      "dex_liquidity_usd": 412836.28,
+      "long_score": 0,
       "short_score": 0,
       "research_state": "MONITOR",
       "technical_signal": {
@@ -520,7 +520,7 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794811800000,
+        "as_of_candle_ts": 1794812400000,
         "blocking_reasons": [
           "wide_or_missing_spread"
         ]
@@ -539,18 +539,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/CYBERLEEK-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T13:03:55.485386+00:00",
-          "price": 0.002741
-        },
-        {
-          "ts": "2026-11-14T13:07:26.999167+00:00",
-          "price": 0.002731
-        },
-        {
-          "ts": "2026-11-14T13:10:59.266894+00:00",
-          "price": 0.002774
-        },
         {
           "ts": "2026-11-14T13:14:30.714765+00:00",
           "price": 0.002788
@@ -730,6 +718,18 @@
         {
           "ts": "2026-11-16T06:57:43.349893+00:00",
           "price": 0.002312
+        },
+        {
+          "ts": "2026-11-16T07:01:28.996089+00:00",
+          "price": 0.002314
+        },
+        {
+          "ts": "2026-11-16T07:05:07.968109+00:00",
+          "price": 0.002317
+        },
+        {
+          "ts": "2026-11-16T07:08:49.057932+00:00",
+          "price": 0.002317
         }
       ]
     },
@@ -737,16 +737,16 @@
       "symbol": "GTA6-USDT",
       "ticker": "GTA6",
       "label": "GTA VI Meme",
-      "observed_at": "2026-11-16T06:57:54.736845+00:00",
+      "observed_at": "2026-11-16T07:08:58.424148+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00747,
-      "change_24h_pct": 20.65,
-      "volume_24h_usd": 726743.9,
+      "price": 0.00762,
+      "change_24h_pct": 22.47,
+      "volume_24h_usd": 727677.66,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.202404809619236,
-      "dex_liquidity_usd": 364527.74,
+      "spread_pct": 1.3123359580052414,
+      "dex_liquidity_usd": 367393.02,
       "long_score": 30,
       "short_score": 0,
       "research_state": "MONITOR",
@@ -762,7 +762,7 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794811800000,
+        "as_of_candle_ts": 1794812400000,
         "blocking_reasons": [
           "wide_or_missing_spread"
         ]
@@ -781,18 +781,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GTA6-USDT",
       "history": [
-        {
-          "ts": "2026-11-14T13:04:03.503030+00:00",
-          "price": 0.00635
-        },
-        {
-          "ts": "2026-11-14T13:07:35.048541+00:00",
-          "price": 0.00635
-        },
-        {
-          "ts": "2026-11-14T13:11:07.391200+00:00",
-          "price": 0.0063
-        },
         {
           "ts": "2026-11-14T13:14:38.764440+00:00",
           "price": 0.00622
@@ -972,82 +960,94 @@
         {
           "ts": "2026-11-16T06:57:54.736845+00:00",
           "price": 0.00747
+        },
+        {
+          "ts": "2026-11-16T07:01:40.504075+00:00",
+          "price": 0.00752
+        },
+        {
+          "ts": "2026-11-16T07:05:18.715375+00:00",
+          "price": 0.00759
+        },
+        {
+          "ts": "2026-11-16T07:08:58.424148+00:00",
+          "price": 0.00762
         }
       ]
     }
   ],
   "news": [
     {
-      "headline": "Inside Rockstar and Take Two headquarters as we speak:",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xx2969/inside_rockstar_and_take_two_headquarters_as_we/",
-      "first_seen": "2026-11-16T06:57:08.086238+00:00"
+      "headline": "GTA 6 Players Report Issues with Physical Version Pre-Order Codes - Polygon.com",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFB2U1hsbXBvSEVCZWxOWkoxTlg2VEdqSmJXUnkwU2RXNTRSbndBRVFkc180ZkVqT2xUdVJkb2hWejA1ZmZpemcwRXEtbUFVZjNBYW1qNTBaeW9janhhTGlVcHp2bmE3am5TbTRpLUlYaHM2RzZWZTBEZHRXTzE?oc=5",
+      "first_seen": "2026-11-16T07:07:15.643548+00:00"
     },
     {
-      "headline": "On which radio station do you imagine each music from the GTA 6 trailers will be played in game?",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xx4m38/on_which_radio_station_do_you_imagine_each_music/",
-      "first_seen": "2026-11-16T06:57:07.923195+00:00"
+      "headline": "GTA VI Release Is A Bigger Threat To Streaming Than To Movie Theaters - Yahoo Finance",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQbWctUEhiM1FLRTY4b0U3VTAwMnBzZU41bVU4QXdNYm5DMFhqX2o5cVJSYVVZQlRrajgycERSNDVJbzVjdFdLT29kMkg3SXBTa1k0RmxqZi1ON0Z0T2xKcW1iUU1GWkNob3E3cnN6SzRpYTFiZDJOdTZOdF9lSDBrajJtemRVWGdldDdmdHRvUGNQOU5sU2pvU01kQ2Y?oc=5",
+      "first_seen": "2026-11-16T07:07:15.632519+00:00"
     },
     {
-      "headline": "How are you planning to pace GTA 6 next week? (50h story vs. 200h for 100%)",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xx6kys/how_are_you_planning_to_pace_gta_6_next_week_50h/",
-      "first_seen": "2026-11-16T06:57:07.859172+00:00"
+      "headline": "How to Get a Free Copy of GTA VI Through Twitch and Kick’s Launch Giveaways - RockstarINTEL",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOM3lZWmVkMEdSMy1LT0xnU2NWaWZfMnJhWFZPLUtpZENQUFhLOU90cDlYNVp1alFheTNaRGNZVTE0Z1YwN3dHa1JTQnpsZUFxSkFPZU16eWFpZUt3dTYwM0JEb0JYNEF1b2M3SU5JaHVYemZFRkpmNmtoRmdvLUxZeXhqcF8zNXgtQy14LVBIeUF0Y2M0dmF0U1ZIVzdMa1IwTWhF?oc=5",
+      "first_seen": "2026-11-16T07:07:15.593912+00:00"
     },
     {
-      "headline": "3 insiders hyping GTA 6",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xx7qum/3_insiders_hyping_gta_6/",
-      "first_seen": "2026-11-16T06:57:07.712473+00:00"
+      "headline": "The base PlayStation 5 will experience drops below 30 FPS in Grand Theft Auto VI. - GameGPU",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOY0ZMeXhBYm5TRWE2Rm5nOXJCcURRN3hGY2JTUk15VVh0bHp6NFdtMVVzNnd5WVZWNld2U29uY0NXQTFkei1MZDQ5cnRIVE5vYmNDWDhaeUlYeHJjUTJvVHBXWHVKcU42bWtqaWRrZjJ5TVVQaVloaUJIWjNQa2VpeEFtSG9xTG9VRDJILU56TVotbl9SYlhyQldreF9TZjR5MEJMaHo3UGRoUXV3OExZOTMzRUtyUQ?oc=5",
+      "first_seen": "2026-11-16T07:07:15.547584+00:00"
     },
     {
-      "headline": "GTA 6 popup coming to Shoreditch? 👀",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xx95ii/gta_6_popup_coming_to_shoreditch/",
-      "first_seen": "2026-11-16T06:57:07.620163+00:00"
+      "headline": "GTA 6: Story, Characters, Map, Release Date and More - Explosion Network",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNOWdJNC0xWHVMZU9nd2xjQ0ZnQ1M4RUt3WHgxMUpMUXNIUVVKOFNIdUNzXzQ0cmVjNVhSMnVxOHNrQ3FFX05IUGFuZ0p0QXROempWWDNteEpoZ21LSTZWUmk0cmhnZ3V1dlppV2xqRFJrYlAtRGpzM2NTcTUyVExlU2lrcWNHUDJTVUdVMTk3RUNaTlhLX3pkdHVsVjRFLUJ0QkhIV1RMZGdwX1Vfa3MtTnhhVS0wUnZk?oc=5",
+      "first_seen": "2026-11-16T07:07:15.525989+00:00"
     },
     {
-      "headline": "GTA 6 Marketing - Shoreditch (London)",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xxa68o/gta_6_marketing_shoreditch_london/",
-      "first_seen": "2026-11-16T06:57:07.570645+00:00"
+      "headline": "‘GTA 6’ Game Length and Mission Count Officially Revealed - Men's Journal",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQYlhPZ09OWEN3aG5YZE1CWFBjQnlFYVdCcnppWHlGTmhCZ0kzREhRanBIc01qVnZJMUpPRm5uMlhsOGFISTc0TmNNaWkxT0RudGxYSkpQc3RnUW9UcnNGcDBSOXM4eVZKeUhmVlpJRW1UazQtRjIwaXB5dThpRlZ6Y0ZsazNKMHM2Z0tFLTZINGZ4WEZtd1M5ZncyZ01sUQ?oc=5",
+      "first_seen": "2026-11-16T07:07:14.856649+00:00"
     },
     {
-      "headline": "GTA 6 Marketing in Cape Town, South Africa",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xxcsly/gta_6_marketing_in_cape_town_south_africa/",
-      "first_seen": "2026-11-16T06:57:07.409046+00:00"
+      "headline": "22 Biggest 'Grand Theft Auto VI' References & Easter Eggs - MovieWeb",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9UbWJSLVNrY1RrMms3TEZTODlXeG01YV84dWZEOHRxZ0UxUEt0Q0RTd0NFMlRpRS03NFc3Z2Rvb2ZQYVBRNkktRUdkNllMa09TbksybUthbDd2bE0tVEJQU3dTMF9nQnc5MWM2LUE2aTg?oc=5",
+      "first_seen": "2026-11-16T07:07:14.588435+00:00"
     },
     {
-      "headline": "Rockstar's marketing is on another level",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xxens0/rockstars_marketing_is_on_another_level/",
-      "first_seen": "2026-11-16T06:57:07.353393+00:00"
+      "headline": "GTA VI Physical Copies Face Used Code Issues - RockstarINTEL",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFA4ajktU1NlQ0gyZVVYWlhkUG4wc3d5Xy13MlllZ2RaWHl6TUJxbkJmd2lRUWhfcnl5QWJiOFByYmdnSUE2ekozb1Q5N0JILXJUd0dPa1NQTE8xanpMUVJXRHgwMFpOOHBONGJWbm4tdGJQdWxWeGpQNzdxaw?oc=5",
+      "first_seen": "2026-11-16T07:07:14.362439+00:00"
     },
     {
-      "headline": "GTA 6 goes gold, putting the November 19 launch on track - eGamers.io",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQYWo1Y0NKdlN1TGcyRzdhakROZEVtQTYyZGt6Qk4xcjV0YWJDOXEyZTFnbTdrQnczc3JlTlhNeWhrNkItY2tGc0Nfcm5yMk9kN1BnZllJelJrYlJtZWpYQmY5azkxcjNxZmtMT01tY2VBZUs5dkxHNTY5WXJweUl0bQ?oc=5",
-      "first_seen": "2026-11-16T06:57:04.781908+00:00"
+      "headline": "GTA 6 Launch Times Confirm How You Can Play Early - ScreenRant",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1DT1FOVTkzbmNMXzViazIxVjE5cUZYUWpybGdnMUtxeHZfZGFvOEV1UFRDX2dNUTN4ajJkUDQ2NjVXU1FoYVl0OGE4OXZ2WEtJSVdBODFqSVVQZVJ5Z01aUUczYVdXN3lfMmJ1Sg?oc=5",
+      "first_seen": "2026-11-16T07:07:14.144342+00:00"
     },
     {
-      "headline": "GTA 6: Original Grand Theft Auto creators say they have not played the game before launch - Moneycontrol.com",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQZUY3ckVyY1h3MXlRb1FsSExaNlRPM0tqcVNqQnZ5U3RsZTM0SXgwdDRSZ1pJLXFhVnExUk5PSUJZMVFfX1lMdTVRVlJuZlNZMVpRQ2lGekN1eWRQdkdtc25Eai00UW8yYzlEZHVFT3dtQzk5XzR1Q0N0VFFmR25oUVhzOGYzdlRNWUo4NXBQWGVDUUh0RkJJN1QtU29RdndYMFNteUozWnRqOTVqV3Z0aWNXX05SaWZ0WFVCWXZ2dU41bXR6d01KS05UajdfQlI2ZkNodXI4bmJYZjdSZFpnYmRENS3SAeoBQVVfeXFMTnlLOHVBZUlVXzh6bzgwMUR6NnlKUU05ekM2X1ZSemFOWEVkWUpjcjdGdjlKQUw4bWJybGdIcUlPc29aREhOMlVUM3JwT2NfRWoycF9ONVJBM2J4dDRJMHpkSEpwVG8wMVRUNUZKbU1ZOExIVDJZQmNrS2JPbUg4UnJFTzRXekJ3MXhfRktmZ2xBM3VDTUNpcHRuQkhqZXNTdkpWX1gwbWxXbWx6NktQVHpEQTV6S29kT0NxdnRVM01zQjhwdVcyTWVka3Q1eTNkdldkRWdKVW9zRllZbERfQmlQajlHNDdOR0x3?oc=5",
-      "first_seen": "2026-11-16T06:57:04.732895+00:00"
+      "headline": "Can you play GTA 6 before November 19? What each edition allows - Diario AS",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOVGVWckJnVE50SGlxdjlZM2RPbUpRdy01NDRJMFZkS0dIelloeDR0Vkpid0Yzdk5GXzhNV2VQR1kxbVNWVEQxQ2ZuSERTM2JMYkNMaVpWbVo0YkdYcDVJX2pRRThxakpkazhtYUhjdVU2TnhvdWZlT2p3aFd4dkxFQ28zb0ZETmdkRGxSYW9VdmIxM3N4SUJwX1duZmpiOU01WUU4X25HSVlEdmJq0gHAAUFVX3lxTFAzd0lOUEoyWTZVN1lTOTFaV25SamczWGJRMXg2SDRoTXQ3S2ZLQVBnSndGRFc0bGFDZTFva1lZRm9NdDFWX2tYcldxS2dQeHYyR1FBNTg4d0NoT0dGQ1JrMzdSN2lLSndGZUlucGlRUElTS1VRTENZNVNDVlRJNVJpSVZhbXVJZ19BQ1U3OFpVaWVRMC11SVREM2UzemJEUjJ2T0Y5RWNCbllFc3BVVUJwRXhSbDkxWDZMWll1LTE5dg?oc=5",
+      "first_seen": "2026-11-16T07:07:14.133315+00:00"
     },
     {
-      "headline": "GTA VI Launch: 13% More PTO Requests, 1 in 5 Off - shattered.io",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPTWNzeUZBbUxUcTJpN2c5TWlPUHdkWFZpMjZnX0FyTzVRdEhUVHdOWWNiVlNrVnhnNkpzc0R0R1RaX0oyeHJGaG9SbVAyWFg3M251M0RwdHU2d19ldnVjcUZ1Z2dCcU1ZTFVvNWFHTlpRN0N6bXdoaEFtVHliOS1QZ2w2Z1B6dEhYdWJuaHlEbGp3Zw?oc=5",
-      "first_seen": "2026-11-16T06:57:04.678392+00:00"
+      "headline": "GTA 6 reportedly has a 50-hour story, matching Red Dead Redemption 2 despite its much larger map - TweakTown",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPQ0ZaYnhNY0FJY1k4aXEzaEgtM3hjbjBjUmR6eXUyRnRFS1h0UndCV0JwUzF0MzRVbm9lX0RNcE5hQnRNazVfZ0lyXzFDczI5cXhEaDY5bnFFbXRISXkyd2pZd2hwR0tKcFN4bmYwVTl5cWdtZ1dPaXM5bktvVmU3UVdtaTBzdHg5Q01QdEZpN3BTX3FLaEU3REhOb0MxZVpOeVk1R3IwdEh0cW9XRHZjLTlxQjJGVUwtMzNHNmQtMmNHUlF6N1p1M29Ed2h5ZllydDVwWUxvMEhUcmVC?oc=5",
+      "first_seen": "2026-11-16T07:07:14.122541+00:00"
     },
     {
-      "headline": "Congratulations to people who feel mean shooting random NPCs, because GTA 6 tries \"to provide mechanisms that encourage\" empathy - Rock Paper Shotgun",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxNZHF1UC1wb29vM1Ffb2h0bUdQY2F2QXRUSHFKekJ5Q0hSZ3NSVnFZd0xEZ3paUW03VExmYnhiZ2o4SHp0bElTb3hvZ2pUbHgyT3lTVzZWTEVidmhsVEk2OEEzbUVWcEdBb2ZVWEctdXVvQlJycTRwS1ZtY0xfb0NMcGlueTVlSTcweW9fcFNZM3VuR2FXWjJDVFZmcVJqWmh5WkJLbFR0bkVlWGpsbXAyMWMxSlZQSlpCckVNZXV2bUs2LXdYZjhZR1M4UVg0X1I3Nk1XZWFWdTZ1SHVQVmZfOWFxT0lOX1p0RVFIZGZ4dw?oc=5",
-      "first_seen": "2026-11-16T06:57:04.615384+00:00"
+      "headline": "Miami evokes Vice City ahead of Grand Theft Auto 6 launch - The Straits Times",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOMUx3VV9tcDk3QTBYWHBfcnpqbHE2VHRWNnhTMjF3N0hlZG9jQTJvYzM4QkV0ZUFzN3J3bGJGbmo4ZG1Da29nMlhDX3JUdC1QNnVnYVo5R0c0ODRBWkkyS2p0UVFUdXJOS2lfYlVGNzFyZks4cmExRGZNdkxfQnhnMUpkc3p4OWR5dXA3TWJOVzFHbU9COVFNNEJpNjkyWHFlYjR4VzlydWw2dw?oc=5",
+      "first_seen": "2026-11-16T07:07:14.111390+00:00"
     }
   ]
 }
