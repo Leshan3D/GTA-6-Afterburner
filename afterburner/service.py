@@ -93,7 +93,7 @@ class Radar:
                 # never implicitly upgraded by a technical futures-only trigger.
                 sig['technical_setup']=technical
                 signal_id=self.storage.save_setup(technical)
-                if signal_id is not None:
+                if signal_id is not None and technical.get('state') == 'TRIGGERED':
                     self.telegram.technical_signal(technical,signal_id,exec_quality)
                 self.storage.save_snapshot(asset.symbol, market, dex, sig)
                 self.storage.set_health("bingx:"+asset.symbol,

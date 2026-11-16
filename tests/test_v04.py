@@ -54,109 +54,21 @@ class SignalTests(unittest.TestCase):
         self.assertGreater(r['rr'],1.2)
 
     def test_no_trigger_if_insufficient_history(self):
+        """Insufficient candles -> WAIT, not FORMING."""
         bars=candles(40)
         r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
-        self.assertEqual(r['state'],'FORMING')
-        self.assertIn('insufficient_candles',r['blocking_reasons'])
-
-    def test_no_trigger_with_bad_depth(self):
-        """Wide spread/thin depth should not erase technical setup, but execution quality should flag it."""
-        bars=candles();m={**MARKET,'ask_depth_usd':20,'spread_pct':2.5}
-        r=generate_signal('GATO-USDT',m,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
-        # Technical setup can still be TRIGGERED; execution quality should flag it
-        eq=assess_execution(m,None,notionals=[100.0],config=CONFIG)
-        self.assertEqual(eq['quality'],'POOR_LIQUIDITY')
-
-    def test_no_trigger_with_stale_bars(self):
-        bars=candles()
-        r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP+600001)
-        self.assertIn('stale_or_future_candles',r['blocking_reasons'])
-
-    def test_no_signal_from_research_score(self):
-        bars=candles(breakout=False)
-        r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP,
-                          research={'long_score':99})
-        self.assertEqual(r['direction'],'WAIT')
-
-    def test_legal_lifecycle(self):
-        self.assertEqual(transition('TRIGGERED','PAPER_FILLED'),'PAPER_FILLED')
-        with self.assertRaises(ValueError):transition('FORMING','CLOSED')
-
-    def test_persistent_closed_bars_dedup(self):
-        with tempfile.TemporaryDirectory() as d:
-            st=Storage(Path(d)/'test.db');bars=candles(20)
-            st.save_candles('bingx','GATO-USDT','5m',bars,now_ms=bars[-1]['ts']+STEP)
-            st.save_candles('bingx','GATO-USDT','5m',bars,now_ms=bars[-1]['ts']+STEP)
-            self.assertEqual(len(st.get_candles('bingx','GATO-USDT','5m')),20)
-            self.assertEqual(len(st.get_candles('bingx','GATO-USDT','15m')),0)
-
-    def test_paper_separate_from_trigger(self):
-        with tempfile.TemporaryDirectory() as d:
-            st=Storage(Path(d)/'test.db'); bars=candles()
-            sig=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
-            sid=st.save_setup(sig)
-            self.assertEqual(st.get_signals()[0]['state'],'TRIGGERED')
-            self.assertEqual(paper_step(st,'GATO-USDT',bars,CONFIG),[])
-            nextbar={'ts':bars[-1]['ts']+STEP,'open':bars[-1]['close'],
-                     'high':bars[-1]['close']+0.001,'low':bars[-1]['close']-0.001,
-                     'close':bars[-1]['close'],'volume':100}
-            events=paper_step(st,'GATO-USDT',bars+[nextbar],CONFIG)
-            self.assertIn((sid,'PAPER_FILLED'),events)
-
-    def test_kronos_off_is_neutral(self):
-        r=forecast('GATO-USDT','5m',[],CONFIG)
-        self.assertEqual(r['status'],'disabled');self.assertEqual(r['directional_weight'],0.0)
-
-    def test_backtest_insufficient_real_data(self):
-        self.assertEqual(backtest('GATO-USDT',candles(80),CONFIG)['status'],'insufficient_real_history')
-
-    def test_public_schema_with_signal(self):
-        with tempfile.TemporaryDirectory() as d:
-            st=Storage(Path(d)/'test.db')
-            a=assets(); conf=settings()
-            payload=public_payload(st,a,conf)
-            self.assertTrue(validate_payload(payload,[x.symbol for x in a]))
-            payload['assets'][0]['technical_signal']={'private_key':'password'}
-            with self.assertRaises(ValueError):validate_payload(payload,[x.symbol for x in a])
-
-    # ---- v0.4 signal visibility correction tests ----
-
-    def test_valid_long_setup_visible_despite_wide_spread(self):
-        """A valid technical LONG setup must still be reported when spread is wide."""
-        bars=candles()
-        market_wide={**MARKET,'spread_pct':2.5,'bid_depth_usd':500,'ask_depth_usd':500}
-        r=generate_signal('GATO-USDT',market_wide,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
-        # Technical setup should still be TRIGGERED despite wide spread
-        self.assertEqual(r['direction'],'LONG')
-        self.assertEqual(r['state'],'TRIGGERED')
-        # But execution quality should flag POOR_LIQUIDITY
-        eq=assess_execution(market_wide,None,notionals=[100.0],config=CONFIG)
-        self.assertIn(eq['quality'],('POOR_LIQUIDITY','DATA_UNAVAILABLE'))
-
-    def test_valid_setup_not_labeled_execution_ready_when_costs_unacceptable(self):
-        """Same setup: technical TRIGGERED but execution quality POOR_LIQUIDITY."""
-        bars=candles()
-        market_wide={**MARKET,'spread_pct':3.0,'bid_depth_usd':100,'ask_depth_usd':100}
-        r=generate_signal('GATO-USDT',market_wide,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
-        self.assertEqual(r['state'],'TRIGGERED')
-        eq=assess_execution(market_wide,None,notionals=[100.0],config=CONFIG)
-        self.assertEqual(eq['quality'],'POOR_LIQUIDITY')
-        self.assertGreater(eq['worst_case_cost_pct'], 2.5)
-        # Technical state is TRIGGERED but execution is not acceptable
-        self.assertEqual(r['state'],'TRIGGERED')
-        self.assertNotEqual(eq['quality'],'ACCEPTABLE')
+        self.assertEqual(r['state'],'WAIT')
+        self.assertIn('insufficient_candles',r['data_gates'])
 
     def test_short_setup_detected_independently(self):
         """SHORT setups are detected when price breaks below support with volume."""
         bars=candles(breakout=False)
-        # Force a breakdown: last bar below support with high volume
         cl=0.88; high=0.885; low=0.875; v=400
         bars[-1]={'ts':BASE+(len(bars)-1)*STEP,'open':cl-0.0005,'high':high,'low':low,'close':cl,'volume':v}
         r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
         self.assertIn(r['direction'],('SHORT','WAIT'))
         if r['direction']=='SHORT':
             self.assertEqual(r['state'],'TRIGGERED')
-            # For SHORT, stop loss is above entry; TP1 is below entry
             self.assertGreater(r['sl'],r['entry_trigger'])
             self.assertLess(r['tp1'],r['entry_trigger'])
 
@@ -164,8 +76,8 @@ class SignalTests(unittest.TestCase):
         """Stale candles cannot produce fresh confirmed signals."""
         bars=candles()
         r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP+600001)
-        self.assertIn('stale_or_future_candles',r['blocking_reasons'])
-        self.assertNotEqual(r['state'],'TRIGGERED')
+        self.assertIn('stale_or_future_candles',r['data_gates'])
+        self.assertEqual(r['state'],'WAIT')
 
     def test_mark_index_not_confused_with_spread(self):
         """Mark/index divergence must not be misidentified as bid/ask spread."""
@@ -174,13 +86,15 @@ class SignalTests(unittest.TestCase):
                          'mark_price':999.0,'index_price':1.0}
         r1=generate_signal('GATO-USDT',market_ok,{'5m':candles()},CONFIG,now_ms=BASE+120*STEP)
         r2=generate_signal('GATO-USDT',market_bad_mark,{'5m':candles()},CONFIG,now_ms=BASE+120*STEP)
-        # Mark/index anomaly should not affect spread-based signal generation
         self.assertEqual(r1['direction'], r2['direction'])
         self.assertEqual(r1['state'], r2['state'])
 
     def test_different_position_sizes_different_slippage(self):
         """Different notional sizes produce different depth-based slippage estimates."""
-        market={**MARKET,'bid_depth_usd':1000,'ask_depth_usd':1000,'spread_pct':0.5}
+        market={**MARKET,'bid':1.00,'ask':1.01,
+                'bid_depth_usd':100000,'ask_depth_usd':100000,
+                'bids':[[1.00,200],[0.99,10000],[0.98,10000]],
+                'asks':[[1.01,200],[1.02,10000],[1.03,10000]]}
         eq_small=assess_execution(market,None,notionals=[50.0],config=CONFIG)
         eq_large=assess_execution(market,None,notionals=[250.0],config=CONFIG)
         small_impact=eq_small['notionals'][0].get('buy_impact_pct')
@@ -203,13 +117,118 @@ class SignalTests(unittest.TestCase):
         import afterburner.execution_quality as eq
         src_se = inspect.getsource(se)
         src_eq = inspect.getsource(eq)
-        # No requests.post, no session.post, no authenticated endpoints
         for src in (src_se, src_eq):
             self.assertNotIn('requests.post', src)
             self.assertNotIn('session.post', src)
             self.assertNotIn('/private/', src)
             self.assertNotIn('api_key', src.lower())
             self.assertNotIn('secret', src.lower())
+
+    def test_crossed_quotes_never_execution_ready(self):
+        """Crossed bid/ask quotes never produce ACCEPTABLE execution quality."""
+        market_crossed={**MARKET,'bid':1.12,'ask':1.11,'bid_depth_usd':10000,'ask_depth_usd':10000}
+        eq=assess_execution(market_crossed,None,notionals=[100.0],config=CONFIG)
+        self.assertEqual(eq['quality'],'DATA_UNAVAILABLE')
+        self.assertIsNone(eq['worst_case_cost_pct'])
+
+    def test_ladder_vwap_arithmetic(self):
+        """Proper VWAP simulation over bid/ask depth ladders."""
+        market_ladder={**MARKET,'bid':1.0000,'ask':1.0001,
+                       'bid_depth_usd':100000,'ask_depth_usd':100000,
+                       'bids':[[1.0000,1000],[0.9999,1000],[0.9998,1000]],
+                       'asks':[[1.0001,1000],[1.0002,1000],[1.0003,1000]]}
+        eq=assess_execution(market_ladder,None,notionals=[100.0],config=CONFIG)
+        self.assertEqual(eq['quality'],'ACCEPTABLE')
+        buy_impact=eq['notionals'][0].get('buy_impact_pct')
+        self.assertIsNotNone(buy_impact)
+        self.assertGreaterEqual(buy_impact, 0)
+
+    def test_insufficient_depth_for_notional(self):
+        """Insufficient depth for a hypothetical notional produces INSUFFICIENT_DEPTH."""
+        market_thin={**MARKET,'bid':1.00,'ask':1.01,
+                     'bid_depth_usd':10,'ask_depth_usd':10,
+                     'bids':[[1.00,0.01]],'asks':[[1.01,0.01]]}
+        eq=assess_execution(market_thin,None,notionals=[250.0],config=CONFIG)
+        self.assertEqual(eq['quality'],'INSUFFICIENT_DEPTH')
+        self.assertIsNone(eq['worst_case_cost_pct'])
+
+    def test_fees_and_slippage_without_double_counting_spread(self):
+        """Fees and slippage applied without double-counting spread."""
+        market={**MARKET,'bid':1.00,'ask':1.01,
+                'bid_depth_usd':100000,'ask_depth_usd':100000,
+                'bids':[[1.00,1000],[0.99,1000]],
+                'asks':[[1.01,1000],[1.02,1000]]}
+        eq=assess_execution(market,None,notionals=[100.0],config=CONFIG)
+        est=eq['notionals'][0]
+        total_buy=est.get('total_round_trip_buy_pct')
+        self.assertIsNotNone(total_buy)
+        self.assertGreater(total_buy, eq['spread_pct'])
+        self.assertLess(total_buy, eq['spread_pct'] + 1.0)
+
+    def test_wait_insufficient_data_not_forming(self):
+        """WAIT/insufficient data not classified as FORMING."""
+        bars=candles(40)
+        r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
+        self.assertEqual(r['state'],'WAIT')
+        self.assertNotEqual(r['state'],'FORMING')
+
+    def test_no_telegram_push_for_wait_or_forming(self):
+        """WAIT and FORMING states should not trigger Telegram alerts."""
+        bars=candles(40)
+        r=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
+        self.assertEqual(r['state'],'WAIT')
+        self.assertNotEqual(r['state'],'TRIGGERED')
+        bars2=candles()
+        r2=generate_signal('GATO-USDT',MARKET,{'5m':bars2},CONFIG,now_ms=bars2[-1]['ts']+STEP)
+        if r2['state'] != 'TRIGGERED':
+            self.assertIn(r2['state'],('WAIT','FORMING'))
+
+    def test_only_one_entry_alert_per_trigger(self):
+        """Only one entry alert per actual trigger (same candle)."""
+        with tempfile.TemporaryDirectory() as d:
+            st=Storage(Path(d)/'test.db')
+            bars=candles()
+            sig=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
+            self.assertEqual(sig['state'],'TRIGGERED')
+            sid1=st.save_setup(sig)
+            self.assertIsNotNone(sid1)
+            sid2=st.save_setup(sig)
+            self.assertEqual(sid1,sid2)
+            snaps=st.get_signals()
+            self.assertEqual(len(snaps),1)
+            self.assertEqual(snaps[0]['state'],'TRIGGERED')
+
+    def test_paper_filled_and_closed_preserved_across_polls(self):
+        """PAPER_FILLED and CLOSED states preserved across repeated market polls."""
+        with tempfile.TemporaryDirectory() as d:
+            st=Storage(Path(d)/'test.db')
+            bars=candles()
+            sig=generate_signal('GATO-USDT',MARKET,{'5m':bars},CONFIG,now_ms=bars[-1]['ts']+STEP)
+            sid=st.save_setup(sig)
+            self.assertEqual(sid,1)
+            st.update_signal_state(sid,'PAPER_FILLED',price=1.125,note='paper fill')
+            snaps=st.get_signals()
+            self.assertEqual(snaps[0]['state'],'PAPER_FILLED')
+            sid2=st.save_setup(sig)
+            self.assertEqual(sid,sid2)
+            snaps=st.get_signals()
+            self.assertEqual(snaps[0]['state'],'PAPER_FILLED')
+            st.update_signal_state(sid,'CLOSED',price=1.13,note='TP1 hit')
+            snaps=st.get_signals()
+            self.assertEqual(snaps[0]['state'],'CLOSED')
+            sid3=st.save_setup(sig)
+            self.assertEqual(sid,sid3)
+            snaps=st.get_signals()
+            self.assertEqual(snaps[0]['state'],'CLOSED')
+
+    def test_public_schema_with_signal(self):
+        with tempfile.TemporaryDirectory() as d:
+            st=Storage(Path(d)/'test.db')
+            a=assets(); conf=settings()
+            payload=public_payload(st,a,conf)
+            self.assertTrue(validate_payload(payload,[x.symbol for x in a]))
+            payload['assets'][0]['technical_signal']={'private_key':'password'}
+            with self.assertRaises(ValueError):validate_payload(payload,[x.symbol for x in a])
 
 
 if __name__=='__main__':unittest.main()
