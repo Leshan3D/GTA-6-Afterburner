@@ -118,12 +118,15 @@ def assess_execution(market: dict, dex: dict | None = None,
                        or market.get("time") or market.get("timestamp"))
     now_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
     quote_stale = False
+    quote_timestamp_missing = quote_ts is None
     if quote_ts is not None:
         quote_age_ms = now_ms - int(quote_ts)
-        if quote_age_ms > 60000:  # quote older than 60 seconds
+        # Stale if older than 60 seconds OR if from the future
+        if quote_age_ms > 60000 or quote_age_ms < 0:
             quote_stale = True
-    # If no timestamp at all, flag the limitation as a warning but don't block
-    quote_timestamp_missing = quote_ts is None
+    else:
+        # Missing timestamp = cannot verify freshness
+        quote_stale = True
 
     # Parse depth ladders from the same snapshot.
     # bingx.collect() produces bids_ladder/asks_ladder via parse_depth_ladders.
