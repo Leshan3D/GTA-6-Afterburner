@@ -32,7 +32,7 @@ python -m afterburner doctor   # static checks; no network
 
 The installer creates an isolated Python venv, a SQLite database, and a user-level systemd service unit — all outside the project code directory. Credentials are configured in `~/.config/afterburner/.env` (mode `600`) and never committed. The service starts neither the Telegram bot nor alerts until a valid bot token and allowed chat ID are configured.
 
-For upgrades, **do not blindly overwrite the existing `config/*.yaml`** or the current SQLite database. Use `OPENCODE_UPGRADE.md`.
+For upgrades, **do not blindly overwrite the existing `config/*.yaml`** or the current SQLite database. Use `UPGRADE.md`.
 
 ## CLI
 
@@ -84,4 +84,4 @@ The live market collector and JAFAR are not modified by this publishing componen
 
 New: stored multi-timeframe completed BingX candles, confirmed technical LONG/SHORT triggers, entry/SL/TP/net-R:R levels, separable hypothetical next-bar paper fills, backtest research, Telegram `/signals`/`/setups`/`/performance`/`/kronos`, and a third-opinion Kronos subprocess (disabled until locally installed; zero voting weight). **No exchange order execution.**
 
-See [v0.4 signal design and limitations](docs/SIGNALS_V04.md) and [OpenCode deployment guide](OPENCODE_V0.4_UPGRADE.md). Existing data store and public publisher are retained.
+See [v0.4 signal design and limitations](docs/SIGNALS_V04.md) and [OpenCode deployment guide](UPGRADE_v0.4.md). Existing data store and public publisher are retained.
