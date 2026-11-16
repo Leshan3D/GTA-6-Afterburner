@@ -24,6 +24,50 @@ def finite_number(value):
         return None
 
 
+def parse_depth_ladders(depth: dict) -> dict:
+    """Normalize raw BingX depth response into sorted bid/ask ladders.
+
+    Returns dict with 'bids' and 'asks', each a list of [price, qty] pairs
+    sorted appropriately (bids descending, asks ascending). Invalid levels
+    are skipped. Never mutates the input.
+    """
+    bids = []
+    asks = []
+
+    raw_bids = depth.get("bids") or []
+    raw_asks = depth.get("asks") or []
+
+    for level in raw_bids:
+        if not isinstance(level, (list, tuple)) or len(level) < 2:
+            continue
+        try:
+            px = float(level[0])
+            qty = float(level[1])
+        except (TypeError, ValueError):
+            continue
+        if px <= 0 or qty <= 0:
+            continue
+        bids.append([px, qty])
+
+    for level in raw_asks:
+        if not isinstance(level, (list, tuple)) or len(level) < 2:
+            continue
+        try:
+            px = float(level[0])
+            qty = float(level[1])
+        except (TypeError, ValueError):
+            continue
+        if px <= 0 or qty <= 0:
+            continue
+        asks.append([px, qty])
+
+    # Bids descending, asks ascending
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+
+    return {"bids": bids, "asks": asks}
+
+
 def book_metrics(depth):
     try:
         bids = [(float(x[0]), float(x[1])) for x in depth["bids"]]
@@ -126,7 +170,16 @@ class BingX:
         output["candles"] = candles_normalized(output.get("candles"))
         if output.get("book"):
             try:
-                output.update(book_metrics(output["book"]))
+                raw_book = output["book"]
+                output.update(book_metrics(raw_book))
+                # Preserve raw depth ladders for execution quality assessment
+                parsed = parse_depth_ladders(raw_book)
+                output["bids_ladder"] = parsed["bids"]
+                output["asks_ladder"] = parsed["asks"]
+                # Preserve exchange-provided timestamp for quote freshness checks
+                raw_time = raw_book.get("time")
+                if raw_time is not None:
+                    output["quote_time"] = int(float(raw_time))
             except DataError as exc:
                 output["source_health"]["book"] = str(exc)
         output.pop("book", None)  # save only book-derived metrics, not full depth

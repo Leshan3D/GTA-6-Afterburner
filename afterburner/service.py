@@ -17,6 +17,7 @@ from .reporting import status_report
 from .public import build_public_server
 from .storage import Storage, iso
 from .signal_engine import generate_signal, TIMEFRAMES
+from .execution_quality import assess_execution
 from .kronos_layer import forecast as kronos_forecast
 from .backtest import backtest
 from .paper import paper_step
@@ -84,12 +85,16 @@ class Radar:
                 # arrived strictly after their trigger (no retrospective fills).
                 paper_step(self.storage,asset.symbol,candle_sets['5m'],self.config)
                 technical=generate_signal(asset.symbol,market,candle_sets,self.config,research=sig)
+                # Execution quality assessed independently; does not erase a
+                # technically valid setup.
+                exec_quality=assess_execution(market,dex,notionals=[50.0,100.0,250.0],config=self.config)
+                technical['execution_quality']=exec_quality
                 # The existing research score remains separate; DEX identity is
                 # never implicitly upgraded by a technical futures-only trigger.
                 sig['technical_setup']=technical
                 signal_id=self.storage.save_setup(technical)
-                if signal_id is not None:
-                    self.telegram.technical_signal(technical,signal_id)
+                if signal_id is not None and technical.get('state') == 'TRIGGERED':
+                    self.telegram.technical_signal(technical,signal_id,exec_quality)
                 self.storage.save_snapshot(asset.symbol, market, dex, sig)
                 self.storage.set_health("bingx:"+asset.symbol,
                                         "ok" if all(v == "ok" for v in market["source_health"].values()) else "partial",

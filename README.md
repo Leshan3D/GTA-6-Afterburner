@@ -27,9 +27,7 @@ This release adds: **private allowlisted Telegram status bot**, `/progress` and 
 Extract the release archive into your chosen project directory, then:
 
 ```bash
-bash ops/install_omarchy.sh
 python -m afterburner doctor   # static checks; no network
-systemctl --user enable --now afterburner.service
 ```
 
 The installer creates an isolated Python venv, a SQLite database, and a user-level systemd service unit — all outside the project code directory. Credentials are configured in `~/.config/afterburner/.env` (mode `600`) and never committed. The service starts neither the Telegram bot nor alerts until a valid bot token and allowed chat ID are configured.

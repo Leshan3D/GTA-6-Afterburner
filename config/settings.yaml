@@ -46,6 +46,9 @@ signal:
   slippage_bps: 10
   volume_ratio_min: 1.15
   expiry_seconds: 14400
+  acceptable_max_cost_pct: 1.0
+  caution_max_cost_pct: 2.5
+  poor_liquidity_max_cost_pct: 5.0
 kronos:
   enabled: true          # enabled after validating isolated model environment
   factor_weight: 0.0     # observation, not vote or veto (hard-enforced)

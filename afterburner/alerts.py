@@ -89,16 +89,26 @@ class Telegram:
             return True
         return False
 
-    def technical_signal(self, setup, signal_id):
+    def technical_signal(self, setup, signal_id, exec_quality=None):
         """Notify only once per completed candle; never sends execution commands."""
         if not self.push_enabled:return False
         key=f"tech:{setup['symbol']}:{setup['timeframe']}:{setup['as_of_candle_ts']}"
         if self.storage.seen_alert_recently(key, 86400):return False
+        eq = exec_quality or {}
+        quality = eq.get('quality','DATA_UNAVAILABLE')
+        worst = eq.get('worst_case_cost_pct')
+        cost_txt = f" | est. round-trip cost: {worst}%" if worst is not None else ""
+        warnings = eq.get('warnings',[])
+        warn_txt = f" | Exec warnings: {', '.join(warnings[:3])}" if warnings else ""
+        et = setup.get('entry_trigger'); sl = setup.get('sl')
+        tp1 = setup.get('tp1'); tp2 = setup.get('tp2'); rr = setup.get('rr')
+        price_txt = f"Trigger: {et:.8f}\nStop: {sl:.8f}\n" if et is not None and sl is not None else "Trigger: pending\nStop: pending\n"
+        tp_txt = f"TP1: {tp1:.8f} | TP2: {tp2:.8f}\n" if tp1 is not None and tp2 is not None else "TP1/TP2: pending\n"
+        rr_txt = f"Net estimated R:R {rr:.2f}\n" if rr is not None else ""
         message=(f"🚦 AFTERBURNER | {setup['symbol']} {setup['direction']} SIGNAL #{signal_id}\n"
-                 f"Timeframe: {setup['timeframe']} | Confidence index: {setup['confidence']}/100\n"
-                 f"Trigger: {setup['entry_trigger']:.8f}\nStop: {setup['sl']:.8f}\n"
-                 f"TP1: {setup['tp1']:.8f} | TP2: {setup['tp2']:.8f}\n"
-                 f"Net estimated R:R {setup['rr']:.2f}\n"
+                 f"Technical: {setup['state']} | Timeframe: {setup['timeframe']} | Confidence: {setup['confidence']}/100\n"
+                 f"{price_txt}{tp_txt}{rr_txt}"
+                 f"Execution quality: {quality}{cost_txt}{warn_txt}\n"
                  "Confirmed candle, NOT a filled trade. No automatic execution.\n"
                  f"https://bingx.com/en/perpetual/{setup['symbol']}")
         if self.send(message):

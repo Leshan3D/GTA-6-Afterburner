@@ -54,9 +54,12 @@ async function refresh(){
       append(card,'div','muted','DEX pool: '+money((dex.primary||{}).liquidity_usd,0)+' · spread: '+text(m.spread_pct===undefined?null:m.spread_pct?.toFixed(3))+'%');
       append(card,'div','muted','Flags: '+text((sig.blocking_flags||[]).join(', '),'none'));
       const tech=sig.technical_setup||{};
+      const eq=tech.execution_quality||{};
       if(tech.direction==='LONG'||tech.direction==='SHORT'){
         append(card,'p',tech.state==='TRIGGERED'?'positive':'warning',tech.state+' '+tech.direction+' · '+text(tech.timeframe));
         if(tech.entry_trigger!=null){append(card,'div','muted','Trigger '+money(tech.entry_trigger,8)+' · SL '+money(tech.sl,8));append(card,'div','muted','TP1 '+money(tech.tp1,8)+' · TP2 '+money(tech.tp2,8)+' · net R:R '+text(tech.rr));}
+        append(card,'div','muted','Exec quality: '+eq.quality+ (eq.worst_case_cost_pct!==null&&eq.worst_case_cost_pct!==undefined?' · est. cost: '+eq.worst_case_cost_pct.toFixed(2)+'%':''));
+        if(eq.warnings&&eq.warnings.length)append(card,'div','warning','Exec warnings: '+eq.warnings.slice(0,3).join(', '));
       }
       if(tech.blocking_reasons?.length)append(card,'div','warning','Technical gates: '+tech.blocking_reasons.join(', '));
       if(asset.kronos){append(card,'div','muted','Kronos '+asset.kronos.timeframe+': '+asset.kronos.directional_bias+' · vote weight 0');}

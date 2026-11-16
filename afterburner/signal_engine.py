@@ -1,7 +1,7 @@
 """Deterministic, candle-close-only analytical signals. NEVER places orders.
 
 Scores are evidence indices, not calibrated success probabilities. A trigger is
-NOT a simulated fill. Execution-quality gates apply to new entries.
+NOT a simulated fill. Execution quality is assessed separately.
 """
 from __future__ import annotations
 from dataclasses import dataclass, asdict
@@ -82,22 +82,45 @@ def evidence_bias(candles, structure, volume_ratio_min=1.15):
     return ('WAIT',0,['no_confirmed_structure_break'])
 
 
-def execution_gates(market, candles, now_ms, config, timeframe='5m'):
-    risk=config.get('risk',{})
-    problems=[]
-    if not market.get('contract_active'):problems.append('contract_inactive_or_unknown')
-    if market.get('price') is None:problems.append('missing_futures_price')
-    spread=market.get('spread_pct')
-    if spread is None or spread>risk.get('max_spread_pct',0.75):problems.append('wide_or_missing_spread')
-    for k in ('bid_depth_usd','ask_depth_usd'):
-        if market.get(k) is None or market[k]<risk.get('min_book_depth_usd_each_side',1500):problems.append('thin_or_missing_'+k)
-    if market.get('volume_24h_usd') is None or market['volume_24h_usd']<risk.get('min_quote_volume_24h_usd',50000):problems.append('thin_or_missing_24h_volume')
-    if len(candles)<100:problems.append('insufficient_candles')
+def forming_detection(candles, structure, volume_ratio_min=1.05):
+    """Detect forming setup: price approaching structure but not yet broken out.
+
+    Returns (direction, confidence, rationale) or None.
+    """
+    if len(candles) < 51 or not structure:
+        return None
+    closes = [c['close'] for c in candles]
+    fast = ema(closes, 12)
+    slow = ema(closes, 26)
+    recent = candles[-1]
+
+    if fast is None or slow is None:
+        return None
+
+    # Price within 1% of resistance (forming LONG) or support (forming SHORT)
+    near_resistance = recent['close'] >= structure['resistance'] * 0.99
+    near_support = recent['close'] <= structure['support'] * 1.01
+
+    if near_resistance and fast > slow:
+        return ('LONG', 40, ['price_approaching_resistance','ema12_above_ema26','forming_long'])
+    if near_support and fast < slow:
+        return ('SHORT', 40, ['price_approaching_support','ema12_below_ema26','forming_short'])
+    return None
+
+
+def data_gates(market, candles, now_ms, config, timeframe='5m'):
+    """Candle integrity/freshness gates only. Spread/depth are execution quality."""
+    problems = []
+    if len(candles) < 100:
+        problems.append('insufficient_candles')
     else:
-        age=(now_ms-(candles[-1]['ts']+TIMEFRAMES[timeframe]*1000))/1000
-        if age<0 or age>config.get('schedule',{}).get('max_market_age_seconds',600):problems.append('stale_or_future_candles')
-        if any(b['ts']-a['ts']!=TIMEFRAMES[timeframe]*1000 for a,b in zip(candles[-51:],candles[-50:])):problems.append('gapped_candles')
-    return sorted(set(problems))
+        age = (now_ms - (candles[-1]['ts'] + TIMEFRAMES[timeframe] * 1000)) / 1000
+        if age < 0 or age > config.get('schedule', {}).get('max_market_age_seconds', 600):
+            problems.append('stale_or_future_candles')
+        if any(b['ts'] - a['ts'] != TIMEFRAMES[timeframe] * 1000
+               for a, b in zip(candles[-51:], candles[-50:])):
+            problems.append('gapped_candles')
+    return problems
 
 
 def compute_levels(direction, close, atr, structure, config):
@@ -125,38 +148,96 @@ def generate_signal(symbol, market, candles_by_tf, config, now_ms=None, timefram
 
     Only an explicit confirmed close breaks pre-existing S/R. No DEX leg is used
     unless an independently verified contract identity is added in the future.
+
+    Technical setup (direction/state/levels) is produced independently of
+    execution quality. Execution quality is assessed separately by
+    execution_quality.assess_execution() and merged by the service layer.
+    Stale or insufficient candles block TRIGGERED; spread/depth does not.
+
+    States:
+      WAIT - no validated technical setup (insufficient/stale candles, no breakout)
+      FORMING - preliminary technical evidence (price near structure, not yet broken)
+      ARMED - valid setup awaits entry trigger
+      TRIGGERED - confirmed completed-candle breakout conditions
     """
     if not config.get('signal',{}).get('enabled',True):
-        return {'symbol':symbol,'direction':'WAIT','state':'FORMING','timeframe':timeframe,
+        return {'symbol':symbol,'direction':'WAIT','state':'WAIT','timeframe':timeframe,
                 'confidence':0,'rationale':['signal_engine_disabled'],
-                'blocking_reasons':['signal_engine_disabled'],'as_of_candle_ts':None,
+                'data_gates':['signal_engine_disabled'],'as_of_candle_ts':None,
                 'strategy_version':'afterburner-0.4.0-breakout-v1','kronos_alignment':'unavailable'}
     now_ms=now_ms or int(datetime.now(timezone.utc).timestamp()*1000)
     raw=candles_by_tf.get(timeframe,[])
     candles=valid_candles(raw,timeframe)
     # Drop partially formed/future candles even when provider reports premature 'end'.
     candles=[c for c in candles if c['ts']+TIMEFRAMES[timeframe]*1000<=now_ms]
-    gates=execution_gates(market,candles,now_ms,config,timeframe)
-    structure=market_structure(candles)
-    atr=calculate_atr(candles)
-    direction, confidence, rationale=evidence_bias(candles,structure)
-    base={'symbol':symbol,'direction':direction,'state':'FORMING' if direction=='WAIT' else 'ARMED',
-          'timeframe':timeframe,'confidence':confidence,'rationale':rationale,
-          'blocking_reasons':gates,'as_of_candle_ts':candles[-1]['ts'] if candles else None,
-          'strategy_version':'afterburner-0.4.0-breakout-v1','kronos_alignment':'unavailable'}
+
+    # Data-quality gates: only candle integrity/freshness. Spread/depth are
+    # execution-quality concerns, assessed separately, and do not block setup
+    # formation here.
+    dg = data_gates(market,candles,now_ms,config,timeframe)
+
+    # If data is insufficient or stale, return WAIT (not FORMING)
+    if dg:
+        return {
+            'symbol': symbol,
+            'direction': 'WAIT',
+            'state': 'WAIT',
+            'timeframe': timeframe,
+            'confidence': 0,
+            'rationale': dg,
+            'data_gates': dg,
+            'as_of_candle_ts': candles[-1]['ts'] if candles else None,
+            'strategy_version': 'afterburner-0.4.0-breakout-v1',
+            'kronos_alignment': 'unavailable',
+        }
+
+    structure = market_structure(candles)
+    atr = calculate_atr(candles)
+    direction, confidence, rationale = evidence_bias(candles, structure)
+
+    base = {
+        'symbol': symbol,
+        'direction': direction,
+        'timeframe': timeframe,
+        'confidence': confidence,
+        'rationale': rationale,
+        'data_gates': [],
+        'as_of_candle_ts': candles[-1]['ts'] if candles else None,
+        'strategy_version': 'afterburner-0.4.0-breakout-v1',
+        'kronos_alignment': 'unavailable',
+    }
+
     if research:
-        base['market_intelligence']={
-            'long_score':research.get('long_score'),
-            'short_score':research.get('short_score'),
-            'research_state':research.get('state'),
-            'note':'Separate research context. Not a trigger or probability of success.'}
-    if direction=='WAIT' or gates:
-        base['state']='FORMING';return base
-    levels=compute_levels(direction,candles[-1]['close'],atr,structure,config)
-    if not levels or levels['rr']<float(config.get('signal',{}).get('min_net_rr',1.2)):
-        base['blocking_reasons'].append('unacceptable_net_risk_reward');base['state']='FORMING';return base
-    # Trigger is confirmed on this closing candle, but paper fill is a separate event.
-    base.update(levels);base['state']='TRIGGERED';return base
+        base['market_intelligence'] = {
+            'long_score': research.get('long_score'),
+            'short_score': research.get('short_score'),
+            'research_state': research.get('state'),
+            'note': 'Separate research context. Not a trigger or probability of success.',
+        }
+
+    if direction == 'WAIT':
+        # Check for forming evidence: price near structure but not yet broken out
+        forming = forming_detection(candles, structure)
+        if forming:
+            f_dir, f_conf, f_rationale = forming
+            base['direction'] = f_dir
+            base['confidence'] = f_conf
+            base['rationale'] = f_rationale
+            base['state'] = 'FORMING'
+        else:
+            base['state'] = 'WAIT'
+        return base
+
+    # Confirmed breakout - TRIGGERED
+    levels = compute_levels(direction, candles[-1]['close'], atr, structure, config)
+    if not levels or levels['rr'] < float(config.get('signal', {}).get('min_net_rr', 1.2)):
+        base['blocking_reasons'] = ['unacceptable_net_risk_reward']
+        base['state'] = 'FORMING'
+        return base
+
+    base.update(levels)
+    base['state'] = 'TRIGGERED'
+    return base
 
 
 def transition(current, target):

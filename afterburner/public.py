@@ -37,8 +37,30 @@ def public_technical_signal(raw, stale):
                    'state': 'STALE' if stale else raw.get('state') if raw.get('state') in ('FORMING','ARMED','TRIGGERED') else 'FORMING',
                    'timeframe':raw.get('timeframe') if raw.get('timeframe') in ('5m','15m','1h') else '5m',
                    'as_of_candle_ts':int(raw['as_of_candle_ts']) if isinstance(raw.get('as_of_candle_ts'),int) else None,
-                   'blocking_reasons':[str(x)[:75] for x in raw.get('blocking_reasons',[])[:6]]})
+                   'blocking_reasons':[str(x)[:75] for x in raw.get('blocking_reasons',[])[:6]],
+                   'execution_quality': public_execution_quality(raw.get('execution_quality'))})
     return values
+
+
+def public_execution_quality(raw):
+    """Sanitized execution quality for public payload."""
+    if not isinstance(raw, dict): return None
+    eq={}
+    for key in ('quality','spread_pct','best_bid','best_ask','bid_depth_usd','ask_depth_usd','fee_bps','slippage_bps','worst_case_cost_pct'):
+        v=raw.get(key)
+        eq[key]=safe_number(v) if key in ('spread_pct','best_bid','best_ask','bid_depth_usd','ask_depth_usd','fee_bps','slippage_bps','worst_case_cost_pct') else v
+    if isinstance(raw.get('notionals'), list):
+        eq['notionals']=[]
+        for n in raw['notionals'][:3]:
+            if isinstance(n, dict):
+                eq['notionals'].append({
+                    'notional_usd': safe_number(n.get('notional_usd')),
+                    'total_round_trip_buy_pct': safe_number(n.get('total_round_trip_buy_pct')),
+                    'total_round_trip_sell_pct': safe_number(n.get('total_round_trip_sell_pct')),
+                })
+    if isinstance(raw.get('warnings'), list):
+        eq['warnings']=[str(w)[:75] for w in raw['warnings'][:3]]
+    return eq
 
 
 def public_kronos(raw):

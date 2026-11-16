@@ -204,13 +204,35 @@ class Storage:
                  'close':r['close'],'volume':r['volume']} for r in reversed(rows)]
 
     def save_setup(self, signal):
-        if signal.get('state') != 'TRIGGERED' or not signal.get('as_of_candle_ts'):
+        if not signal.get('as_of_candle_ts'):
             return None
         with self.conn() as db:
+            # Check if a signal already exists for this candle
+            existing = db.execute("""SELECT id, state, direction FROM signals
+                WHERE symbol=? AND timeframe=? AND strategy_version=? AND as_of_candle_ts=?""",
+                (signal['symbol'], signal['timeframe'], signal['strategy_version'], signal['as_of_candle_ts'])).fetchone()
+            if existing:
+                existing_state = existing['state']
+                # Terminal states: never overwrite or regress
+                terminal_states = {'CLOSED','EXPIRED','INVALIDATED','UNFILLED','PAPER_FILLED'}
+                if existing_state in terminal_states:
+                    return existing['id']
+                # Non-terminal states: only advance forward, never regress to WAIT/FORMING
+                new_state = signal.get('state','FORMING')
+                advance_order = {'FORMING':0,'ARMED':1,'TRIGGERED':2}
+                if advance_order.get(existing_state, -1) >= advance_order.get(new_state, -1):
+                    return existing['id']
+                # Update existing row
+                db.execute("""UPDATE signals
+                    SET direction=?, state=?, updated_at=?, details_json=?
+                    WHERE id=?""",
+                    (signal['direction'], signal.get('state','FORMING'), iso(),
+                     json.dumps(signal,allow_nan=False), existing['id']))
+                return existing['id']
             db.execute("""INSERT INTO signals
                 (symbol,direction,state,timeframe,as_of_candle_ts,strategy_version,created_at,updated_at,details_json)
-                VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT DO NOTHING""",
-                (signal['symbol'],signal['direction'],'TRIGGERED',signal['timeframe'],
+                VALUES(?,?,?,?,?,?,?,?,?)""",
+                (signal['symbol'],signal['direction'],signal.get('state','FORMING'),signal['timeframe'],
                  signal['as_of_candle_ts'],signal['strategy_version'],iso(),iso(),
                  json.dumps(signal,allow_nan=False)))
             row=db.execute("""SELECT id FROM signals WHERE symbol=? AND timeframe=?
