@@ -176,6 +176,10 @@ class BingX:
                 parsed = parse_depth_ladders(raw_book)
                 output["bids_ladder"] = parsed["bids"]
                 output["asks_ladder"] = parsed["asks"]
+                # Preserve exchange-provided timestamp for quote freshness checks
+                raw_time = raw_book.get("time")
+                if raw_time is not None:
+                    output["quote_time"] = int(float(raw_time))
             except DataError as exc:
                 output["source_health"]["book"] = str(exc)
         output.pop("book", None)  # save only book-derived metrics, not full depth
