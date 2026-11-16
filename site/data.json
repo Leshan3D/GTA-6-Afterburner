@@ -1,6 +1,6 @@
 {
   "product": "AFTERBURNER Public Radar",
-  "generated_at": "2026-11-16T16:01:48.289897+00:00",
+  "generated_at": "2026-11-16T15:44:32.212575+00:00",
   "execution_enabled": false,
   "research_only": true,
   "assets": [
@@ -8,18 +8,18 @@
       "symbol": "GATO-USDT",
       "ticker": "GATO",
       "label": "GTA6CAT",
-      "observed_at": "2026-11-16T16:00:54.438287+00:00",
+      "observed_at": "2026-11-16T15:42:23.318610+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.00601,
-      "change_24h_pct": -10.01,
-      "volume_24h_usd": 707085.11,
+      "price": 0.00592,
+      "change_24h_pct": -12.02,
+      "volume_24h_usd": 704184.71,
       "funding_rate_pct": -0.01,
-      "spread_pct": 1.3311148086522497,
-      "dex_liquidity_usd": 248996.73,
-      "long_score": 15,
-      "short_score": 15,
+      "spread_pct": 1.3628620102214686,
+      "dex_liquidity_usd": 247151.7,
+      "long_score": 0,
+      "short_score": 30,
       "research_state": "MONITOR",
       "technical_signal": {
         "entry_trigger": null,
@@ -33,33 +33,33 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794844500000,
+        "as_of_candle_ts": 1794843300000,
         "blocking_reasons": [],
         "execution_quality": {
           "quality": "DATA_UNAVAILABLE",
-          "spread_pct": 1.3311,
-          "best_bid": 0.00597,
-          "best_ask": 0.00605,
-          "bid_depth_usd": 737.461677,
-          "ask_depth_usd": 718.788661,
+          "spread_pct": 1.3629,
+          "best_bid": 0.00583,
+          "best_ask": 0.00591,
+          "bid_depth_usd": 686.285732,
+          "ask_depth_usd": 497.518411,
           "fee_bps": 10.0,
           "slippage_bps": 10.0,
-          "worst_case_cost_pct": 2.6075,
+          "worst_case_cost_pct": 2.653,
           "notionals": [
             {
               "notional_usd": 50.0,
-              "total_round_trip_buy_pct": 1.8687,
-              "total_round_trip_sell_pct": 1.9376
+              "total_round_trip_buy_pct": 1.9757,
+              "total_round_trip_sell_pct": 1.8881
             },
             {
               "notional_usd": 100.0,
-              "total_round_trip_buy_pct": 2.0818,
-              "total_round_trip_sell_pct": 2.2213
+              "total_round_trip_buy_pct": 2.2363,
+              "total_round_trip_sell_pct": 2.0925
             },
             {
               "notional_usd": 250.0,
-              "total_round_trip_buy_pct": 2.4647,
-              "total_round_trip_sell_pct": 2.6075
+              "total_round_trip_buy_pct": 2.653,
+              "total_round_trip_sell_pct": 2.5172
             }
           ],
           "warnings": [
@@ -72,8 +72,8 @@
       "kronos": {
         "timeframe": "15m",
         "directional_bias": "SHORT",
-        "forecast_return_pct": -0.7344677734952509,
-        "cutoff_ts": 1794843000000,
+        "forecast_return_pct": -5.015448713378545,
+        "cutoff_ts": 1794842100000,
         "directional_weight": 0.0
       },
       "blocking_flags": [
@@ -84,6 +84,26 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GATO-USDT",
       "history": [
+        {
+          "ts": "2026-11-16T10:10:52.296177+00:00",
+          "price": 0.00692
+        },
+        {
+          "ts": "2026-11-16T10:14:28.773324+00:00",
+          "price": 0.00692
+        },
+        {
+          "ts": "2026-11-16T10:18:07.534324+00:00",
+          "price": 0.0069
+        },
+        {
+          "ts": "2026-11-16T10:21:48.331061+00:00",
+          "price": 0.00692
+        },
+        {
+          "ts": "2026-11-16T10:24:58.777895+00:00",
+          "price": 0.00686
+        },
         {
           "ts": "2026-11-16T10:25:05.113225+00:00",
           "price": 0.00686
@@ -255,26 +275,6 @@
         {
           "ts": "2026-11-16T15:42:23.318610+00:00",
           "price": 0.00592
-        },
-        {
-          "ts": "2026-11-16T15:46:00.358016+00:00",
-          "price": 0.00574
-        },
-        {
-          "ts": "2026-11-16T15:49:40.001435+00:00",
-          "price": 0.00578
-        },
-        {
-          "ts": "2026-11-16T15:53:16.784947+00:00",
-          "price": 0.00583
-        },
-        {
-          "ts": "2026-11-16T15:57:00.041158+00:00",
-          "price": 0.00602
-        },
-        {
-          "ts": "2026-11-16T16:00:54.438287+00:00",
-          "price": 0.00601
         }
       ]
     },
@@ -282,17 +282,17 @@
       "symbol": "DACITY-USDT",
       "ticker": "DACITY",
       "label": "Dacity",
-      "observed_at": "2026-11-16T16:01:05.525452+00:00",
+      "observed_at": "2026-11-16T15:42:32.102507+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.001978,
-      "change_24h_pct": 0.76,
-      "volume_24h_usd": 253736.45,
+      "price": 0.001834,
+      "change_24h_pct": -5.97,
+      "volume_24h_usd": 251184.46,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.1111111111111271,
-      "dex_liquidity_usd": 239171.99,
-      "long_score": 15,
+      "spread_pct": 1.0905125408942113,
+      "dex_liquidity_usd": 230364.92,
+      "long_score": 8,
       "short_score": 15,
       "research_state": "MONITOR",
       "technical_signal": {
@@ -307,33 +307,33 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794844200000,
+        "as_of_candle_ts": 1794843300000,
         "blocking_reasons": [],
         "execution_quality": {
           "quality": "DATA_UNAVAILABLE",
-          "spread_pct": 1.1111,
-          "best_bid": 0.001969,
-          "best_ask": 0.001991,
-          "bid_depth_usd": 5378.523668,
-          "ask_depth_usd": 7389.729189,
+          "spread_pct": 1.0905,
+          "best_bid": 0.001824,
+          "best_ask": 0.001844,
+          "bid_depth_usd": 6292.097106,
+          "ask_depth_usd": 5729.974268,
           "fee_bps": 10.0,
           "slippage_bps": 10.0,
-          "worst_case_cost_pct": 1.5656,
+          "worst_case_cost_pct": 1.5371,
           "notionals": [
             {
               "notional_usd": 50.0,
-              "total_round_trip_buy_pct": 1.5111,
-              "total_round_trip_sell_pct": 1.5111
+              "total_round_trip_buy_pct": 1.4905,
+              "total_round_trip_sell_pct": 1.4905
             },
             {
               "notional_usd": 100.0,
-              "total_round_trip_buy_pct": 1.5111,
-              "total_round_trip_sell_pct": 1.5229
+              "total_round_trip_buy_pct": 1.4905,
+              "total_round_trip_sell_pct": 1.4951
             },
             {
               "notional_usd": 250.0,
-              "total_round_trip_buy_pct": 1.5431,
-              "total_round_trip_sell_pct": 1.5656
+              "total_round_trip_buy_pct": 1.5268,
+              "total_round_trip_sell_pct": 1.5371
             }
           ],
           "warnings": [
@@ -344,9 +344,9 @@
       },
       "kronos": {
         "timeframe": "15m",
-        "directional_bias": "LONG",
-        "forecast_return_pct": 1.7557955830475036,
-        "cutoff_ts": 1794843000000,
+        "directional_bias": "SHORT",
+        "forecast_return_pct": -2.385518461655156,
+        "cutoff_ts": 1794842100000,
         "directional_weight": 0.0
       },
       "blocking_flags": [
@@ -356,6 +356,26 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/DACITY-USDT",
       "history": [
+        {
+          "ts": "2026-11-16T10:11:01.114736+00:00",
+          "price": 0.00188
+        },
+        {
+          "ts": "2026-11-16T10:14:37.585181+00:00",
+          "price": 0.001872
+        },
+        {
+          "ts": "2026-11-16T10:18:17.900765+00:00",
+          "price": 0.001855
+        },
+        {
+          "ts": "2026-11-16T10:21:57.925564+00:00",
+          "price": 0.001851
+        },
+        {
+          "ts": "2026-11-16T10:25:08.414648+00:00",
+          "price": 0.001838
+        },
         {
           "ts": "2026-11-16T10:25:13.666271+00:00",
           "price": 0.001838
@@ -527,26 +547,6 @@
         {
           "ts": "2026-11-16T15:42:32.102507+00:00",
           "price": 0.001834
-        },
-        {
-          "ts": "2026-11-16T15:46:10.718584+00:00",
-          "price": 0.001836
-        },
-        {
-          "ts": "2026-11-16T15:49:49.195071+00:00",
-          "price": 0.002083
-        },
-        {
-          "ts": "2026-11-16T15:53:26.525870+00:00",
-          "price": 0.002023
-        },
-        {
-          "ts": "2026-11-16T15:57:08.822834+00:00",
-          "price": 0.001922
-        },
-        {
-          "ts": "2026-11-16T16:01:05.525452+00:00",
-          "price": 0.001978
         }
       ]
     },
@@ -554,18 +554,18 @@
       "symbol": "CYBERLEEK-USDT",
       "ticker": "CYBERLEEK",
       "label": "CyberLeek",
-      "observed_at": "2026-11-16T16:01:17.064448+00:00",
+      "observed_at": "2026-11-16T15:42:41.369025+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.002094,
-      "change_24h_pct": -12.33,
-      "volume_24h_usd": 249050.56,
+      "price": 0.002068,
+      "change_24h_pct": -13.92,
+      "volume_24h_usd": 248722.12,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.0986386434201107,
-      "dex_liquidity_usd": 392062.81,
+      "spread_pct": 1.1044417767106849,
+      "dex_liquidity_usd": 384782.28,
       "long_score": 0,
-      "short_score": 0,
+      "short_score": 8,
       "research_state": "MONITOR",
       "technical_signal": {
         "entry_trigger": null,
@@ -575,37 +575,37 @@
         "tp1": null,
         "tp2": null,
         "rr": null,
-        "confidence": 0.0,
-        "direction": "WAIT",
+        "confidence": 40.0,
+        "direction": "SHORT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794844500000,
+        "as_of_candle_ts": 1794843300000,
         "blocking_reasons": [],
         "execution_quality": {
           "quality": "DATA_UNAVAILABLE",
-          "spread_pct": 1.0986,
-          "best_bid": 0.002082,
-          "best_ask": 0.002105,
-          "bid_depth_usd": 5539.3754944,
-          "ask_depth_usd": 8215.2702287,
+          "spread_pct": 1.1044,
+          "best_bid": 0.002071,
+          "best_ask": 0.002094,
+          "bid_depth_usd": 6421.999471,
+          "ask_depth_usd": 7301.559802,
           "fee_bps": 10.0,
           "slippage_bps": 10.0,
-          "worst_case_cost_pct": 1.5379,
+          "worst_case_cost_pct": 1.5645,
           "notionals": [
             {
               "notional_usd": 50.0,
-              "total_round_trip_buy_pct": 1.4986,
-              "total_round_trip_sell_pct": 1.4986
+              "total_round_trip_buy_pct": 1.5044,
+              "total_round_trip_sell_pct": 1.5044
             },
             {
               "notional_usd": 100.0,
-              "total_round_trip_buy_pct": 1.5005,
-              "total_round_trip_sell_pct": 1.5
+              "total_round_trip_buy_pct": 1.509,
+              "total_round_trip_sell_pct": 1.5044
             },
             {
               "notional_usd": 250.0,
-              "total_round_trip_buy_pct": 1.5369,
-              "total_round_trip_sell_pct": 1.5379
+              "total_round_trip_buy_pct": 1.5645,
+              "total_round_trip_sell_pct": 1.528
             }
           ],
           "warnings": [
@@ -616,9 +616,9 @@
       },
       "kronos": {
         "timeframe": "15m",
-        "directional_bias": "LONG",
-        "forecast_return_pct": 1.6814504550950238,
-        "cutoff_ts": 1794843000000,
+        "directional_bias": "SHORT",
+        "forecast_return_pct": -7.3895849143398085,
+        "cutoff_ts": 1794842100000,
         "directional_weight": 0.0
       },
       "blocking_flags": [
@@ -628,6 +628,26 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/CYBERLEEK-USDT",
       "history": [
+        {
+          "ts": "2026-11-16T10:11:10.305057+00:00",
+          "price": 0.002152
+        },
+        {
+          "ts": "2026-11-16T10:14:46.794081+00:00",
+          "price": 0.002158
+        },
+        {
+          "ts": "2026-11-16T10:18:28.281006+00:00",
+          "price": 0.002162
+        },
+        {
+          "ts": "2026-11-16T10:22:06.664904+00:00",
+          "price": 0.00216
+        },
+        {
+          "ts": "2026-11-16T10:25:17.621356+00:00",
+          "price": 0.002155
+        },
         {
           "ts": "2026-11-16T10:25:22.860271+00:00",
           "price": 0.002157
@@ -799,26 +819,6 @@
         {
           "ts": "2026-11-16T15:42:41.369025+00:00",
           "price": 0.002068
-        },
-        {
-          "ts": "2026-11-16T15:46:21.080134+00:00",
-          "price": 0.002088
-        },
-        {
-          "ts": "2026-11-16T15:49:58.813912+00:00",
-          "price": 0.002092
-        },
-        {
-          "ts": "2026-11-16T15:53:35.858085+00:00",
-          "price": 0.002092
-        },
-        {
-          "ts": "2026-11-16T15:57:17.990504+00:00",
-          "price": 0.002093
-        },
-        {
-          "ts": "2026-11-16T16:01:17.064448+00:00",
-          "price": 0.002094
         }
       ]
     },
@@ -826,18 +826,18 @@
       "symbol": "GTA6-USDT",
       "ticker": "GTA6",
       "label": "GTA VI Meme",
-      "observed_at": "2026-11-16T16:01:28.515619+00:00",
+      "observed_at": "2026-11-16T15:42:50.585052+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.01108,
-      "change_24h_pct": 60.49,
-      "volume_24h_usd": 773545.15,
-      "funding_rate_pct": 0.01,
-      "spread_pct": 1.1716989634970698,
-      "dex_liquidity_usd": 439596.37,
-      "long_score": 15,
-      "short_score": 15,
+      "price": 0.01091,
+      "change_24h_pct": 56.0,
+      "volume_24h_usd": 773076.86,
+      "funding_rate_pct": 0.022000000000000002,
+      "spread_pct": 1.1899313501144155,
+      "dex_liquidity_usd": 432923.68,
+      "long_score": 0,
+      "short_score": 23,
       "research_state": "MONITOR",
       "technical_signal": {
         "entry_trigger": null,
@@ -851,33 +851,33 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1794844500000,
+        "as_of_candle_ts": 1794843300000,
         "blocking_reasons": [],
         "execution_quality": {
           "quality": "DATA_UNAVAILABLE",
-          "spread_pct": 1.1717,
-          "best_bid": 0.01103,
-          "best_ask": 0.01116,
-          "bid_depth_usd": 9869.70951,
-          "ask_depth_usd": 6230.658691,
+          "spread_pct": 1.1899,
+          "best_bid": 0.01086,
+          "best_ask": 0.01099,
+          "bid_depth_usd": 6857.409505,
+          "ask_depth_usd": 7127.716065,
           "fee_bps": 10.0,
           "slippage_bps": 10.0,
-          "worst_case_cost_pct": 1.5857,
+          "worst_case_cost_pct": 1.5986,
           "notionals": [
             {
               "notional_usd": 50.0,
-              "total_round_trip_buy_pct": 1.5717,
-              "total_round_trip_sell_pct": 1.5717
+              "total_round_trip_buy_pct": 1.5899,
+              "total_round_trip_sell_pct": 1.5899
             },
             {
               "notional_usd": 100.0,
-              "total_round_trip_buy_pct": 1.5717,
-              "total_round_trip_sell_pct": 1.5717
+              "total_round_trip_buy_pct": 1.5899,
+              "total_round_trip_sell_pct": 1.5899
             },
             {
               "notional_usd": 250.0,
-              "total_round_trip_buy_pct": 1.5857,
-              "total_round_trip_sell_pct": 1.5836
+              "total_round_trip_buy_pct": 1.5899,
+              "total_round_trip_sell_pct": 1.5986
             }
           ],
           "warnings": [
@@ -889,8 +889,8 @@
       "kronos": {
         "timeframe": "15m",
         "directional_bias": "SHORT",
-        "forecast_return_pct": -9.192455553375511,
-        "cutoff_ts": 1794843000000,
+        "forecast_return_pct": -10.477197549322204,
+        "cutoff_ts": 1794842100000,
         "directional_weight": 0.0
       },
       "blocking_flags": [
@@ -900,6 +900,26 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GTA6-USDT",
       "history": [
+        {
+          "ts": "2026-11-16T10:07:43.298351+00:00",
+          "price": 0.0095
+        },
+        {
+          "ts": "2026-11-16T10:11:19.717000+00:00",
+          "price": 0.00963
+        },
+        {
+          "ts": "2026-11-16T10:14:55.970018+00:00",
+          "price": 0.00971
+        },
+        {
+          "ts": "2026-11-16T10:18:38.582422+00:00",
+          "price": 0.00972
+        },
+        {
+          "ts": "2026-11-16T10:22:15.983363+00:00",
+          "price": 0.00978
+        },
         {
           "ts": "2026-11-16T10:25:26.979994+00:00",
           "price": 0.01002
@@ -1071,85 +1091,11 @@
         {
           "ts": "2026-11-16T15:42:50.585052+00:00",
           "price": 0.01091
-        },
-        {
-          "ts": "2026-11-16T15:46:31.427433+00:00",
-          "price": 0.01135
-        },
-        {
-          "ts": "2026-11-16T15:50:07.692186+00:00",
-          "price": 0.0116
-        },
-        {
-          "ts": "2026-11-16T15:53:44.606610+00:00",
-          "price": 0.01169
-        },
-        {
-          "ts": "2026-11-16T15:57:27.160989+00:00",
-          "price": 0.01147
-        },
-        {
-          "ts": "2026-11-16T16:01:28.515619+00:00",
-          "price": 0.01108
         }
       ]
     }
   ],
   "news": [
-    {
-      "headline": "The last post speculating if GTA6 was gonna get announced or not.",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xxsxaj/the_last_post_speculating_if_gta6_was_gonna_get/",
-      "first_seen": "2026-11-16T16:00:43.211706+00:00"
-    },
-    {
-      "headline": "Grand Theft Auto VI: Welcome To Vice City",
-      "source": "rockstar_reddit",
-      "url": "https://www.reddit.com/r/GTA6/comments/1xxsruj/grand_theft_auto_vi_welcome_to_vice_city/",
-      "first_seen": "2026-11-16T15:50:25.732723+00:00"
-    },
-    {
-      "headline": "ut GTA 6, And It Went As Well As You'd Expect — as One Host Incorrectly Described Lucia as a 'Hooker' - IGN",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPSzA3YlE5ZFd2SXdkSzdsU0RUQlhZUkpGekdGVTFpQ2VFYTVtaUVGdEFrQnNoZFBENmZYVmFvY3J3SUxCZ2l6V3psbEswSGhyaHVHcERLMXlscHJQbk9UYWN1dXpzTHRIYjhLNHBCZ2k3TVdLZE1qRzAzdm1xUEUxWFA3UTU2dnlMVGNYZEhIcmpIS2pMZFE?oc=5",
-      "first_seen": "2026-11-16T15:50:11.827953+00:00"
-    },
-    {
-      "headline": "GTA 6 hacker pleads guilty to 2022 Rockstar Games breach which the company claim cost them $5 million - Rock Paper Shotgun",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNb1hqVDJ1eHh1c2NMUEdBTnMzZTBQNDJPZjh6WGlmV1c5dFAwVDRVV0UyRXNZRlZ6YTFybDk0cW1MU2M4VzEtb1VUSGxfTlI3dnRPcmNuc0N2UGpDQzJDSXF5cG5QQV9CeUwtZGJOOE5fWXEwQmxYdWc2UTRmb3JJSE04YXM0Mk9iMUZYdGo0VU43RjJaZ1RDbG5mdEVWc3BpMkE5bnUzbEFaNWdsUWZCWUxrUjdaOWhGWi1lSzdiTkNtaXVockVvLVFUOFhYUQ?oc=5",
-      "first_seen": "2026-11-16T15:50:11.782815+00:00"
-    },
-    {
-      "headline": "GTA 6 Entertainment Impact: 7 Forecasts, 0 Verified - shattered.io",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQTllmWDJxblZuX3NORjlaUDZ1ZjltSktxUUFfTHVKWnVUVmdHNFdtbklJZlRRWTRYMkltbWFBNnBfUWJ4WUFWVTVxM2FzT2Jrc0hvM0d1TjBicXZKM0JPSGFaZ3Z0bEYzZ2xxME1iSlZCenhZbDYzWThpY2JvUXJxdnpLME1UR3lqR1Q2ekQ3WG0?oc=5",
-      "first_seen": "2026-11-16T15:50:11.728032+00:00"
-    },
-    {
-      "headline": "‘GTA 6’ PC Release Date: Is ‘Grand Theft Auto VI’ Coming to PC? - Yahoo Tech",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPZENLbUsteE42ZTIwV2U2Q2Q3eEhXc3dZajZQczNuSnBEZXNYMVVRTGlRajlpd2s0b2tSTXdsZzV1VGlxMjgzSURyREkzVjQxT1AtZkRac3JLMkVwendCdnBPWmZ6WFMzU1V2NFI5OWxOYlFxVENTV0QwUTlxOFp2UQ?oc=5",
-      "first_seen": "2026-11-16T15:50:11.669183+00:00"
-    },
-    {
-      "headline": "GTA 6 hacker pleads guilty to 2022 Rockstar Games breach which the company claim cost them $5 million - Rock Paper Shotgun",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNb1hqVDJ1eHh1c2NMUEdBTnMzZTBQNDJPZjh6WGlmV1c5dFAwVDRVV0UyRXNZRlZ6YTFybDk0cW1MU2M4VzEtb1VUSGxfTlI3dnRPcmNuc0N2UGpDQzJDSXF5cG5QQV9CeUwtZGJOOE5fWXEwQmxYdWc2UTRmb3JJSE04YXM0Mk9iMUZYdGo0VU43RjJaZ1RDbG5mdEVWc3BpMkE5bnUzbEFaNWdsUWZCWUxrUjdaOWhGWi1lSzdiTkNtaXVockVvLVFUOFhYUQ?oc=5",
-      "first_seen": "2026-11-16T15:50:10.913612+00:00"
-    },
-    {
-      "headline": "GTA 6 Entertainment Impact: 7 Forecasts, 0 Verified - shattered.io",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQTllmWDJxblZuX3NORjlaUDZ1ZjltSktxUUFfTHVKWnVUVmdHNFdtbklJZlRRWTRYMkltbWFBNnBfUWJ4WUFWVTVxM2FzT2Jrc0hvM0d1TjBicXZKM0JPSGFaZ3Z0bEYzZ2xxME1iSlZCenhZbDYzWThpY2JvUXJxdnpLME1UR3lqR1Q2ekQ3WG0?oc=5",
-      "first_seen": "2026-11-16T15:50:10.857606+00:00"
-    },
-    {
-      "headline": "‘GTA 6’ PC Release Date: Is ‘Grand Theft Auto VI’ Coming to PC? - Yahoo Tech",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPZENLbUsteE42ZTIwV2U2Q2Q3eEhXc3dZajZQczNuSnBEZXNYMVVRTGlRajlpd2s0b2tSTXdsZzV1VGlxMjgzSURyREkzVjQxT1AtZkRac3JLMkVwendCdnBPWmZ6WFMzU1V2NFI5OWxOYlFxVENTV0QwUTlxOFp2UQ?oc=5",
-      "first_seen": "2026-11-16T15:50:10.796409+00:00"
-    },
     {
       "headline": "GTA 6 Codes Drama Escalates Ahead of Launch This Week With Key-Less Boxed Copies - GameWatcher",
       "source": "gta6_launch",
@@ -1167,6 +1113,60 @@
       "source": "gta6_general",
       "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOX1VMZEdEdnlPV2g4dlVkcWJyUWZvOEQwQkxUclA0R19qYjQtcUh4dEZsMHY2VkUyd1p5NmpFTmRlamt6Szhaa1JHWnUwRlViWUQ4UHhiVEkzQWVURGQ5WjlCS2Z2U2dGdDNhTEVnYWFUWWRpSjJlc1NlMXQ3NW4xWUhn?oc=5",
       "first_seen": "2026-11-16T15:39:39.651466+00:00"
+    },
+    {
+      "headline": "‘GTA VI’ Poses A Threat To Streaming Viewership - Forbes",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPZTFLaW94Y25LSVl4MVNYcDRlM2VvYnRPaEtkWHpVTUhFanRNMnF5NkZJSnY1ZzVzZ25TeFkyQnM3MDlTR1FQMzFiQ0o3OGI4QnpaVDl0aUhaVVo5UVB5OEJPXzlPU0VNTFB3LU90VkVkNW1jOTJVRVVmbmxFV3NmVnZ4bDBNaFBaOTZKdFFuaXVmak9uWHQyRHRiZXUtRzVxSDRIU09zci1OWlNsZW1EaU92ZE93NE83SFJ0SGZQYw?oc=5",
+      "first_seen": "2026-11-16T15:29:21.250486+00:00"
+    },
+    {
+      "headline": "GTA 6's Second Day One Patch Is 620MB On PS5 and 1GB Bigger on Xbox - IGN",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOX1VMZEdEdnlPV2g4dlVkcWJyUWZvOEQwQkxUclA0R19qYjQtcUh4dEZsMHY2VkUyd1p5NmpFTmRlamt6Szhaa1JHWnUwRlViWUQ4UHhiVEkzQWVURGQ5WjlCS2Z2U2dGdDNhTEVnYWFUWWRpSjJlc1NlMXQ3NW4xWUhn?oc=5",
+      "first_seen": "2026-11-16T15:19:04.757106+00:00"
+    },
+    {
+      "headline": "GTA 6 Wanted System Explained – How Police Track You in Vice City - VICE",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE40QW0yVjB0a3dEVG5XNUpadkN4NzV6Q3VyMGNfajA4SWVsYndrTHhJblpnekw3b0pVZVVUWm8zdlFjV0NNblF2emVJYmktcG5rTGtSUnI4MXlPYl9yZ0pVZ0hxa0ZUeXY2aVlDVmZRcw?oc=5",
+      "first_seen": "2026-11-16T15:19:04.003913+00:00"
+    },
+    {
+      "headline": "How can you play GTA 6 before launch date? This is the only way you can get an early play of the game - MARCA",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxNSkVYZC13YzBIMFdZaGxsSWdwaGdPa0x2LU94ZzRqZUJwalNjdmpCMDByLURrdjdSWGFXZmhmM2hlUXlkQXJfWm5TNEF5ZHZ5OEw5bzlWMzJrcTJDRGQwQkE5WDZCaEpSdjktblF5eTJDWkNQWUhsWkhLcEZ0TnVmR2h5V1FiSjBqRVVYd3huVENBSXZYOFB6MWdRbFNHS2tiUmx6MmN5YzI1eXZvZG12bVdtRnZIV1VJbEs3bkVEX2JLMktLMWlFOGNta3FabVJlb1ZYdkZsMGY4YWxZakhCZ0xQMjdOd2ZFd1Z4elJtZmTSAfABQVVfeXFMT2FobjJVV2xrMFdDMElaS0M4LUJtQTIzdi01OEFEOHViRHB2SHZGT1pKNF9OMVgySHJGTkhoZGQwLW5HMFlhOG02bWZWM1JpU1dSSGdnemlDelVqQzRvbFlmNExrX3JRYjlaejJPUU4xMjZhU1NjSTkzQ3dWMXlaR21PWlNacC1TT3JBb0psVm4wZWFzWHNjOGNuQm5ELUswdk9FNVFsS2hnbU5XX0djSHZkWVd1YTV5OTd2eWRKOWIySmE4d2Y0YUJaRjY2R2xMQ1Z6QTRISmQtc05pWUFKUnA4QTJBcnp0ZHZ5YUtEUTdy?oc=5",
+      "first_seen": "2026-11-16T15:19:03.958716+00:00"
+    },
+    {
+      "headline": "GTA 6 players furious as physical copies reportedly arrive with missing or already-used codes - TweakTown",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPbmozbVNyNUxyNzVvZWpXbk5xVm9qY2JjeU4zNVkwbXVpZlgyQW9VUEwwRXJUTTdobE9IMnNwUlVORXQ1RG54bklqSl9pYjduZlZlNXBiOWxDbHNQTlE2NTVzVURFNzROMzBoRDBzaDFkSlFqMzVBbHY4Tl9sd2pXRnFqWE9xNTNjby1XbzJyNnZqQXJhVjI1UG5PLU5HVVRuenVmLVgzWnRiU1NsWnphTTY1QS1DbmlXbjBwTlZrSkVacnkyN2IyLXlLYnBiU21aRllEb2E1NTQ3QQ?oc=5",
+      "first_seen": "2026-11-16T15:19:03.911961+00:00"
+    },
+    {
+      "headline": "How GTA 6 will change the entertainment industry forever - The Independent",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNZFFnUHVURGZzRVQxc2NDZnlyRWU0YWRwSWthM1VUWENjQU4ycU9XRGNtYlM1bGxDV09tOWhWNW5yVnBSS0cxMXFWNnYxcDdDbXp1ZkdtVnlITnd4UzdoN2w4aU5IMmpyMHk2X2xjcWk4Q19CUUxUckVjaUpXUDZlR0RENUlGWmhNSFNtckRBZw?oc=5",
+      "first_seen": "2026-11-16T15:19:03.858331+00:00"
+    },
+    {
+      "headline": "After 13-year wait, 'Grand Theft Auto VI' is almost here - what you need to know - WOAI",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxNZGVIcmt3ZXBFLUlSb0ZjMm1YbExQaVpyRnkzSnd0clhjVEdzaldhbFRjTE9MY1FETWNhd1kzVk43RDdGcnVBZXJCeGFMNE0xTHZYQmVBdDdqZDMwZXRORW45N1VQakdpSGtfeHpRbGVqS1Q2WTZKQ2NZd0RFcWFnbnpBUVdyWk9WWV9jdGRPQmdpZDZYcG8wTzRJVUFDaW9QTUJXZWp4UlFaMFJMai1PUkVPSWYzN0FzNDJVTkNRbGFUQVdyMUdEN0ZFbUFmMkhnQ1ZBWEl6bE9leEtxTURZMldxR0FDM1hseFRUX1FsclI4OEdDaGJwOHhoTTZFV28zdnNaWWw2bw?oc=5",
+      "first_seen": "2026-11-16T15:19:03.814772+00:00"
+    },
+    {
+      "headline": "GTA 6 Length Leak: 50-Hour Story, 200-Hour 100% - shattered.io",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPUlN4d3EyWENSd25YX0llbUJQdW91ZGt2TDNsSVgtQ1RWcXNSaWRoQ0FiVFVKbDdmdlZfU2FSTGNHSkl3RzNoOThBUG9maVNfOWFHTHdYQS1mTTIxOWFUWm9qVHJWUHNsckVMelpFNVVVNzZyemV2UVNGc1QzNDFvaHpoWQ?oc=5",
+      "first_seen": "2026-11-16T15:19:03.760806+00:00"
+    },
+    {
+      "headline": "YouTube Partners With Rockstar Games on 24-Hour ‘Grand Theft Auto VI’ Launch Livestream - Net Influencer",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOQjJxRXpWY0lkYy1nTVdRQWE2YWwyNk1MbnJXU1h2R2pJcWdLTF9xX0VDek9DcGZaY3N2SUEyVl9VY0VkOEktMjJ2eFFRSFZRRTlNMWZ1MjRHdkd0VUVpeG9yRG1pUkdKLURLVWg5MU5yTVh5RnlaTFl4aFV0VjhfVENiUmJWY1hOUTZ4djIyV0pyQnB2bU03WUVsUkItaWhpbk5aQ3ZKZE55bUJRNXFIUjRIQ1ROUGM?oc=5",
+      "first_seen": "2026-11-16T15:19:03.718680+00:00"
     }
   ]
 }
