@@ -120,13 +120,22 @@ class BingX:
             raise DataError(f"BingX {endpoint}: code={response.get('code') if isinstance(response,dict) else 'malformed'}, msg={response.get('msg') if isinstance(response,dict) else 'invalid'}")
         return response.get("data")
 
-    def collect_candles(self, symbol, interval='5m', limit=500):
-        """Return normalized candles for a single timeframe; callers verify close times."""
+    def collect_candles(self, symbol, interval='5m', limit=500, startTime=None, endTime=None):
+        """Return normalized candles for a single timeframe; callers verify close times.
+
+        Supports paging via startTime/endTime for historical data collection.
+        All timestamps are in milliseconds since epoch.
+        """
         if interval not in ('5m','15m','1h'):
             raise ValueError('Unsupported timeframe')
         if limit<1 or limit>500:
             raise ValueError('Candle limit out of bounds')
-        return candles_normalized(self.query('candles',symbol=symbol,interval=interval,limit=limit))
+        params = {'symbol': symbol, 'interval': interval, 'limit': limit}
+        if startTime is not None:
+            params['startTime'] = int(startTime)
+        if endTime is not None:
+            params['endTime'] = int(endTime)
+        return candles_normalized(self.query('candles', symbol=symbol, interval=interval, **params))
 
     def collect(self, symbol):
         """Errors in one subfeed do not poison others; record each independently."""

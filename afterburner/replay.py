@@ -217,13 +217,9 @@ class ReplayEngine:
                 continue
 
             # Extract trade parameters from signal features
-            features = sig.features
+            features = sig.features or {}
             sl = features.get("sl")
-            tp1 = sig.features.get("tp1") if hasattr(sig, "features") else None
-
-            # Actually, sl/tp1 are in the signal dict directly, not in features
-            sl = sig.sl if hasattr(sig, "sl") else None
-            tp1 = sig.tp1 if hasattr(sig, "tp1") else None
+            tp1 = features.get("tp1")
             direction = sig.direction
 
             if sl is None or tp1 is None:
