@@ -1,6 +1,6 @@
 {
   "product": "AFTERBURNER Public Radar",
-  "generated_at": "2026-11-16T16:10:36.405284+00:00",
+  "generated_at": "2026-11-16T16:11:51.979607+00:00",
   "execution_enabled": false,
   "research_only": true,
   "assets": [
@@ -1097,6 +1097,48 @@
   ],
   "news": [
     {
+      "headline": "Fox News Talked About GTA 6, and It Went as Well as You'd Expect - IGN",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPSzA3YlE5ZFd2SXdkSzdsU0RUQlhZUkpGekdGVTFpQ2VFYTVtaUVGdEFrQnNoZFBENmZYVmFvY3J3SUxCZ2l6V3psbEswSGhyaHVHcERLMXlscHJQbk9UYWN1dXpzTHRIYjhLNHBCZ2k3TVdLZE1qRzAzdm1xUEUxWFA3UTU2dnlMVGNYZEhIcmpIS2pMZFE?oc=5",
+      "first_seen": "2026-11-16T16:10:46.956202+00:00"
+    },
+    {
+      "headline": "Gamers eagerly awaiting launch of Grand Theft Auto VI - KING5.com",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQZmRaWGZLYWk4dC1tZXNsREgwYkhKXzJCdklQdGpIU0hiM0lWQTE3UXJZZzJnZ0gzeDdYU0taVk1VX0QyRGk0ak1rOUJMSUNyelJfMmk5QXYzaWdTd3pKaFgyQ19nR2VzeWpzWGVBZnR6OGs1VVQ0bGVabUp5RXcwMWg5eE9JeXpnRGJxalZnT1NyZllYQ0ppNkYteEpUV2xnaGNaY1N3Q29qV0VqTDc4c1Y0ZEdzQkpKRndOT0JTMXdaQ2pSclpoWFNPbS05Y1NhWDFHZDhGZXZjSER3d19Z?oc=5",
+      "first_seen": "2026-11-16T16:10:46.874280+00:00"
+    },
+    {
+      "headline": "You can grab GTA 6 entirely for free if you know where to look - GAMINGbible",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbWJfSXdpaUtvdndfTm04QXI5a0t5bmpXTnJLRnJvQm41cllDQkhEbkt0VzdxU3JoMlJyLVNtbGNKNTBZWVlycnhWc0t6Z2ZWTzRYT3BDdHRfel9FRHRFQ2lvT1p2RHJlR19yS3gxWEVjejNCRDU0QUR2OWttSk1XVW4yV2RoSmM?oc=5",
+      "first_seen": "2026-11-16T16:10:46.831745+00:00"
+    },
+    {
+      "headline": "Felony Fun With Friends: Can You Play GTA 6 Online at Launch This Week? - PCMag",
+      "source": "gta6_launch",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQYU5vTWdZLVZPLUh3YnVoclViUmFCNXFaZmZKYy1tcm9ub0gtNXpFWWFqd3dkcE8wY2ZfMGRhZjU5XzRnTmpMR0hxaXF0UVlxRUdsSFZ1MG9KeVo0bXcxOF85T3MtV0RQd3NUWDFQcDR1MURSX1hLZ2szdDUxUHlPMGFpVUd0OElGYkJOMlBSb0RHZXhTcTk3WUZnZ0M0V19DVDZRQw?oc=5",
+      "first_seen": "2026-11-16T16:10:46.761786+00:00"
+    },
+    {
+      "headline": "The History of Grand Theft Auto Easter Eggs - IGN",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE04TVY5ajZfZUZKUE1oNWxIQ2lhd0JvM1EzUVYxYUF2TmpaYUdDTHl0TGFWcVJlYmRPS2RQZW5UNmdlbE9SVVdpNGMxTVdoYTZBVFhadzY1N19aWjd0OGh3aEVTRGxpbWhlbGl2ZmJteFVTQ1o4MThxQ0Z3?oc=5",
+      "first_seen": "2026-11-16T16:10:45.992352+00:00"
+    },
+    {
+      "headline": "The full 'GTA 6' soundtrack reportedly leaked: See every artist and track - Mashable",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5qOFE0MzZLUlo2Z3BQUzMyS2dUVFc2dFZTZ1p0Q2VOVlVsMFhaUmVhS2RkNDNGQ3piNzBMVm51ZzZhcG9rZktUMlJGVGxUVFloWmQzaXZVcHR5b0FoRC1IaHM1SVpwcnBmN1Q0dGVEWmY5dTQ?oc=5",
+      "first_seen": "2026-11-16T16:10:45.938911+00:00"
+    },
+    {
+      "headline": "Who's who in GTA 6? Meet the characters of Vice City - Red Bull",
+      "source": "gta6_general",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFB4N3Vyb1pLNWgyQ3BFMkZ6WEoxWXlOWjBJOWRIYnVOa2JyUVhqd3ZRVlRmNS01VXpPUkh4S1VIOVFTM3Q2MGtBbzhWVWp0SGhYVFY2dmE4akd3bFpkbGpuWg?oc=5",
+      "first_seen": "2026-11-16T16:10:45.874285+00:00"
+    },
+    {
       "headline": "The last post speculating if GTA6 was gonna get announced or not.",
       "source": "rockstar_reddit",
       "url": "https://www.reddit.com/r/GTA6/comments/1xxsxaj/the_last_post_speculating_if_gta6_was_gonna_get/",
@@ -1125,48 +1167,6 @@
       "source": "gta6_launch",
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQTllmWDJxblZuX3NORjlaUDZ1ZjltSktxUUFfTHVKWnVUVmdHNFdtbklJZlRRWTRYMkltbWFBNnBfUWJ4WUFWVTVxM2FzT2Jrc0hvM0d1TjBicXZKM0JPSGFaZ3Z0bEYzZ2xxME1iSlZCenhZbDYzWThpY2JvUXJxdnpLME1UR3lqR1Q2ekQ3WG0?oc=5",
       "first_seen": "2026-11-16T15:50:11.728032+00:00"
-    },
-    {
-      "headline": "‘GTA 6’ PC Release Date: Is ‘Grand Theft Auto VI’ Coming to PC? - Yahoo Tech",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPZENLbUsteE42ZTIwV2U2Q2Q3eEhXc3dZajZQczNuSnBEZXNYMVVRTGlRajlpd2s0b2tSTXdsZzV1VGlxMjgzSURyREkzVjQxT1AtZkRac3JLMkVwendCdnBPWmZ6WFMzU1V2NFI5OWxOYlFxVENTV0QwUTlxOFp2UQ?oc=5",
-      "first_seen": "2026-11-16T15:50:11.669183+00:00"
-    },
-    {
-      "headline": "GTA 6 hacker pleads guilty to 2022 Rockstar Games breach which the company claim cost them $5 million - Rock Paper Shotgun",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNb1hqVDJ1eHh1c2NMUEdBTnMzZTBQNDJPZjh6WGlmV1c5dFAwVDRVV0UyRXNZRlZ6YTFybDk0cW1MU2M4VzEtb1VUSGxfTlI3dnRPcmNuc0N2UGpDQzJDSXF5cG5QQV9CeUwtZGJOOE5fWXEwQmxYdWc2UTRmb3JJSE04YXM0Mk9iMUZYdGo0VU43RjJaZ1RDbG5mdEVWc3BpMkE5bnUzbEFaNWdsUWZCWUxrUjdaOWhGWi1lSzdiTkNtaXVockVvLVFUOFhYUQ?oc=5",
-      "first_seen": "2026-11-16T15:50:10.913612+00:00"
-    },
-    {
-      "headline": "GTA 6 Entertainment Impact: 7 Forecasts, 0 Verified - shattered.io",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQTllmWDJxblZuX3NORjlaUDZ1ZjltSktxUUFfTHVKWnVUVmdHNFdtbklJZlRRWTRYMkltbWFBNnBfUWJ4WUFWVTVxM2FzT2Jrc0hvM0d1TjBicXZKM0JPSGFaZ3Z0bEYzZ2xxME1iSlZCenhZbDYzWThpY2JvUXJxdnpLME1UR3lqR1Q2ekQ3WG0?oc=5",
-      "first_seen": "2026-11-16T15:50:10.857606+00:00"
-    },
-    {
-      "headline": "‘GTA 6’ PC Release Date: Is ‘Grand Theft Auto VI’ Coming to PC? - Yahoo Tech",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPZENLbUsteE42ZTIwV2U2Q2Q3eEhXc3dZajZQczNuSnBEZXNYMVVRTGlRajlpd2s0b2tSTXdsZzV1VGlxMjgzSURyREkzVjQxT1AtZkRac3JLMkVwendCdnBPWmZ6WFMzU1V2NFI5OWxOYlFxVENTV0QwUTlxOFp2UQ?oc=5",
-      "first_seen": "2026-11-16T15:50:10.796409+00:00"
-    },
-    {
-      "headline": "GTA 6 Codes Drama Escalates Ahead of Launch This Week With Key-Less Boxed Copies - GameWatcher",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9FZXFZSHNBVHBzdkQtVWJkcV9INUFKUXFESkh1YTFEU09HcWFJcUo0dFo2V3VGMEJIYk8wNGJfS21uVDh0Q0NSZkE1Z3ZtLVZsU054Y2V2czVjRnpHNkxtUkJqQWw5OVZmV0E?oc=5",
-      "first_seen": "2026-11-16T15:39:40.613838+00:00"
-    },
-    {
-      "headline": "GTA 6's Official First Updates Are Great News For Fans - Polygon.com",
-      "source": "gta6_launch",
-      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOVTdTbktQZk5sMzJPMVc0MUNUV19FVEx6Vi0tSDc2ZGluczhKaHlCWDZ4QkhkY2k5NURGcnRMMnZBQW1DeFgxQkhUa3VWOGZHdV9IRkwzUG01UjlfUGEtT1dZS1FFaVFhRERNTFMzMHNDYXk3WEppYmlKY0RISnJaYVN0LWE?oc=5",
-      "first_seen": "2026-11-16T15:39:40.538035+00:00"
-    },
-    {
-      "headline": "GTA 6 Gets Another Day One Patch, and It’s 1GB Bigger on Xbox - IGN",
-      "source": "gta6_general",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOX1VMZEdEdnlPV2g4dlVkcWJyUWZvOEQwQkxUclA0R19qYjQtcUh4dEZsMHY2VkUyd1p5NmpFTmRlamt6Szhaa1JHWnUwRlViWUQ4UHhiVEkzQWVURGQ5WjlCS2Z2U2dGdDNhTEVnYWFUWWRpSjJlc1NlMXQ3NW4xWUhn?oc=5",
-      "first_seen": "2026-11-16T15:39:39.651466+00:00"
     }
   ]
 }
