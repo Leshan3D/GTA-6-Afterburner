@@ -176,14 +176,14 @@ def assess_execution(market: dict, dex: dict | None = None,
             est["sell_impact_pct"] = sell_ladder["impact_pct"]
             est["sufficient_depth"] = True
 
-        # Total round-trip cost: spread + one-way impact + fees (no double-count).
+        # Total round-trip cost: spread + one-way impact + fees + slippage (no double-count).
         if est["buy_impact_pct"] is not None:
             est["total_round_trip_buy_pct"] = round(
-                spread_pct + est["buy_impact_pct"] + 2 * fee_bps / 100, 4
+                spread_pct + est["buy_impact_pct"] + 2 * fee_bps / 100 + 2 * slippage_bps / 100, 4
             )
         if est["sell_impact_pct"] is not None:
             est["total_round_trip_sell_pct"] = round(
-                spread_pct + est["sell_impact_pct"] + 2 * fee_bps / 100, 4
+                spread_pct + est["sell_impact_pct"] + 2 * fee_bps / 100 + 2 * slippage_bps / 100, 4
             )
 
         observations.append(est)

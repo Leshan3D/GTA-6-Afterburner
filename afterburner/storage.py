@@ -222,6 +222,13 @@ class Storage:
                 advance_order = {'FORMING':0,'ARMED':1,'TRIGGERED':2}
                 if advance_order.get(existing_state, -1) >= advance_order.get(new_state, -1):
                     return existing['id']
+                # Update existing row
+                db.execute("""UPDATE signals
+                    SET direction=?, state=?, updated_at=?, details_json=?
+                    WHERE id=?""",
+                    (signal['direction'], signal.get('state','FORMING'), iso(),
+                     json.dumps(signal,allow_nan=False), existing['id']))
+                return existing['id']
             db.execute("""INSERT INTO signals
                 (symbol,direction,state,timeframe,as_of_candle_ts,strategy_version,created_at,updated_at,details_json)
                 VALUES(?,?,?,?,?,?,?,?,?)""",
