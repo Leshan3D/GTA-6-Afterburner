@@ -85,8 +85,8 @@ class ReplayEngine:
 
     Processes candles one at a time in chronological order. At each candle
     close, only data available up to that point is used to generate signals.
-    No look-ahead bias is possible because future candles are never included
-    in the input to generate_signal().
+    No look-ahead bias is possible because future candles are never
+    included in the input to generate_signal().
     """
 
     def __init__(
@@ -217,9 +217,9 @@ class ReplayEngine:
                 continue
 
             # Extract trade parameters from signal features
-            features = sig.features or {}
-            sl = features.get("sl")
-            tp1 = features.get("tp1")
+            features = sig.features
+            sl = features.get("sl") if features else None
+            tp1 = features.get("tp1") if features else None
             direction = sig.direction
 
             if sl is None or tp1 is None:
@@ -232,7 +232,7 @@ class ReplayEngine:
                 continue
 
             # Scan forward from the candle after trigger
-            entry_price = sig.entry_trigger
+            entry_price = sig.price
 
             for i in range(trigger_idx + 1, len(self.candles)):
                 c = self.candles[i]

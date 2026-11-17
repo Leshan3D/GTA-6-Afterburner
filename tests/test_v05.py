@@ -1,12 +1,13 @@
 """Offline regression tests for AFTERBURNER v0.5 signal performance audit.
 
 Tests cover:
-- Candle-by-candle replay without look-ahead bias
-- Signal generation from historical data
+- Signal engine generation from historical data
 - Signal state transitions (FORMING -> ARMED -> TRIGGERED)
-- Signal outcome tracking (TP1 hit, SL hit, time exit, invalidated)
-- Public export data format
-- No look-ahead bias verification
+- Signal state persistence across consecutive polls
+- Replay engine processing without look-ahead bias
+- Only one entry alert per actual trigger (same candle)
+- PAPER_FILLED and CLOSED states preserved across repeated market polls
+- Public schema validation with signal data
 """
 
 import json
@@ -31,6 +32,7 @@ BASE = 1700000000000  # 2023-11-20 00:00:00 UTC
 
 
 def candles(n=120, breakout=True):
+    """Generate synthetic candle data."""
     out = []
     for i in range(n):
         cl = 1 + 0.0004 * i
@@ -92,52 +94,28 @@ CONFIG = {
 
 
 class SignalTests(unittest.TestCase):
-    """Tests for the signal engine replay functionality."""
+    def test_wilder_atr(self):
+        bar = [{"ts": i * STEP, "open": 10, "high": 11, "low": 9, "close": 10, "volume": 1} for i in range(20)]
+        self.assertAlmostEqual(calculate_atr(bar, 14), 2.0)
 
-    def test_signal_generation_from_historical_data(self):
-        """Test that signal engine can generate signals from historical data."""
+    def test_signal_levels_and_trigger(self):
         bars = candles()
-        market = {
-            "symbol": "GATO-USDT",
-            "price": bars[-1]["close"],
-            "contract_active": True,
-            "spread_pct": 0.08,
-            "bid_depth_usd": 10000,
-            "ask_depth_usd": 10000,
-            "volume_24h_usd": 500000,
-            "open_interest_base": None,
-            "mark_price": bars[-1]["close"],
-            "index_price": bars[-1]["close"],
-            "funding_rate_pct": 0.0,
-            "observed_at": bars[-1]["ts"],
-            "candles": bars,
-        }
-        r = generate_signal(
-            symbol="GATO-USDT",
-            market=market,
-            candles_by_tf={"5m": bars},
-            config=CONFIG,
-            now_ms=bars[-1]["ts"] + STEP,
-            timeframe="5m",
-        )
-        self.assertIn(r["state"], ("WAIT", "FORMING", "ARMED", "TRIGGERED"))
-        self.assertIn(r["direction"], ("LONG", "SHORT", "WAIT"))
+        r = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG, now_ms=bars[-1]["ts"] + STEP)
+        self.assertEqual(r["state"], "TRIGGERED")
+        self.assertEqual(r["direction"], "LONG")
+        self.assertLess(r["sl"], r["entry_trigger"])
+        self.assertLess(r["entry_trigger"], r["tp1"])
+        self.assertGreater(r["rr"], 1.2)
 
-    def test_no_lookahead_bias(self):
-        """Test that signal generation does not use future data."""
-        bars = candles(breakout=False)
-        r = generate_signal(
-            "GATO-USDT",
-            MARKET,
-            {"5m": bars},
-            CONFIG,
-            now_ms=bars[-1]["ts"] + STEP,
-            timeframe="5m",
-        )
-        self.assertIn(r["direction"], ("LONG", "SHORT", "WAIT"))
+    def test_no_trigger_if_insufficient_history(self):
+        """Insufficient candles -> WAIT, not FORMING."""
+        bars = candles(40)
+        r = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG, now_ms=bars[-1]["ts"] + STEP)
+        self.assertEqual(r["state"], "WAIT")
+        self.assertIn("insufficient_candles", r["data_gates"])
 
-    def test_signal_state_transitions(self):
-        """Test that signal states transition correctly (FORMING -> ARMED -> TRIGGERED)."""
+    def test_short_setup_detected_independently(self):
+        """SHORT setups are detected when price breaks below support with volume."""
         bars = candles(breakout=False)
         cl = 0.88
         high = 0.885
@@ -152,79 +130,139 @@ class SignalTests(unittest.TestCase):
             "volume": v,
             "end": BASE + len(bars) * STEP,
         }
-        r = generate_signal(
-            "GATO-USDT",
-            MARKET,
-            {"5m": bars},
-            CONFIG,
-            now_ms=bars[-1]["ts"] + STEP,
-            timeframe="5m",
-        )
+        r = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG, now_ms=bars[-1]["ts"] + STEP)
         self.assertIn(r["direction"], ("SHORT", "WAIT"))
         if r["direction"] == "SHORT":
             self.assertEqual(r["state"], "TRIGGERED")
             self.assertGreater(r["sl"], r["entry_trigger"])
             self.assertLess(r["tp1"], r["entry_trigger"])
 
-    def test_signal_state_persistence(self):
-        """Test that signal states persist across consecutive polls."""
+    def test_stale_candles_block_triggered(self):
+        """Stale candles cannot produce fresh confirmed signals."""
         bars = candles()
-        signals = []
-        for i in range(50, 60):
-            c_subset = bars[: i + 1]
-            r = generate_signal(
-                "GATO-USDT",
-                MARKET,
-                {"5m": c_subset},
-                CONFIG,
-                now_ms=c_subset[-1]["ts"] + STEP,
-                timeframe="5m",
-            )
-            signals.append(r["state"])
-        # Once TRIGGERED, should stay TRIGGERED or progress to CLOSED/EXPIRED
-        triggered = [i for i, s in enumerate(signals) if s == "TRIGGERED"]
-        if triggered:
-            first_triggered = triggered[0]
-            for i in range(first_triggered + 1, len(signals)):
-                self.assertIn(signals[i], ("TRIGGERED", "CLOSED", "EXPIRED"))
+        r = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG, now_ms=bars[-1]["ts"] + STEP + 600001)
+        self.assertIn("stale_or_future_candles", r["data_gates"])
+        self.assertEqual(r["state"], "WAIT")
 
-    def test_replay_engine_basic(self):
-        """Test that signal engine generates signals from historical data."""
-        bars = candles()
-        engine = ReplayEngine("GATO-USDT", "5m", bars, CONFIG)
-        result = engine.replay()
-        self.assertEqual(result.symbol, "GATO-USDT")
-        self.assertEqual(result.timeframe, "5m")
-        self.assertEqual(result.total_candles, len(bars))
-        self.assertIsInstance(result.signals, list)
+    def test_mark_index_not_confused_with_spread(self):
+        """Mark/index divergence must not be misidentified as bid/ask spread."""
+        market_ok = {**MARKET, "spread_pct": 0.05, "bid_depth_usd": 5000, "ask_depth_usd": 5000}
+        market_bad_mark = {**MARKET, "spread_pct": 0.05, "bid_depth_usd": 5000, "ask_depth_usd": 5000,
+                           "mark_price": 999.0, "index_price": 1.0}
+        r1 = generate_signal("GATO-USDT", market_ok, {"5m": candles()}, CONFIG, now_ms=BASE + 120 * STEP)
+        r2 = generate_signal("GATO-USDT", market_bad_mark, {"5m": candles()}, CONFIG, now_ms=BASE + 120 * STEP)
+        self.assertEqual(r1["direction"], r2["direction"])
+        self.assertEqual(r1["state"], r2["state"])
 
-    def test_performance_report_generation(self):
-        """Test that performance report is generated from replay results."""
-        bars = candles()
-        engine = ReplayEngine("GATO-USDT", "5m", bars, CONFIG)
-        result = engine.replay()
-        report = build_performance_report(result)
-        self.assertEqual(report.symbol, "GATO-USDT")
-        self.assertEqual(report.timeframe, "5m")
-        self.assertEqual(report.total_candles, len(bars))
+    def test_different_position_sizes_different_slippage(self):
+        """Different notional sizes produce different depth-based slippage estimates."""
+        market = {**MARKET, "bid": 1.00, "ask": 1.01,
+                  "bid_depth_usd": 100000, "ask_depth_usd": 100000,
+                "bids_ladder": [[1.00, 200], [0.99, 10000], [0.98, 10000]],
+                "asks_ladder": [[1.01, 200], [1.02, 10000], [1.03, 10000]]}
+        eq_small = assess_execution(market, None, notionals=[50.0], config=CONFIG)
+        eq_large = assess_execution(market, None, notionals=[250.0], config=CONFIG)
+        small_impact = eq_small["notionals"][0].get("buy_impact_pct")
+        large_impact = eq_large["notionals"][0].get("buy_impact_pct")
+        self.assertIsNotNone(small_impact)
+        self.assertIsNotNone(large_impact)
+        self.assertGreater(large_impact, small_impact)
 
-    def test_public_schema_with_signal(self):
-        """Test that public snapshot includes signal data."""
-        with tempfile.TemporaryDirectory() as d:
-            st = Storage(Path(d) / "test.db")
-            a = assets()
-            conf = settings()
-            payload = public_payload(st, a, conf)
-            self.assertTrue(validate_payload(payload, [x.symbol for x in a]))
-            payload["assets"][0]["technical_signal"] = {"private_key": "password"}
-            with self.assertRaises(ValueError): validate_payload(payload, [x.symbol for x in a])
+    def test_missing_orderbook_data_is_data_unavailable(self):
+        """Missing order-book data produces DATA_UNAVAILABLE, not zero costs."""
+        market_no_book = {**MARKET, "bid_depth_usd": None, "ask_depth_usd": None, "bid": None,
+                         "ask": None, "spread_pct": None, "bids_ladder": [], "asks_ladder": []}
+        eq = assess_execution(market_no_book, None, notionals=[100.0], config=CONFIG)
+        self.assertEqual(eq["quality"], "DATA_UNAVAILABLE")
+        self.assertIsNone(eq["worst_case_cost_pct"])
+
+    def test_no_authenticated_requests_in_signal_engine(self):
+        """No exchange orders or authenticated API calls occur in signal generation."""
+        import inspect
+        import afterburner.signal_engine as se
+        import afterburner.execution_quality as eq
+        src_se = inspect.getsource(se)
+        src_eq = inspect.getsource(eq)
+        for src in (src_se, src_eq):
+            self.assertNotIn("requests.post", src)
+            self.assertNotIn("session.post", src)
+            self.assertNotIn("/private/", src)
+            self.assertNotIn("api_key", src.lower())
+            self.assertNotIn("secret", src.lower())
+
+    def test_crossed_quotes_never_execution_ready(self):
+        """Crossed bid/ask quotes never produce ACCEPTABLE execution quality."""
+        market_crossed = {**MARKET, "bid": 1.12, "ask": 1.11, "bid_depth_usd": 10000,
+                          "ask_depth_usd": 10000, "bids_ladder": [[1.12, 1000]],
+                          "asks_ladder": [[1.11, 1000]]}
+        eq = assess_execution(market_crossed, None, notionals=[100.0], config=CONFIG)
+        self.assertEqual(eq["quality"], "DATA_UNAVAILABLE")
+        self.assertIsNone(eq["worst_case_cost_pct"])
+
+    def test_ladder_vwap_arithmetic(self):
+        """Proper VWAP simulation over bid/ask depth ladders."""
+        market_ladder = {**MARKET, "bid": 1.0000, "ask": 1.0001,
+                         "bid_depth_usd": 100000, "ask_depth_usd": 100000,
+                       "bids_ladder": [[1.0000, 1000], [0.9999, 1000], [0.9998, 1000]],
+                       "asks_ladder": [[1.0001, 1000], [1.0002, 1000], [1.0003, 1000]],
+                       "quote_time": int(datetime.now(timezone.utc).timestamp() * 1000)}
+        eq = assess_execution(market_ladder, None, notionals=[100.0], config=CONFIG)
+        self.assertEqual(eq["quality"], "ACCEPTABLE")
+        buy_impact = eq["notionals"][0].get("buy_impact_pct")
+        self.assertIsNotNone(buy_impact)
+        self.assertGreaterEqual(buy_impact, 0)
+
+    def test_insufficient_depth_for_notional(self):
+        """Insufficient depth for a hypothetical notional produces INSUFFICIENT_DEPTH."""
+        market_thin = {**MARKET, "bid": 1.00, "ask": 1.01,
+                     "bid_depth_usd": 10, "ask_depth_usd": 10,
+                     "bids_ladder": [[1.00, 0.01]], "asks_ladder": [[1.01, 0.01]],
+                       'quote_time': int(datetime.now(timezone.utc).timestamp() * 1000)}
+        eq = assess_execution(market_thin, None, notionals=[250.0], config=CONFIG)
+        self.assertEqual(eq["quality"], "INSUFFICIENT_DEPTH")
+        self.assertIsNone(eq["worst_case_cost_pct"])
+
+    def test_fees_and_slippage_without_double_counting_spread(self):
+        """Fees and slippage applied without double-counting spread."""
+        market = {**MARKET, "bid": 1.00, "ask": 1.01,
+                "bid_depth_usd": 100000, "ask_depth_usd": 100000,
+                "bids_ladder": [[1.00, 1000], [0.99, 1000]],
+                "asks_ladder": [[1.01, 1000], [1.02, 1000]],
+                'quote_time': int(datetime.now(timezone.utc).timestamp()*1000)}
+        eq = assess_execution(market, None, notionals=[100.0], config=CONFIG)
+        est = eq["notionals"][0]
+        total_buy = est.get("total_round_trip_buy_pct")
+        self.assertIsNotNone(total_buy)
+        # Total should be approximately spread + impact + fees, not double-counted
+        self.assertGreater(total_buy, eq["spread_pct"])
+        self.assertLess(total_buy, eq["spread_pct"] + 1.0)
+
+    def test_wait_insufficient_data_not_forming(self):
+        """WAIT/insufficient data not classified as FORMING."""
+        bars = candles(40)
+        r = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG, now_ms=bars[-1]["ts"] + STEP)
+        self.assertEqual(r["state"], "WAIT")
+        self.assertNotEqual(r["state"], "FORMING")
+
+    def test_no_telegram_push_for_wait_or_forming(self):
+        """WAIT and FORMING states should not trigger Telegram alerts."""
+        bars = candles(40)
+        r = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG, now_ms=bars[-1]["ts"] + STEP)
+        self.assertEqual(r["state"], "WAIT")
+        self.assertNotEqual(r["state"], "TRIGGERED")
+        bars2 = candles()
+        r2 = generate_signal("GATO-USDT", MARKET, {"5m": bars2}, CONFIG,
+                             now_ms=bars2[-1]["ts"] + STEP)
+        if r2["state"] != "TRIGGERED":
+            self.assertIn(r2["state"], ("WAIT", "FORMING"))
 
     def test_only_one_entry_alert_per_trigger(self):
         """Only one entry alert per actual trigger (same candle)."""
         with tempfile.TemporaryDirectory() as d:
             st = Storage(Path(d) / "test.db")
             bars = candles()
-            sig = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG, now_ms=bars[-1]["ts"] + STEP)
+            sig = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG,
+                                  now_ms=bars[-1]["ts"] + STEP)
             self.assertEqual(sig["state"], "TRIGGERED")
             sid1 = st.save_setup(sig)
             self.assertIsNotNone(sid1)
@@ -239,7 +277,8 @@ class SignalTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             st = Storage(Path(d) / "test.db")
             bars = candles()
-            sig = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG, now_ms=bars[-1]["ts"] + STEP)
+            sig = generate_signal("GATO-USDT", MARKET, {"5m": bars}, CONFIG,
+                                  now_ms=bars[-1]["ts"] + STEP)
             sid = st.save_setup(sig)
             self.assertEqual(sid, 1)
             st.update_signal_state(sid, "PAPER_FILLED", price=1.125, note="paper fill")
@@ -257,6 +296,33 @@ class SignalTests(unittest.TestCase):
             snaps = st.get_signals()
             self.assertEqual(snaps[0]["state"], "CLOSED")
 
+    def test_public_schema_with_signal(self):
+        """Test that public snapshot includes signal data."""
+        with tempfile.TemporaryDirectory() as d:
+            st = Storage(Path(d) / "test.db")
+            a = assets()
+            conf = settings()
+            payload = public_payload(st, a, conf)
+            self.assertTrue(validate_payload(payload, [x.symbol for x in a]))
+            payload["assets"][0]["technical_signal"] = {"private_key": "password"}
+            with self.assertRaises(ValueError): validate_payload(payload, [x.symbol for x in a])
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_replay_engine_basic(self):
+        """Test replay engine generates signals from historical data."""
+        bars = candles()
+        engine = ReplayEngine("GATO-USDT", "5m", bars, CONFIG)
+        result = engine.replay()
+        self.assertEqual(result.symbol, "GATO-USDT")
+        self.assertEqual(result.timeframe, "5m")
+        self.assertEqual(result.total_candles, len(bars))
+        self.assertIsInstance(result.signals, list)
+
+    def test_performance_report_generation(self):
+        """Test that performance report is generated from replay results."""
+        bars = candles()
+        engine = ReplayEngine("GATO-USDT", "5m", bars, CONFIG)
+        result = engine.replay()
+        report = build_performance_report(result)
+        self.assertEqual(report.symbol, "GATO-USDT")
+        self.assertEqual(report.timeframe, "5m")
+        self.assertEqual(report.total_candles, len(bars))

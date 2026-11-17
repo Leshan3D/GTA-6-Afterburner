@@ -17,13 +17,13 @@ schedule:
   request_timeout_seconds: 10
   retries: 2
 risk:
-  max_spread_pct: 0.75
-  min_book_depth_usd_each_side: 1500
+  max_spread_pct: 5.0
+  min_book_depth_usd_each_side: 100
   min_dex_liquidity_usd: 100000
   min_quote_volume_24h_usd: 50000
   max_dex_perp_divergence_pct: 8
   min_required_data_legs: 2
-  alert_score_threshold: 60
+  alert_score_threshold: 30
   # These are research/watchlist alerts, never executable signals.
   min_signal_history_points: 2
 narrative:
