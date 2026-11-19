@@ -1,6 +1,6 @@
 {
   "product": "AFTERBURNER Public Radar",
-  "generated_at": "2026-11-19T08:24:55.593280+00:00",
+  "generated_at": "2026-11-19T08:34:58.917728+00:00",
   "execution_enabled": false,
   "research_only": true,
   "assets": [
@@ -8,18 +8,18 @@
       "symbol": "GATO-USDT",
       "ticker": "GATO",
       "label": "GTA6CAT",
-      "observed_at": "2026-11-19T08:23:56.575390+00:00",
+      "observed_at": "2026-11-19T08:32:27.711368+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
       "price": 0.00252,
-      "change_24h_pct": -53.49,
-      "volume_24h_usd": 775023.99,
-      "funding_rate_pct": -0.01,
-      "spread_pct": 1.593625,
-      "dex_liquidity_usd": 174188.7,
+      "change_24h_pct": -52.44,
+      "volume_24h_usd": 773689.91,
+      "funding_rate_pct": 0.01,
+      "spread_pct": 1.574803,
+      "dex_liquidity_usd": 173281.39,
       "long_score": 15,
-      "short_score": 30,
+      "short_score": 45,
       "research_state": "RESEARCH_ONLY",
       "technical_signal": {
         "entry_trigger": null,
@@ -29,37 +29,37 @@
         "tp1": null,
         "tp2": null,
         "rr": null,
-        "confidence": 0.0,
-        "direction": "WAIT",
+        "confidence": 40.0,
+        "direction": "SHORT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1795076100000,
+        "as_of_candle_ts": 1795076700000,
         "blocking_reasons": [],
         "execution_quality": {
           "quality": "DATA_UNAVAILABLE",
-          "spread_pct": 1.5936,
-          "best_bid": 0.00249,
-          "best_ask": 0.00253,
-          "bid_depth_usd": 29928.812929,
-          "ask_depth_usd": 33459.612182000004,
+          "spread_pct": 1.5748,
+          "best_bid": 0.00252,
+          "best_ask": 0.00256,
+          "bid_depth_usd": 30886.134026,
+          "ask_depth_usd": 31502.949214,
           "fee_bps": 10.0,
           "slippage_bps": 10.0,
-          "worst_case_cost_pct": 1.9936,
+          "worst_case_cost_pct": 1.9748,
           "notionals": [
             {
               "notional_usd": 50.0,
-              "total_round_trip_buy_pct": 1.9936,
-              "total_round_trip_sell_pct": 1.9936
+              "total_round_trip_buy_pct": 1.9748,
+              "total_round_trip_sell_pct": 1.9748
             },
             {
               "notional_usd": 100.0,
-              "total_round_trip_buy_pct": 1.9936,
-              "total_round_trip_sell_pct": 1.9936
+              "total_round_trip_buy_pct": 1.9748,
+              "total_round_trip_sell_pct": 1.9748
             },
             {
               "notional_usd": 250.0,
-              "total_round_trip_buy_pct": 1.9936,
-              "total_round_trip_sell_pct": 1.9936
+              "total_round_trip_buy_pct": 1.9748,
+              "total_round_trip_sell_pct": 1.9748
             }
           ],
           "warnings": [
@@ -71,8 +71,8 @@
       "kronos": {
         "timeframe": "15m",
         "directional_bias": "LONG",
-        "forecast_return_pct": 42.307940595706974,
-        "cutoff_ts": 1795074300000,
+        "forecast_return_pct": 34.39853924263521,
+        "cutoff_ts": 1795075200000,
         "directional_weight": 0.0
       },
       "blocking_flags": [
@@ -81,14 +81,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GATO-USDT",
       "history": [
-        {
-          "ts": "2026-11-18T11:59:00.229287+00:00",
-          "price": 0.00544
-        },
-        {
-          "ts": "2026-11-18T12:00:58.320287+00:00",
-          "price": 0.00542
-        },
         {
           "ts": "2026-11-18T12:01:05.661523+00:00",
           "price": 0.0054
@@ -272,6 +264,14 @@
         {
           "ts": "2026-11-19T08:23:56.575390+00:00",
           "price": 0.00252
+        },
+        {
+          "ts": "2026-11-19T08:28:23.960398+00:00",
+          "price": 0.00244
+        },
+        {
+          "ts": "2026-11-19T08:32:27.711368+00:00",
+          "price": 0.00252
         }
       ]
     },
@@ -279,16 +279,16 @@
       "symbol": "DACITY-USDT",
       "ticker": "DACITY",
       "label": "Dacity",
-      "observed_at": "2026-11-19T08:24:18.128870+00:00",
+      "observed_at": "2026-11-19T08:32:49.853704+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.000285,
-      "change_24h_pct": -64.46,
-      "volume_24h_usd": 324780.72,
+      "price": 0.000283,
+      "change_24h_pct": -64.99,
+      "volume_24h_usd": 324756.8,
       "funding_rate_pct": 0.01,
       "spread_pct": 1.763668,
-      "dex_liquidity_usd": 92033.68,
+      "dex_liquidity_usd": 92028.72,
       "long_score": 15,
       "short_score": 45,
       "research_state": "RESEARCH_ONLY",
@@ -304,15 +304,15 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1795076100000,
+        "as_of_candle_ts": 1795076700000,
         "blocking_reasons": [],
         "execution_quality": {
           "quality": "DATA_UNAVAILABLE",
           "spread_pct": 1.7637,
           "best_bid": 0.000281,
           "best_ask": 0.000286,
-          "bid_depth_usd": 42305.631526,
-          "ask_depth_usd": 45395.808139,
+          "bid_depth_usd": 43422.680483000004,
+          "ask_depth_usd": 45963.369656,
           "fee_bps": 10.0,
           "slippage_bps": 10.0,
           "worst_case_cost_pct": 2.1637,
@@ -340,10 +340,10 @@
         }
       },
       "kronos": {
-        "timeframe": "1h",
+        "timeframe": "15m",
         "directional_bias": "SHORT",
-        "forecast_return_pct": -89.07638701853479,
-        "cutoff_ts": 1795071600000,
+        "forecast_return_pct": -18.21506496927271,
+        "cutoff_ts": 1795075200000,
         "directional_weight": 0.0
       },
       "blocking_flags": [
@@ -352,14 +352,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/DACITY-USDT",
       "history": [
-        {
-          "ts": "2026-11-18T11:59:33.035058+00:00",
-          "price": 0.00048
-        },
-        {
-          "ts": "2026-11-18T12:01:09.915238+00:00",
-          "price": 0.000452
-        },
         {
           "ts": "2026-11-18T12:01:26.349750+00:00",
           "price": 0.000418
@@ -543,6 +535,14 @@
         {
           "ts": "2026-11-19T08:24:18.128870+00:00",
           "price": 0.000285
+        },
+        {
+          "ts": "2026-11-19T08:28:44.745061+00:00",
+          "price": 0.000282
+        },
+        {
+          "ts": "2026-11-19T08:32:49.853704+00:00",
+          "price": 0.000283
         }
       ]
     },
@@ -550,18 +550,18 @@
       "symbol": "CYBERLEEK-USDT",
       "ticker": "CYBERLEEK",
       "label": "CyberLeek",
-      "observed_at": "2026-11-19T08:24:38.945253+00:00",
+      "observed_at": "2026-11-19T08:33:11.858655+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.001456,
-      "change_24h_pct": -34.87,
-      "volume_24h_usd": 47563.25,
+      "price": 0.001446,
+      "change_24h_pct": -35.17,
+      "volume_24h_usd": 47452.32,
       "funding_rate_pct": 0.01,
-      "spread_pct": 1.098901,
-      "dex_liquidity_usd": 337361.01,
-      "long_score": 45,
-      "short_score": 15,
+      "spread_pct": 1.043478,
+      "dex_liquidity_usd": 335318.41,
+      "long_score": 30,
+      "short_score": 23,
       "research_state": "RESEARCH_ONLY",
       "technical_signal": {
         "entry_trigger": null,
@@ -575,33 +575,33 @@
         "direction": "WAIT",
         "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1795076100000,
+        "as_of_candle_ts": 1795076700000,
         "blocking_reasons": [],
         "execution_quality": {
           "quality": "DATA_UNAVAILABLE",
-          "spread_pct": 1.0989,
-          "best_bid": 0.001448,
-          "best_ask": 0.001464,
-          "bid_depth_usd": 4108.8695632,
-          "ask_depth_usd": 4745.7879104,
+          "spread_pct": 1.0435,
+          "best_bid": 0.00143,
+          "best_ask": 0.001445,
+          "bid_depth_usd": 4351.7225322,
+          "ask_depth_usd": 4640.358826600001,
           "fee_bps": 10.0,
           "slippage_bps": 10.0,
-          "worst_case_cost_pct": 1.5616,
+          "worst_case_cost_pct": 1.5018,
           "notionals": [
             {
               "notional_usd": 50.0,
-              "total_round_trip_buy_pct": 1.4989,
-              "total_round_trip_sell_pct": 1.4989
+              "total_round_trip_buy_pct": 1.4435,
+              "total_round_trip_sell_pct": 1.4435
             },
             {
               "notional_usd": 100.0,
-              "total_round_trip_buy_pct": 1.5025,
-              "total_round_trip_sell_pct": 1.5116
+              "total_round_trip_buy_pct": 1.4435,
+              "total_round_trip_sell_pct": 1.4469
             },
             {
               "notional_usd": 250.0,
-              "total_round_trip_buy_pct": 1.5609,
-              "total_round_trip_sell_pct": 1.5616
+              "total_round_trip_buy_pct": 1.4887,
+              "total_round_trip_sell_pct": 1.5018
             }
           ],
           "warnings": [
@@ -611,10 +611,10 @@
         }
       },
       "kronos": {
-        "timeframe": "1h",
-        "directional_bias": "LONG",
-        "forecast_return_pct": 12.014572126750789,
-        "cutoff_ts": 1795071600000,
+        "timeframe": "15m",
+        "directional_bias": "SHORT",
+        "forecast_return_pct": -0.9549916096536548,
+        "cutoff_ts": 1795075200000,
         "directional_weight": 0.0
       },
       "blocking_flags": [
@@ -624,14 +624,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/CYBERLEEK-USDT",
       "history": [
-        {
-          "ts": "2026-11-18T11:59:41.688698+00:00",
-          "price": 0.001839
-        },
-        {
-          "ts": "2026-11-18T12:01:32.921306+00:00",
-          "price": 0.001827
-        },
         {
           "ts": "2026-11-18T12:01:48.214855+00:00",
           "price": 0.001824
@@ -815,6 +807,14 @@
         {
           "ts": "2026-11-19T08:24:38.945253+00:00",
           "price": 0.001456
+        },
+        {
+          "ts": "2026-11-19T08:29:05.509437+00:00",
+          "price": 0.001451
+        },
+        {
+          "ts": "2026-11-19T08:33:11.858655+00:00",
+          "price": 0.001446
         }
       ]
     },
@@ -822,58 +822,58 @@
       "symbol": "GTA6-USDT",
       "ticker": "GTA6",
       "label": "GTA VI Meme",
-      "observed_at": "2026-11-19T08:20:34.755830+00:00",
+      "observed_at": "2026-11-19T08:33:22.433879+00:00",
       "stale_at_export": false,
       "stale_after_seconds": 600,
       "contract_active": true,
-      "price": 0.0046,
-      "change_24h_pct": -71.06,
-      "volume_24h_usd": 1128762.25,
+      "price": 0.00474,
+      "change_24h_pct": -70.46,
+      "volume_24h_usd": 1127473.42,
       "funding_rate_pct": 0.01,
-      "spread_pct": 0.652884,
-      "dex_liquidity_usd": 278886.95,
+      "spread_pct": 1.060445,
+      "dex_liquidity_usd": 279507.2,
       "long_score": 15,
       "short_score": 45,
       "research_state": "RESEARCH_ONLY",
       "technical_signal": {
-        "entry_trigger": 0.00458,
-        "entry_zone_low": 0.0045432007844380205,
-        "entry_zone_high": 0.004616799215561979,
-        "sl": 0.00608,
-        "tp1": 0.001579999999999999,
-        "tp2": 7.999999999999848e-05,
-        "rr": 1.964,
-        "confidence": 83.0,
+        "entry_trigger": null,
+        "entry_zone_low": null,
+        "entry_zone_high": null,
+        "sl": null,
+        "tp1": null,
+        "tp2": null,
+        "rr": null,
+        "confidence": 40.0,
         "direction": "SHORT",
-        "state": "TRIGGERED",
+        "state": "FORMING",
         "timeframe": "5m",
-        "as_of_candle_ts": 1795076100000,
+        "as_of_candle_ts": 1795076700000,
         "blocking_reasons": [],
         "execution_quality": {
           "quality": "DATA_UNAVAILABLE",
-          "spread_pct": 0.6529,
-          "best_bid": 0.00458,
-          "best_ask": 0.00461,
-          "bid_depth_usd": 174440.929774,
-          "ask_depth_usd": 237158.314226,
+          "spread_pct": 1.0604,
+          "best_bid": 0.00469,
+          "best_ask": 0.00474,
+          "bid_depth_usd": 263778.005866,
+          "ask_depth_usd": 144183.318045,
           "fee_bps": 10.0,
           "slippage_bps": 10.0,
-          "worst_case_cost_pct": 1.6735,
+          "worst_case_cost_pct": 1.6546,
           "notionals": [
             {
               "notional_usd": 50.0,
-              "total_round_trip_buy_pct": 1.0529,
-              "total_round_trip_sell_pct": 1.5354
+              "total_round_trip_buy_pct": 1.5873,
+              "total_round_trip_sell_pct": 1.4604
             },
             {
               "notional_usd": 100.0,
-              "total_round_trip_buy_pct": 1.0529,
-              "total_round_trip_sell_pct": 1.6217
+              "total_round_trip_buy_pct": 1.6294,
+              "total_round_trip_sell_pct": 1.4604
             },
             {
               "notional_usd": 250.0,
-              "total_round_trip_buy_pct": 1.0529,
-              "total_round_trip_sell_pct": 1.6735
+              "total_round_trip_buy_pct": 1.6546,
+              "total_round_trip_sell_pct": 1.4604
             }
           ],
           "warnings": [
@@ -883,10 +883,10 @@
         }
       },
       "kronos": {
-        "timeframe": "1h",
-        "directional_bias": "LONG",
-        "forecast_return_pct": 48.59045315569765,
-        "cutoff_ts": 1795071600000,
+        "timeframe": "15m",
+        "directional_bias": "SHORT",
+        "forecast_return_pct": -11.74376740747568,
+        "cutoff_ts": 1795075200000,
         "directional_weight": 0.0
       },
       "blocking_flags": [
@@ -895,18 +895,6 @@
       "mint_verified": false,
       "trade_url": "https://bingx.com/en/perpetual/GTA6-USDT",
       "history": [
-        {
-          "ts": "2026-11-18T11:58:42.131772+00:00",
-          "price": 0.01249
-        },
-        {
-          "ts": "2026-11-18T12:00:04.637263+00:00",
-          "price": 0.01238
-        },
-        {
-          "ts": "2026-11-18T12:01:54.731730+00:00",
-          "price": 0.01213
-        },
         {
           "ts": "2026-11-18T12:02:08.896504+00:00",
           "price": 0.01212
@@ -1086,6 +1074,18 @@
         {
           "ts": "2026-11-19T08:20:34.755830+00:00",
           "price": 0.0046
+        },
+        {
+          "ts": "2026-11-19T08:25:00.223257+00:00",
+          "price": 0.0046
+        },
+        {
+          "ts": "2026-11-19T08:29:14.970315+00:00",
+          "price": 0.00453
+        },
+        {
+          "ts": "2026-11-19T08:33:22.433879+00:00",
+          "price": 0.00474
         }
       ]
     }
